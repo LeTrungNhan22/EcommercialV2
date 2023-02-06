@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Raleway", sans-serif;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+/* body {
+  overflow-x: hidden;
+  overflow: scroll;
+}
+::-webkit-scrollbar {
+  width: 0;
+} */
+/* base */
+@layer base {
+  .section-title {
+    @apply text-4xl font-semibold;
+  }
+  .hover-active {
+    @apply bg-gray-100 transition duration-100 cursor-pointer;
+  }
+  .text-primary {
+    @apply text-rose-500;
+  }
+
+}
+
+@layer components {
+  .size-selector input:checked + label {
+    @apply bg-rose-600 text-white;
+  }
+  .color-selector input:checked + label {
+    @apply ring-2 ring-rose-600;
+  }
+  .input-box {
+    @apply w-full block border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded placeholder-gray-400;
+  }
+  }
+  
+
+.slick-slide > div {
+  margin: 0 10px;
+}
+.slick-list > div {
+  margin: 0 -10px;
+  padding: 20px 50px;
+}
+.slick-prev:before,
+.slick-next:before {
+  margin: 0 -10px;
+  color: red !important;
+  font-size: 27px !important;
+}
+.address-checkout {
+  height: 3px;
+  width: 100%;
+  background-position-x: -30px;
+  background-size: 116px 3px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgb(111, 166, 214),
+    rgb(111, 166, 214) 33px,
+    transparent 0px,
+    transparent 41px,
+    rgb(241, 141, 155) 0px,
+    rgb(241, 141, 155) 74px,
+    transparent 0px,
+    transparent 82px
+  );
+}
+
+
+.spin-button-none::-webkit-inner-spin-button,
+.spin-button-none::-webkit-outer-spin-button {
+  appearance: none;
+}
+
+
