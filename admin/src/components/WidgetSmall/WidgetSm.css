@@ -1,0 +1,65 @@
+.widgetSm {
+  flex: 1;
+  -webkit-box-shadow: 0px 0px 12px -4px #000000;
+  box-shadow: 0px 0px 12px -4px #000000;
+  padding: 20px;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+.widgetSmallTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.widgetSmallImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.widgetSmallList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.widgetSmallListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.widgetSmallUser {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.widgetSmallUsername {
+  font-weight: 600;
+}
+.widgetSmallUserTitle {
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: 10px;
+}
+.widgetSmallButton {
+  border: none;
+  background-color: #eeeef7;
+  color: white;
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #555;
+}
+.widgetSmallButton:hover {
+  background-color: #ddd;
+  transition: all 0.5s ease;
+}
+.widgetSmallIcon {
+  color: #555;
+  font-size: 20px !important;
+  margin-right: 5px;
+}
