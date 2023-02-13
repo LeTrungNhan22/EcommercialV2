@@ -14,7 +14,8 @@ import axios from "axios";
 import { getError } from "../utils/error";
 import ProductContext from "../utils/Product";
 
-export default function Home({ serviceData, categoryData }) {
+
+export default function Home({ serviceData }) {
   const axios = require("axios");
   const basUrl = process.env.NEXT_PUBLIC_API_URL;
   const { productFilter } = useContext(ProductContext);
@@ -108,14 +109,11 @@ export async function getServerSideProps() {
   const serviceData = await fetch("https://www.jsonkeeper.com/b/U9M4").then(
     (res) => res.json()
   );
-  const categoryData = await fetch("https://www.jsonkeeper.com/b/N41Q").then(
-    (res) => res.json()
-  );
 
   return {
     props: {
       serviceData,
-      categoryData,
+
     }, // will be passed to the page component as props
   };
 }

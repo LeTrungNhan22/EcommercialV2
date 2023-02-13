@@ -61,6 +61,9 @@ const RegisterScreen = () => {
       toast.error("Email đã được đăng ký trên hệ thống");
     }
   };
+  const handleSignup = async () => {
+    console.log("handleSignup", getValues());
+  };
 
   return (
     <div className="bg-gray-300">
@@ -89,7 +92,7 @@ const RegisterScreen = () => {
             </h3>
             <form
               className="flex items-center flex-col"
-              onSubmit={handleSubmit(submitHandler)}
+              onSubmit={handleSubmit(handleSignup)}
             >
               <div className="bg-gray-200 w-80 p-2 flex items-center my-3 rounded shadow-inner shadow-gray-400 transition duration-200 focus-within:shadow-gray-600 focus-within:scale-105">
                 <div></div>
@@ -157,9 +160,9 @@ const RegisterScreen = () => {
               <span className="text-sm">Hoặc</span>
               <hr className="w-1/2" />
             </div>
-            <div class="flex   justify-center items-center">
-              <div class="flex w-80   justify-center items-center">
-                <div class="w-1/2 flex justify-around items-center mx-1 p-2 font-bold text-gray-700 border-2 border-gray-500  rounded focus:outline-none hover:bg-gray-300 transition duration-300">
+            <div className="flex   justify-center items-center">
+              <div className="flex w-80   justify-center items-center">
+                <div className="w-1/2 flex justify-around items-center mx-1 p-2 font-bold text-gray-700 border-2 border-gray-500  rounded focus:outline-none hover:bg-gray-300 transition duration-300">
                   <div className="w-8 h-8 ">
                     <Image src={facebookLogo} alt=""></Image>
                   </div>
@@ -167,7 +170,7 @@ const RegisterScreen = () => {
                   <button type="button">Facebook</button>
                 </div>
 
-                <div class="w-1/2 flex justify-around items-center mx-1 p-2 font-bold text-gray-700 border-2 border-gray-500  rounded focus:outline-none hover:bg-gray-300 transition duration-300">
+                <div className="w-1/2 flex justify-around items-center mx-1 p-2 font-bold text-gray-700 border-2 border-gray-500  rounded focus:outline-none hover:bg-gray-300 transition duration-300">
                   <div className="w-8 h-8 ">
                     <Image src={googleLogo} alt=""></Image>
                   </div>

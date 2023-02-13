@@ -1,19 +1,9 @@
-import { CheckBadgeIcon } from "@heroicons/react/20/solid";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { useForm } from "react-hook-form";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
-import { FaDollarSign } from "react-icons/fa";
 import { getError } from "../../../utils/error";
 
 const VerifyEmailScreen = () => {

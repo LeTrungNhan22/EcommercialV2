@@ -9,6 +9,9 @@ import { ProductContextProvider } from "../utils/Product";
 
 import { StoreProvider } from "../utils/Store";
 
+import { Provider } from "react-redux";
+import store from "../redux/store/store";
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
@@ -25,7 +28,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <ProductContextProvider>
           <AuthContextProvider>
             <SessionProvider session={session}>
-              <Component {...pageProps} />
+              <Provider store={store}>
+                <Component {...pageProps} />
+              </Provider>
             </SessionProvider>
           </AuthContextProvider>
         </ProductContextProvider>
@@ -33,18 +38,5 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     </>
   );
 }
-function Auth({ children }) {
-  const router = useRouter();
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/unauthorized?message=login required");
-    },
-  });
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-  return children;
-}
 export default MyApp;

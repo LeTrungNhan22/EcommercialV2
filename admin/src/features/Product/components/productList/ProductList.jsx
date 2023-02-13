@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./ProductList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
-import { productRows } from "../../dummyData";
+
 import { Link } from "react-router-dom";
+import { productRows } from "../../../../dummyData";
 
 export default function ProductList() {
   const [data, setData] = useState(productRows);
