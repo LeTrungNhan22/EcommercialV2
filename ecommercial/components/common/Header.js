@@ -1,30 +1,17 @@
-import Image from "next/image";
+import { Menu, Transition } from "@headlessui/react";
 import {
-  createContext,
-  Fragment,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import Link from "next/link";
-import {
-  MagnifyingGlassIcon,
-  AdjustmentsHorizontalIcon,
   Bars3Icon,
-  UserCircleIcon,
-  ShoppingCartIcon,
   BellAlertIcon,
+  ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import axios from "axios";
-import { getError } from "../utils/error";
+import Image from "next/image";
+import Link from "next/link";
+import { Fragment, useContext, useState } from "react";
+
+import { useRouter } from "next/router";
 
 import SearchBar from "./SearchBar";
-import { signOut, useSession } from "next-auth/react";
-import AuthContext from "../utils/User";
-import { useRouter } from "next/router";
+import AuthContext from "../../utils/User";
 
 const Header = () => {
   const router = useRouter();

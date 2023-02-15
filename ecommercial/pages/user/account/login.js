@@ -2,23 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
 
-import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
-import { TbLock } from "react-icons/tb";
-import { useForm } from "react-hook-form";
-import { useSession, signIn, signOut } from "next-auth/react";
 import Head from "next/head";
-import axios from "axios";
+import { useForm } from "react-hook-form";
+import { FaRegEnvelope } from "react-icons/fa";
+import { TbLock } from "react-icons/tb";
 
-import toast from "react-hot-toast";
-import { getError } from "../../../utils/error";
-import Footer from "../../../components/Footer";
 import { useRouter } from "next/router";
-import AuthContext from "../../../utils/User";
-import { auth } from "../../../firebase/initFirebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import googleLogo from "../../../assets/icon/google.png";
 import facebookLogo from "../../../assets/icon/facebook.png";
+import googleLogo from "../../../assets/icon/google.png";
+import AuthContext from "../../../utils/User";
 
 const LoginScreen = () => {
   const { isLogin, login, loginGoogle } = useContext(AuthContext);

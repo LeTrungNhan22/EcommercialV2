@@ -31,7 +31,7 @@ export const ProductContextProvider = ({ children }) => {
           )
           .then(function (response) {
             const { data } = response;
-            console.log(data);
+     
             setProductFilter(data);
           })
           .catch(function (error) {

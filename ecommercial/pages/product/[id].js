@@ -1,31 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
 import {
-  FaChevronRight,
   FaDollarSign,
   FaFacebook,
-  FaHome,
   FaInstagram,
   FaShopify,
   FaShoppingBag,
-  FaStar,
   FaTwitter,
 } from "react-icons/fa";
-import Slider from "react-slick";
-import BreadCrumb from "../../components/BreadCrumb";
-import Layout from "../../components/Layout";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
+import Layout from "../../components/common/Layout";
+
+import Cookies from "js-cookie";
+import { toast } from "react-hot-toast";
 import { AiFillMessage } from "react-icons/ai";
 import ProductList from "../../components/product/ProductList";
 import { getError } from "../../utils/error";
-import { Store } from "../../utils/Store";
-import { toast } from "react-hot-toast";
-import Cookies from "js-cookie";
 import ProductContext from "../../utils/Product";
+import { Store } from "../../utils/Store";
+import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
 
 export default function ProductScreen() {
   const { productFilter } = useContext(ProductContext);

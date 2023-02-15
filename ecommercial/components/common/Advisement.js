@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
-import advisement from "../assets/home/advisement.png";
+import advisement from "../../assets/home/advisement.png";
 
 const Advisement = () => {
   const [isOpen, setIsOpen] = useState(true);

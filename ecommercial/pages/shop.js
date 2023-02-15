@@ -4,12 +4,10 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineFilter } from "react-icons/ai";
 import { FaList, FaTh } from "react-icons/fa";
-
-import BreadCrumb from "../components/BreadCrumb";
-import Layout from "../components/Layout";
+import BreadCrumb from "../components/breadcrumb/BreadCrumb";
+import Layout from "../components/common/Layout";
 import ProductList from "../components/product/ProductList";
 import { getError } from "../utils/error";
-
 import ProductContext from "../utils/Product";
 
 const ShopScreen = () => {

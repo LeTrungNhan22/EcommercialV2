@@ -13,7 +13,7 @@ import {
 } from "@mui/icons-material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Sidebar.css";
+import "./Sidebar.scss";
 
 export default function Sidebar() {
   // return active class css when onclick sidebar

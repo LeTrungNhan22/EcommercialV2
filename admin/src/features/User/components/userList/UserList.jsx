@@ -1,23 +1,41 @@
-import React, { useState } from "react";
-import "./UserList.css";
-import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
+import { DataGrid } from "@mui/x-data-grid";
+import React, { useState } from "react";
+import "./UserList.scss";
 
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { userRows } from "../../../../dummyData";
+import { getError } from "../../../../utils/error";
+import { getUserFilter } from "../../../../redux/user/userSlice";
+import { useDispatch } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 export default function UserList() {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const actionResult = await dispatch(getUserFilter());
+        const userList = unwrapResult(actionResult);
+        setData(userList);
+      } catch (error) {
+        console.log("Failed to fetch user list: ", getError(error));
+      }
+    };
+    fetchUser();
+  }, []);
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 170 },
     {
       field: "user",
-      headerName: "user",
+      headerName: "Username",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="userListUser">
-            <img className="userListImg" src={params.row.image} alt="" />
+            <img className="userListImg" src={params.row.imageUrl} alt="" />
             {params.row.username}
           </div>
         );
@@ -25,13 +43,20 @@ export default function UserList() {
     },
     { field: "email", headerName: "Email", width: 200 },
     {
-      field: "status",
+      field: "userStatus",
       headerName: "Status",
-      width: 210,
+      width: 120,
+      renderCell: (params) => {
+        return (
+          <div className="userListStatus">
+            <span>{params.row.userStatus}</span>
+          </div>
+        );
+      },
     },
     {
-      field: "transaction",
-      headerName: "Transaction Volume",
+      field: "description",
+      headerName: "Description",
       width: 160,
     },
     {
@@ -56,8 +81,8 @@ export default function UserList() {
       <DataGrid
         rows={data}
         columns={columns}
-        pageSize={8}
-        rowsPerPageOptions={[8]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
       />
