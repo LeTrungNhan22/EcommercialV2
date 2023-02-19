@@ -10,11 +10,17 @@ const axiosClient = axios.create({
     charset: "utf-8",
   },
   paramsSerializer: {
-    paramsSerializer: (params) => queryString.stringify(params),
+    serialize: (serialize) => queryString.stringify(serialize),
   },
 });
 
 axiosClient.interceptors.request.use(async (config) => {
+  // Handle token here ...
+  if (localStorage.getItem("accessToken")) {
+    config.headers.Authorization = `${localStorage.getItem("accessToken")}`;
+  } else {
+    config.headers.Authorization = `${null}`;
+  }
   return config;
 });
 

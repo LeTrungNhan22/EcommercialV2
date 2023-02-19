@@ -15,7 +15,7 @@ import { GrLocation } from "react-icons/gr";
 import axios from "axios";
 import { getError } from "../../utils/error";
 import Image from "next/image";
-import Footer from "../../components/Footer";
+import Footer from "../../components/common/Footer";
 import { storage } from "../../firebase/initFirebase";
 import {
   getStorage,

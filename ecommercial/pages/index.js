@@ -3,15 +3,18 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
+import { useDispatch } from "react-redux";
 import Advisement from "../components/common/Advisement";
 import Banner from "../components/common/Banner";
 import CategoryList from "../components/common/CategoryList";
 import Layout from "../components/common/Layout";
 import ProductList from "../components/product/ProductList";
-import SmallCard from "../components/common/SmallCard";
+import { initFirebase } from "../firebase/initFirebase";
 import { getError } from "../utils/error";
 import ProductContext from "../utils/Product";
-import productApi from "../api/product/productApi";
+
+//init firebase
+initFirebase();
 
 export default function Home() {
   const axios = require("axios");
@@ -19,6 +22,8 @@ export default function Home() {
   const { productFilter } = useContext(ProductContext);
   const { resultList, maxResult } = productFilter;
   const [industrialList, setIndustrialList] = useState([]);
+  const base64 = require("base-64");
+  const dispatch = useDispatch();
 
   // slideShow
   const settings = {
@@ -39,7 +44,6 @@ export default function Home() {
           .get(`${basUrl}/product/1.0.0/product/industrials`)
           .then(function (response) {
             const { data } = response;
-
             setIndustrialList(data);
           })
           .catch(function (error) {
@@ -51,17 +55,6 @@ export default function Home() {
     };
     getIndustrialList();
   }, []);
-  // useEffect(() => {
-  //   const getProductList = async () => {
-  //     try {
-  //       const res = await productApi.getProductFilter();
-  //       console.log(res);
-  //     } catch (error) {
-  //       console.log(getError(error));
-  //     }
-  //   };
-  //   getProductList();
-  // }, []);
 
   return (
     <>

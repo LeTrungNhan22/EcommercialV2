@@ -6,25 +6,24 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useContext, useState } from "react";
-
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/auth/authSlice";
 import SearchBar from "./SearchBar";
-import AuthContext from "../../utils/User";
+import { toast } from "react-hot-toast";
+import AuthContext from "../../context/authContext";
 
 const Header = () => {
   const router = useRouter();
-  const sellerUrl = process.env.NEXT_PUBLIC_URL;
-  const { user, logout, isLogin } = useContext(AuthContext);
-  let [isOpen, setIsOpen] = useState(false);
-  const { redirect } = router;
-  function closeModal() {
-    setIsOpen(false);
-  }
-  function openModal() {
-    setIsOpen(true);
-  }
+
+  const dispatch = useDispatch();
+  const { isLogin, user, logoutContext } = useContext(AuthContext);
+
+  const logoutHandler = () => {
+ 
+    logoutContext();
+  };
 
   return (
     <header className="p-5 sticky z-50 top-0 bg-white md:px-10 shadow-md grid grid-cols-1 md:grid-cols-3">
@@ -41,9 +40,7 @@ const Header = () => {
           </a>
         </Link>
       </div>
-
       <SearchBar />
-
       <div className="items-center space-x-1 justify-end hidden md:flex">
         <Link href="/cart">
           <a className="text-gray-700 lg:text-lg md:text-sm flex items-center hover:bg-gray-100 p-1  rounded-full transition duration-200 cursor-pointer">
@@ -86,7 +83,7 @@ const Header = () => {
               {isLogin === false ? (
                 <div>
                   <div className="px-1 py-1 ">
-                    <Link href="/user/account/register">
+                    <Link href="/user/auth/register">
                       <Menu.Item>
                         {({ active }) => (
                           <button
@@ -106,7 +103,7 @@ const Header = () => {
                       </Menu.Item>
                     </Link>
 
-                    <Link href="/user/account/login">
+                    <Link href="/user/auth/login">
                       <Menu.Item>
                         {({ active }) => (
                           <button
@@ -132,7 +129,7 @@ const Header = () => {
                     <Menu.Item>
                       {({ active }) => (
                         <button
-                          onClick={logout}
+                          onClick={logoutHandler}
                           className={`${
                             active ? "hover-active" : "text-gray-900"
                           } group flex w-full items-center rounded-md px-2 py-2 text-md`}
@@ -182,8 +179,8 @@ const Header = () => {
                       onClick={() =>
                         router.push(
                           router.pathname === "/user/account/profile"
-                            ? "user/account/login?redirect=/"
-                            : "user/account/login?redirect=/user/account/profile"
+                            ? "user/auth/login?redirect=/"
+                            : "user/auth/login?redirect=/user/account/profile"
                         )
                       }
                       className={`${
@@ -212,7 +209,7 @@ const Header = () => {
                     <button
                       onClick={() =>
                         router.push(
-                          `/user/account/login?redirect=/seller/registerSeller`
+                          `/user/auth/login?redirect=/seller/registerSeller`
                         )
                       }
                       className={`${
@@ -232,13 +229,6 @@ const Header = () => {
             </Menu.Items>
           </Transition>
         </Menu>
-        {/* Dialog */}
-        {/* <DialogRegister
-          openModal={openModal}
-          closeModal={closeModal}
-          isOpen={isOpen}
-        /> */}
-        {/* Dialog */}
       </div>
     </header>
   );

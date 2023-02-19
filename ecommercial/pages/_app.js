@@ -1,16 +1,12 @@
-import { Toaster } from "react-hot-toast";
-import { SessionProvider } from "next-auth/react";
 import NextNProgress from "nextjs-progressbar";
-
-import "../styles/globals.css";
-import { useRouter } from "next/router";
-import { AuthContextProvider } from "../utils/User";
-import { ProductContextProvider } from "../utils/Product";
-
-import { StoreProvider } from "../utils/Store";
-
+import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
+import { AuthContextProvider } from "../context/authContext";
+
 import store from "../redux/store/store";
+import "../styles/globals.css";
+import { ProductContextProvider } from "../utils/Product";
+import { StoreProvider } from "../utils/Store";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
@@ -24,17 +20,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         showOnShallow={true}
         options={{ showSpinner: false, easing: "ease" }}
       />
-      <StoreProvider>
-        <ProductContextProvider>
-          <AuthContextProvider>
-            <SessionProvider session={session}>
-              <Provider store={store}>
-                <Component {...pageProps} />
-              </Provider>
-            </SessionProvider>
-          </AuthContextProvider>
-        </ProductContextProvider>
-      </StoreProvider>
+      <Provider store={store}>
+        <StoreProvider>
+          <ProductContextProvider>
+            <AuthContextProvider>
+              <Component {...pageProps} />
+            </AuthContextProvider>
+          </ProductContextProvider>
+        </StoreProvider>
+      </Provider>
     </>
   );
 }

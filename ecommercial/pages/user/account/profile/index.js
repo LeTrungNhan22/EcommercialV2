@@ -3,14 +3,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { userAgent } from "next/server";
 import { useContext, useEffect, useState } from "react";
-import BreadCrumb from "../../../../components/BreadCrumb";
-import Layout from "../../../../components/Layout";
+import { useSelector } from "react-redux";
+import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
+import Layout from "../../../../components/common/Layout";
 import SideBar from "../../../../components/user-profile/SideBar";
 import AuthContext from "../../../../utils/User";
 // -----------------------------------
 
 const UserProfileScreen = () => {
-  const { user, logout, isLogin } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [userProfile, setUserProfile] = useState({});
   const router = useRouter();
 

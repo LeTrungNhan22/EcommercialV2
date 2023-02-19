@@ -23,9 +23,7 @@ function initFirebase() {
 }
 
 const app = initializeApp(clientCredentials);
-
 const db = getFirestore(app);
-
 const realDB = getDatabase(app);
 const storage = getStorage(app);
 const auth = getAuth(app);

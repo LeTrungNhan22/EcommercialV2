@@ -1,55 +1,142 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import authApi from "../../api/auth/authApi";
 
 const initialState = {
+  user: {},
+  accessToken: "",
   message: "",
-  user: null,
-  token: null,
   loading: false,
-  error: "",
+  errorMessage: "",
+  mailMessage: "",
 };
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-export const signUpUser = createAsyncThunk(
-  "auth/signUpUser",
-  async (data, thunkAPI) => {
-    const response = await fetch(`${baseUrl}/user/1.0.0/register/user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const dataRes = await response.json();
-    if (!response.ok) {
-      return thunkAPI.rejectWithValue(dataRes);
+// sign up
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await authApi.register(payload);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
-    return dataRes;
+  }
+);
+//get token
+export const loginUser = createAsyncThunk(
+  "auth/loginUser",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await authApi.getAccessToken(payload);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+// get user info
+export const getCustomerInfo = createAsyncThunk(
+  "auth/getCustomerInfo",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await authApi.getCustomerInfo(payload);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
 );
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
-  extraReducers: {
-    [signUpUser.pending]: (state, action) => {
-      state.loading = true;
+  reducers: {
+    addToken: (state, action) => {
+      state.accessToken = localStorage.getItem("accessToken");
     },
-    [signUpUser.fulfilled]: (state, action) => {
-      state.loading = false;
-
-      if (error) {
-        state.error = action.payload.message;
-      } else {
-        state.message = action.payload.message;
-      }
+    addMessage: (state, action) => {
+      state.message = localStorage.getItem("message");
+      state.mailMessage = localStorage.getItem("mailMessage");
     },
-
-    [signUpUser.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+    addUser: (state, action) => {
+      state.user = localStorage.getItem("user");
+    },
+    logout: (state, action) => {
+      state.user = {};
+      state.accessToken = null;
+      state.message = "";
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      localStorage.removeItem("mailMessage");
     },
   },
+
+  extraReducers: {
+    // sign up reducer
+    [registerUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [registerUser.fulfilled]: (
+      state,
+      { payload: { errorMessage, message, data } }
+    ) => {
+      state.loading = false;
+      if (errorMessage) {
+        state.errorMessage = errorMessage;
+      } else {
+        state.message = message;
+        state.user = data;
+        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("mailMessage", message);
+      }
+    },
+    [registerUser.rejected]: (state, action) => {
+      state.loading = false;
+      state.errorMessage = action.payload.message;
+    },
+    // sign up reducer
+
+    // login reducer
+    [loginUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [loginUser.fulfilled]: (
+      state,
+      { payload: { errorMessage, data, user } }
+    ) => {
+      state.loading = false;
+      if (errorMessage) {
+        state.errorMessage = errorMessage;
+      } else {
+        state.accessToken = data;
+        state.user = user;
+        localStorage.setItem("accessToken", data);
+      }
+    },
+    [loginUser.rejected]: (state, action) => {
+      state.loading = false;
+      state.errorMessage = action.payload.message;
+    },
+
+    // login reducer
+    // get user info reducer
+    [getCustomerInfo.pending]: (state) => {
+      state.loading = true;
+    },
+    [getCustomerInfo.fulfilled]: (state, payload) => {
+      state.loading = false;
+      state.user = payload;
+      localStorage.setItem("user", JSON.stringify(payload.payload));
+    },
+    [getCustomerInfo.rejected]: (state, action) => {
+      state.loading = false;
+      state.errorMessage = action.payload.message;
+    },
+
+    // get user info reducer
+  },
 });
+
+export const { addToken, addMessage, addUser, logout } = authSlice.actions;
 
 export default authSlice.reducer;

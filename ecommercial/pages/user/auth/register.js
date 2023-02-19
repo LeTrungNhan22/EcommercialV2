@@ -1,68 +1,60 @@
-import { fetchData } from "next-auth/client/_utils";
+import { unwrapResult } from "@reduxjs/toolkit";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
+import { FaRegEnvelope } from "react-icons/fa";
 import { TbLock } from "react-icons/tb";
-import { getError } from "../../../utils/error";
-import googleLogo from "../../../assets/icon/google.png";
+import { useDispatch } from "react-redux";
 import facebookLogo from "../../../assets/icon/facebook.png";
+import googleLogo from "../../../assets/icon/google.png";
+import { registerUser } from "../../../redux/auth/authSlice";
 
 const RegisterScreen = () => {
-  const basUrl = process.env.NEXT_PUBLIC_API_URL;
   var base64 = require("base-64");
-  const axios = require("axios");
   const router = useRouter();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const {
     handleSubmit,
     register,
     formState: { errors },
-    getValues,
   } = useForm();
 
-  const submitHandler = async ({ email, password }, e) => {
-    e.preventDefault();
+  const submitHandler = async ({ email, password }) => {
+    setLoading(true);
     try {
-      const data = await axios
-        .post(`${basUrl}/user/1.0.0/register/user`, {
-          password: {
-            password: base64.encode(password),
-            passwordStatus: "NEW",
-          },
-          role: {
-            roleType: "PERSONAL",
-          },
-          user: {
-            email: email,
-            serviceType: "NORMALLY",
-            userStatus: "INACTIVE",
-          },
-        })
-        .then(function (response) {
-          if (response.data.status == "success") {
-            const { data } = response;
-            console.log("data", data);
-            localStorage.setItem("_regData", JSON.stringify(data));
-            router.push("/user/account/verifyEmail");
-            toast.success("Nhập mã OTP bên dưới");
-          }
-        })
-        .catch(function (error) {
-          console.error(getError(error));
-          toast.error("Email đã được đăng ký trên hệ thống");
-        });
-    } catch (err) {
-      console.log(getError(err));
-      toast.error("Email đã được đăng ký trên hệ thống");
+      const registerData = {
+        password: {
+          password: base64.encode(password),
+          passwordStatus: "NEW",
+        },
+        role: {
+          roleType: "PERSONAL",
+        },
+        user: {
+          email: email,
+          serviceType: "NORMALLY",
+          userStatus: "INACTIVE",
+        },
+      };
+      const actionResult = await dispatch(registerUser(registerData));
+      const data = unwrapResult(actionResult);
+
+      if (data.status === "success") {
+        setLoading(false);
+        toast.success("Vui lòng kiểm tra email để xác nhận tài khoản");
+        router.push("/user/auth/verifyEmail");
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error(error.errorMessage);
     }
-  };
-  const handleSignup = async () => {
-    console.log("handleSignup", getValues());
   };
 
   return (
@@ -92,7 +84,7 @@ const RegisterScreen = () => {
             </h3>
             <form
               className="flex items-center flex-col"
-              onSubmit={handleSubmit(handleSignup)}
+              onSubmit={handleSubmit(submitHandler)}
             >
               <div className="bg-gray-200 w-80 p-2 flex items-center my-3 rounded shadow-inner shadow-gray-400 transition duration-200 focus-within:shadow-gray-600 focus-within:scale-105">
                 <div></div>
@@ -145,15 +137,19 @@ const RegisterScreen = () => {
                   {errors.password.message}
                 </div>
               )}
-
-              <button>
-                <div
-                  href=""
-                  className="font-semibold w-80 hover:scale-105 hover:bg-red-500 hover:text-white duration-300 transition shadow-md border-2 border-red-500 rounded px-12 py-2 inline-block"
-                >
-                  Đăng ký
-                </div>
-              </button>
+              {loading ? (
+                <button disabled>
+                  <div className="font-semibold w-80 bg-gray-600 text-white duration-300 transition shadow-md border-2  rounded px-12 py-2 inline-block">
+                    Đang xử lý...
+                  </div>
+                </button>
+              ) : (
+                <button>
+                  <div className="font-semibold w-80 hover:scale-105 hover:bg-red-500 hover:text-white duration-300 transition shadow-md border-2 border-red-500 rounded px-12 py-2 inline-block">
+                    Đăng ký
+                  </div>
+                </button>
+              )}
             </form>
             <div className="mt-8 mb-5 flex items-center space-x-2">
               <hr className="w-1/2" />

@@ -14,6 +14,7 @@ const VerifyEmailScreen = () => {
   const axios = require("axios");
   const router = useRouter();
   const [isSend, setIsSend] = useState(false);
+  const userInfo = JSON.parse(localStorage.getItem("user"));
 
   const handleOnChange = (index, e) => {
     e.preventDefault();
@@ -30,20 +31,19 @@ const VerifyEmailScreen = () => {
 
   const confirmOTP = async () => {
     const inputData = otp.join("");
-    const regData = JSON.parse(localStorage.getItem("_regData"));
-    const userId = regData.data.id;
-    const message = regData.message;
-    if (message === inputData) {
+    const mailMessage = localStorage.getItem("mailMessage");
+    if (mailMessage === inputData) {
       try {
         await axios
-          .put(`${basUrl}/user/1.0.0/user/${userId}/status`, {
+          .put(`${basUrl}/user/1.0.0/user/${userInfo.id}/status`, {
             status: "ACTIVE",
           })
           .then(function (response) {
             if (response.status === 200) {
               console.log(response.status);
               toast.success("Đăng ký thành công");
-              router.push("/user/account/login");
+              router.push("/user/auth/login");
+              localStorage.removeItem("mailMessage");
             }
           })
           .catch(function (error) {
@@ -111,9 +111,7 @@ const VerifyEmailScreen = () => {
           <div className="text-left flex flex-col items-start">
             <span className="text-2xl">Xin chào đây là bước cùng</span>
             <p> Vui lòng nhập 6 chữa số gửi tới email</p>
-            <span className="font-bold">
-              {JSON.parse(localStorage.getItem("_regData")).data.email}
-            </span>
+            <span className="font-bold">{userInfo.email}</span>
             <Link href="/user/account/register">
               <button className="text-red-500">Sửa địa chỉ email</button>
             </Link>
