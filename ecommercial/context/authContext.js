@@ -9,12 +9,18 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
 
+  if (typeof window !== "undefined") {
+    var items = localStorage.getItem("user");
+  }
+
   useEffect(() => {
-    if (localStorage.getItem("user") !== null) {
+    const user = localStorage.getItem("user");
+    const parseUser = JSON.parse(user);
+    if (user !== null) {
       setIsLogin(true);
-      setUser(JSON.parse(localStorage.getItem("user")));
+      setUser(parseUser);
     }
-  }, [localStorage.getItem("user")]);
+  }, [items]);
   //   logout context
   const logoutContext = () => {
     dispatch(logout());

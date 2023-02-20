@@ -1,23 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { userAgent } from "next/server";
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
 import Layout from "../../../../components/common/Layout";
 import SideBar from "../../../../components/user-profile/SideBar";
-import AuthContext from "../../../../utils/User";
-// -----------------------------------
+import AuthContext from "../../../../context/authContext";
 
 const UserProfileScreen = () => {
   const { user } = useContext(AuthContext);
   const [userProfile, setUserProfile] = useState({});
-  const router = useRouter();
 
   useEffect(() => {
     setUserProfile(user);
-  }, [user]);
+  }, []);
+  
 
   return (
     <Layout title={`Profile`}>
@@ -66,23 +61,6 @@ const UserProfileScreen = () => {
                 <p className="text-gray-800">{userProfile.telephone}</p>
               </div>
             </div>
-
-            {/* <div className="shadow rounded bg-white px-4 pt-6 pb-8">
-              <div className="flex justify-between items center mb-4">
-                <h3 className="font-medium capitalize text-gray-800 text-lg">
-                  Billing Address
-                </h3>
-                <a href="#" className="text-rose-500">
-                  Chỉnh sửa
-                </a>
-              </div>
-              <div className="space-y-1">
-                <h4 className="text-gray-700 font-medium">Russell Ahmed</h4>
-                <p className="text-gray-800">3891 Ranchview Dr.</p>
-                <p className="text-gray-800">Richardson, Califora</p>
-                <p className="text-gray-800">(123) 456-789</p>
-              </div>
-            </div> */}
           </div>
           {/* profile info */}
         </div>

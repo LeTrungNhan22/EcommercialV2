@@ -1,40 +1,54 @@
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineFilter } from "react-icons/ai";
 import { FaList, FaTh } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import productApi from "../api/product/productApi";
 import BreadCrumb from "../components/breadcrumb/BreadCrumb";
 import Layout from "../components/common/Layout";
 import ProductList from "../components/product/ProductList";
+import { getProductByFilter } from "../redux/product/productSlice";
 import { getError } from "../utils/error";
-import ProductContext from "../utils/Product";
 
 const ShopScreen = () => {
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const [industrials, setIndustrials] = useState([]);
-  const { productFilter, setProductFilter } = useContext(ProductContext);
-  const { resultList, maxResult } = productFilter;
+  const dispatch = useDispatch();
+  const resultList = useSelector((state) => state.products.products);
+  const [maxResult, setMaxResult] = useState(24);
 
   useEffect(() => {
-    const getIndustrials = async () => {
+    const getProductList = async () => {
+      const params = {
+        maxResult: maxResult,
+      };
       try {
-        await axios
-          .get(`${baseUrl}/product/1.0.0/product/industrials`)
-          .then(function (response) {
-            const { data } = response;
-            setIndustrials(data);
-          })
-          .catch(function (error) {
-            console.error(getError(error));
-          });
+        const res = await dispatch(getProductByFilter(params));
       } catch (error) {
         console.log(getError(error));
       }
     };
-    getIndustrials();
+    getProductList();
+  }, [maxResult]);
+
+  useEffect(() => {
+    const getIndustrialList = async () => {
+      try {
+        const data = await productApi.getIndustrialList();
+        setIndustrials(data);
+      } catch (error) {
+        console.log(getError(error));
+      }
+    };
+    getIndustrialList();
   }, []);
-  console.log(industrials);
+
+  // handle load more by maxResult
+  const handleLoadMore = () => {
+    setMaxResult(maxResult + 12);
+  };
 
   return (
     <Layout title={`Shops`}>
@@ -392,7 +406,10 @@ const ShopScreen = () => {
                 </div>
               </div>
             </div>
-            <ProductList productFilter={resultList} />
+            <ProductList
+              productFilter={resultList}
+              handleLoadMore={handleLoadMore}
+            />
             {/* sorting */}
           </div>
           {/* products */}

@@ -16,12 +16,11 @@ import AuthContext from "../../context/authContext";
 
 const Header = () => {
   const router = useRouter();
-
+  const { redirect } = router.query;
   const dispatch = useDispatch();
   const { isLogin, user, logoutContext } = useContext(AuthContext);
 
   const logoutHandler = () => {
- 
     logoutContext();
   };
 
@@ -176,13 +175,13 @@ const Header = () => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={() =>
-                        router.push(
-                          router.pathname === "/user/account/profile"
-                            ? "user/auth/login?redirect=/"
-                            : "user/auth/login?redirect=/user/account/profile"
-                        )
-                      }
+                      onClick={() => {
+                        isLogin
+                          ? router.push(`user/account/profile`)
+                          : router.push(
+                              `/user/auth/login?redirect=/user/account/profiler`
+                            );
+                      }}
                       className={`${
                         active ? "hover-active" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}

@@ -1,29 +1,27 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import productApi from "../api/product/productApi";
 import Advisement from "../components/common/Advisement";
 import Banner from "../components/common/Banner";
 import CategoryList from "../components/common/CategoryList";
 import Layout from "../components/common/Layout";
 import ProductList from "../components/product/ProductList";
 import { initFirebase } from "../firebase/initFirebase";
+import { getProductByFilter } from "../redux/product/productSlice";
 import { getError } from "../utils/error";
-import ProductContext from "../utils/Product";
 
 //init firebase
 initFirebase();
 
 export default function Home() {
-  const axios = require("axios");
-  const basUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { productFilter } = useContext(ProductContext);
-  const { resultList, maxResult } = productFilter;
   const [industrialList, setIndustrialList] = useState([]);
-  const base64 = require("base-64");
   const dispatch = useDispatch();
+  const resultList = useSelector((state) => state.products.products);
+  const [maxResult, setMaxResult] = useState(24);
 
   // slideShow
   const settings = {
@@ -38,17 +36,28 @@ export default function Home() {
   // slideShow
 
   useEffect(() => {
+    const getProductList = async () => {
+      const params = {
+        maxResult: maxResult,
+      };
+      try {
+        const res = await dispatch(getProductByFilter(params));
+      } catch (error) {
+        console.log(getError(error));
+      }
+    };
+    getProductList();
+  }, [maxResult]);
+  // handle load more by maxResult
+  const handleLoadMore = () => {
+    setMaxResult(maxResult + 12);
+  };
+
+  useEffect(() => {
     const getIndustrialList = async () => {
       try {
-        await axios
-          .get(`${basUrl}/product/1.0.0/product/industrials`)
-          .then(function (response) {
-            const { data } = response;
-            setIndustrialList(data);
-          })
-          .catch(function (error) {
-            console.error(getError(error));
-          });
+        const data = await productApi.getIndustrialList();
+        setIndustrialList(data);
       } catch (error) {
         console.log(getError(error));
       }
@@ -93,7 +102,10 @@ export default function Home() {
         <main className="max-w-[1200px] my-2 mx-auto px-16  bg-gray-200">
           <section className="pt-10 mb-5">
             <h2 className="section-title">Gợi ý sản phẩm</h2>
-            <ProductList productFilter={resultList} />
+            <ProductList
+              productFilter={resultList}
+              handleLoadMore={handleLoadMore}
+            />
           </section>
         </main>
         {/* recommend */}

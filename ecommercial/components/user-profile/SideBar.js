@@ -1,5 +1,3 @@
-import { Disclosure } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
@@ -7,22 +5,13 @@ import {
   FaAddressCard,
   FaCreditCard,
   FaGift,
-  FaGitAlt,
-  FaGrinHearts,
-  FaHeart,
-  FaHeartbeat,
-  FaHeartBroken,
-  FaKissWinkHeart,
-  FaRegGrinHearts,
-  FaRegHeart,
   FaSignOutAlt,
 } from "react-icons/fa";
-import AuthContext from "../../utils/User";
+import AuthContext from "../../context/authContext";
 
 const SideBar = () => {
   const { user } = useContext(AuthContext);
   const { fullName, imageUrl, username } = user;
-
   return (
     <>
       {/* account profile */}
