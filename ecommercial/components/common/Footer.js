@@ -4,37 +4,37 @@ import React from "react";
 const footerLinks = [
   {
     title: "Get to Know Us",
-    list: ["About Amazon", "Connect with Us", "Amazon Cares", "Gift a Smile"],
+    list: ["About Website", "Connect with Us"],
   },
   {
     title: "Make Money with Us",
     list: [
-      "Sell products on Amazon",
-      "Sell apps on Amazon",
+      "Sell products on my website",
+      "Sell apps on my website",
       "Become an Affiliate",
       "Advertise Your Products",
       "Self-Publish with Us",
-      "Host an Amazon Hub",
+
       "› See More",
     ],
   },
   {
-    title: "Amazon Payment",
+    title: "Website Payment",
     list: [
-      "Amazon Business Card",
+      " Business Card",
       "Shop with Points",
       "Reload Your Balance",
-      "Amazon Currency Converter",
+      "Website Currency Converter",
     ],
   },
   {
     title: "Let Us Help You",
     list: [
-      "Amazon and COVID-19",
+      "Website and COVID-19",
       "Shipping Rates & Policies",
       "Returns & Replacements",
       "Manage Your Devices",
-      "Amazon Assistant",
+      "Website Assistant",
     ],
   },
 ];
@@ -62,7 +62,7 @@ const Footer = () => {
         </div>
         <div className="px-8 py-12 flex items-center bg-[#eaeaea] border border-[rgba(26, 26, 44, 0.05)]">
           <span className="text-sm whitespace-nowrap opacity-75">
-            &copy; 2022 | Developed by{" "}
+            &copy; 2023 | Developed by{" "}
             <a
               href="#"
               className="color-[#f90] leading-5 transition border-b border-dotted-[#f90] hover:text-[#dc143c] hover:border-dotted-[#dc143c]"

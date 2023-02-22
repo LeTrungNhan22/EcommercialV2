@@ -6,7 +6,8 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import { FaHeart, FaShopify, FaStar } from "react-icons/fa";
 import Link from "next/link";
 
-const ProductList = ({ productFilter, handleLoadMore }) => {
+const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
+
   const [productSingle, setProductSingle] = useState([]);
 
   const loadMore = () => {
@@ -18,13 +19,17 @@ const ProductList = ({ productFilter, handleLoadMore }) => {
   }, [productFilter]);
 
   if (productFilter?.length === 0) {
-    return <div className="text-center text-2xl font-bold">Loading...</div>;
+    return (
+      <div className="text-center text-2xl font-bold mb-5 text-rose-700">
+        Loading...
+      </div>
+    );
   }
 
   return (
     <>
       <div className="container pb-16 my-7">
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-5">
           {productSingle?.map(({ featuredImageUrl, mediumPrice, name, id }) => (
             <div
               className="bg-white shadow-md rounded overflow-hidden group p-3 hover:shadow-xl transition"
@@ -36,7 +41,7 @@ const ProductList = ({ productFilter, handleLoadMore }) => {
                     src={featuredImageUrl}
                     alt={name}
                     layout="fill"
-                    className=" rounded object-fit object-center"
+                    className="rounded object-fit object-center"
                   />
                 </div>
                 <div className="absolute opacity-0 rounded group-hover:opacity-100 transition gap-2 inset-0 bg-black bg-opacity-40 flex items-center justify-center">
@@ -103,16 +108,22 @@ const ProductList = ({ productFilter, handleLoadMore }) => {
             </div>
           ))}
         </div>
-        <button
-          onClick={loadMore}
-          className="px-5 py-2.5 relative rounded group font-medium text-white  inline-block"
-        >
-          <span className="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
-          <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
-          <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
-          <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500"></span>
-          <span className="relative">Load more</span>
-        </button>
+        {loadMoreProduct ? (
+          <div>
+            <button
+              onClick={loadMore}
+              className="px-5 py-2.5 relative rounded group font-medium text-white  inline-block"
+            >
+              <span className="absolute top-0 left-0 w-full h-full rounded opacity-50 filter blur-sm bg-gradient-to-br from-purple-600 to-blue-500"></span>
+              <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
+              <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
+              <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500"></span>
+              <span className="relative">Xem thêm sản phẩm</span>
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

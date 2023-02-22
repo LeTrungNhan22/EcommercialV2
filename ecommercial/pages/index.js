@@ -11,8 +11,10 @@ import CategoryList from "../components/common/CategoryList";
 import Layout from "../components/common/Layout";
 import ProductList from "../components/product/ProductList";
 import { initFirebase } from "../firebase/initFirebase";
-import { getProductByFilter } from "../redux/product/productSlice";
+
 import { getError } from "../utils/error";
+import { getProductByFilter } from "../redux/product/productsSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 //init firebase
 initFirebase();
@@ -22,6 +24,8 @@ export default function Home() {
   const dispatch = useDispatch();
   const resultList = useSelector((state) => state.products.products);
   const [maxResult, setMaxResult] = useState(24);
+  const [total, setTotal] = useState(0);
+  const [loadMoreProduct, setLoadMoreProduct] = useState(true);
 
   // slideShow
   const settings = {
@@ -42,6 +46,8 @@ export default function Home() {
       };
       try {
         const res = await dispatch(getProductByFilter(params));
+        const { total } = unwrapResult(res);
+        setTotal(total);
       } catch (error) {
         console.log(getError(error));
       }
@@ -50,7 +56,12 @@ export default function Home() {
   }, [maxResult]);
   // handle load more by maxResult
   const handleLoadMore = () => {
-    setMaxResult(maxResult + 12);
+    setMaxResult(maxResult + 20);
+    if (maxResult >= total) {
+      setLoadMoreProduct(false);
+    } else {
+      setLoadMoreProduct(true);
+    }
   };
 
   useEffect(() => {
@@ -70,17 +81,6 @@ export default function Home() {
       <Layout title={`Home`}>
         {/* Banner */}
         <Banner />
-        {/* Banner */}n
-        {/* <main className="max-w-[1200px] my-2 mx-auto px-16  bg-gray-200">
-          <section className="pt-10 mb-5">
-            <h2 className="section-title">Dịch vụ</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2">
-              {serviceData?.map(({ img, serviceName }) => (
-                <SmallCard img={img} key={img} serviceName={serviceName} />
-              ))}
-            </div>
-          </section>
-        </main> */}
         {/* category list */}
         <main className="max-w-[1200px] my-2 mx-auto px-8 md:px-16  bg-gray-200 py-3">
           <section className="pt-10 mb-5">
@@ -100,11 +100,12 @@ export default function Home() {
         </main>
         {/* recommend */}
         <main className="max-w-[1200px] my-2 mx-auto px-16  bg-gray-200">
-          <section className="pt-10 mb-5">
+          <section className="py-10 mb-5 ">
             <h2 className="section-title">Gợi ý sản phẩm</h2>
             <ProductList
               productFilter={resultList}
               handleLoadMore={handleLoadMore}
+              loadMoreProduct={loadMoreProduct}
             />
           </section>
         </main>

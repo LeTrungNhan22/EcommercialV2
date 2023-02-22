@@ -48,15 +48,9 @@ const UserInforScreen = ({
 
   const { updateUserProfile } = useContext(AuthContext);
   const submitHandler = async ({ email, fullName, telephone, gender }, e) => {
-    var date = new Date(dobApi); // some mock date
-    var dateMilliseconds = date.getTime();
-    updateUserProfile({
-      email,
-      fullName,
-      telephone,
-      dob: dateMilliseconds,
-      gender: genderApi,
-    });
+    // var date = new Date(dobApi); // some mock date
+    // var dateMilliseconds = date.getTime();
+    console.log({ email, fullName, telephone, gender });
   };
 
   return (
@@ -71,14 +65,25 @@ const UserInforScreen = ({
               <div>
                 <label className="text-gray-600 mb-2 block">username</label>
                 <input
-                  {...register("username", {})}
+                  {...register("username", {
+                    required: false,
+                    pattern: {
+                      message: "Vui lòng nhập username",
+                    },
+                  })}
                   id="username"
                   name="username"
                   type="text"
                   className="input-box"
                   defaultValue={username}
                 />
+                {errors.username && (
+                  <p className="text-red-500 text-sm">
+                    {getError(errors.username)}
+                  </p>
+                )}
               </div>
+
               <div>
                 <label className="text-gray-600 mb-2 block">Tên đầy đủ</label>
                 <input
@@ -94,6 +99,11 @@ const UserInforScreen = ({
                   className="input-box"
                   defaultValue={fullName}
                 />
+                {errors.fullName && (
+                  <p className="text-red-500 text-sm">
+                    {getError(errors.fullName)}
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -127,7 +137,7 @@ const UserInforScreen = ({
                 <input
                   type="text"
                   {...register("email", {
-                    required: "fullName không thể trống",
+                    required: false,
                     pattern: {
                       message: "Vui lòng nhập fullName",
                     },
@@ -137,6 +147,11 @@ const UserInforScreen = ({
                   className="input-box"
                   defaultValue={email}
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">
+                    {getError(errors.email)}
+                  </p>
+                )}
               </div>
               <div>
                 <label className="text-gray-600 mb-2 block">Phone Number</label>
@@ -153,6 +168,11 @@ const UserInforScreen = ({
                   className="input-box"
                   defaultValue={telephone}
                 />
+                {errors.telephone && (
+                  <p className="text-red-500 text-sm">
+                    {getError(errors.telephone)}
+                  </p>
+                )}
               </div>
             </div>
           </div>

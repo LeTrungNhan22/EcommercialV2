@@ -6,20 +6,17 @@ import {
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { Fragment, useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/auth/authSlice";
-import SearchBar from "./SearchBar";
-import { toast } from "react-hot-toast";
 import AuthContext from "../../context/authContext";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const router = useRouter();
   const { redirect } = router.query;
   const dispatch = useDispatch();
   const { isLogin, user, logoutContext } = useContext(AuthContext);
-
   const logoutHandler = () => {
     logoutContext();
   };
@@ -177,7 +174,7 @@ const Header = () => {
                     <button
                       onClick={() => {
                         isLogin
-                          ? router.push(`user/account/profile`)
+                          ? router.push(`/user/account/profile`)
                           : router.push(
                               `/user/auth/login?redirect=/user/account/profiler`
                             );
@@ -206,11 +203,11 @@ const Header = () => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={() =>
-                        router.push(
-                          `/user/auth/login?redirect=/seller/registerSeller`
-                        )
-                      }
+                      onClick={() => {
+                        isLogin
+                          ? router.push(`/seller/registerSeller`)
+                          : router.push(`/user/auth/login`);
+                      }}
                       className={`${
                         active ? "hover-active" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-md`}

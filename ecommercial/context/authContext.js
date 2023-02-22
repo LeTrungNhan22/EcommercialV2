@@ -29,9 +29,9 @@ export const AuthContextProvider = ({ children }) => {
     toast.success("Logout success");
   };
 
-  console.group("AuthContext");
-  console.log({ user: user, isLogin: isLogin });
-  console.groupEnd();
+  // console.group("AuthContext");
+  // console.log({ user: user, isLogin: isLogin });
+  // console.groupEnd();
 
   const context = {
     isLogin,

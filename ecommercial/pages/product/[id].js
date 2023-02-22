@@ -1,128 +1,43 @@
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import {
-  FaDollarSign,
-  FaFacebook,
-  FaInstagram,
-  FaShopify,
-  FaShoppingBag,
-  FaTwitter,
-} from "react-icons/fa";
+import React, { useEffect } from "react";
+import { FaShopify } from "react-icons/fa";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 import Layout from "../../components/common/Layout";
 
-import Cookies from "js-cookie";
-import { toast } from "react-hot-toast";
 import { AiFillMessage } from "react-icons/ai";
-import ProductList from "../../components/product/ProductList";
-import { getError } from "../../utils/error";
-import ProductContext from "../../utils/Product";
-import { Store } from "../../utils/Store";
+import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
 
-export default function ProductScreen() {
-  const { productFilter } = useContext(ProductContext);
-  const { resultList } = productFilter;
+import ProductVariants from "../../components/product/ProductVariants";
+import { getProductDetailById } from "../../redux/product/productDetailSlice";
+import { getError } from "../../utils/error";
 
+export default function ProductScreen() {
   const router = useRouter();
   const { id } = router.query;
-  const basUrl = process.env.NEXT_PUBLIC_API_URL;
-  const axios = require("axios");
-  const [productDetailById, setProductDetailById] = useState([]);
-  const { product, shop, variants } = productDetailById;
-  const { state, dispatch } = useContext(Store);
-  const [qty, setQty] = useState(1);
-  const [cartItem, setCartItem] = useState({});
-  const [index, setIndex] = useState(0);
 
-  const incQty = () => {
-    setQty((prevQty) => prevQty + 1);
-  };
-  const decQty = () => {
-    setQty((prevQty) => {
-      if (prevQty - 1 < 1) return 1;
-      return prevQty - 1;
-    });
-  };
+  const dispatch = useDispatch();
+  const product = useSelector((state) => state.productDetail.product);
+  const shop = useSelector((state) => state.productDetail.shop);
+  const variants = useSelector((state) => state.productDetail.variants);
 
   useEffect(() => {
-    const getProductDetailById = async () => {
+    const getProductDetail = async () => {
       try {
-        await axios
-          .get(`${basUrl}/product/1.0.0/product/${id}/detail`, {
-            headers: {
-              "Content-Type": "application/json",
-              charset: "utf-8",
-            },
-          })
-          .then(function (response) {
-            const { data } = response;
-            setProductDetailById(data);
-          })
-          .catch(function (error) {
-            console.error(getError(error));
-          });
+        const res = await dispatch(getProductDetailById(id));
       } catch (error) {
         console.log(getError(error));
       }
     };
     if (id != null) {
-      getProductDetailById();
+      getProductDetail();
     } else {
       return <div>Không tìm thấy thông tin sản phẩm</div>;
     }
   }, [id]);
-
-  const addToCartHandler = async () => {
-    dispatch({
-      type: "CART_ADD_ITEM",
-      payload: [...variants, qty],
-    });
-    const cart = Cookies.get("cart");
-    const cartDetail = JSON.parse(localStorage.getItem("cartDetail"));
-    const { id } = cartDetail.cart;
-    const productVariant = JSON.parse(cart).cartItems[0][0];
-    axios
-      .post(
-        `${basUrl}/cart/1.0.0/cart-item/create`,
-        {
-          cartId: id,
-          productVariant: productVariant,
-          quantity: qty,
-          updatedAt: null,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            charset: "utf-8",
-          },
-        }
-      )
-      .then(function (response) {
-        const { data } = response;
-        setCartItem(data);
-        console.log("cart", cartItem);
-      })
-      .catch(function (error) {
-        console.error(getError(error));
-      });
-
-    toast.success(() => (
-      <span>
-        {" "}
-        Added product in your cart go to your{" "}
-        <b className="font-bold text-amber-500">
-          <Link href="/cart">
-            <a>Cart</a>
-          </Link>
-        </b>
-      </span>
-    ));
-  };
 
   return (
     <>
@@ -133,285 +48,10 @@ export default function ProductScreen() {
             title={product?.name}
             pid={product?.id}
           />
-          <section>
-            <div className=" w-[1200px] mb-3 grid grid-cols-2 gap-6  mx-auto bg-white p-4 rounded shadow">
-              {/* product image */}
-              <div className="w-full flex items-center justify-center">
-                <div className="w-full">
-                  <div className="image-container">
-                    <picture>
-                      <img
-                        className="rounded bg-[#ebebeb] w-[400px] h-[400px] cursor-pointer transition ease-in-out mx-auto"
-                        src={product?.imageUrls && product?.imageUrls[index]}
-                        alt="product-image"
-                      />
-                    </picture>
-                  </div>
-
-                  <div className="flex gap-3  mt-5 items-center justify-center">
-                    {product?.imageUrls.map((item, i) => (
-                      <picture key={i}>
-                        <img
-                          alt=""
-                          src={item}
-                          className={
-                            i === index
-                              ? "w-[70px] h-[70px] bg-[#ebebeb] cursor-pointer bg-[#f02d34]"
-                              : "w-[70px] h-[70px] bg-[#ebebeb] cursor-pointer"
-                          }
-                          onMouseEnter={() => setIndex(i)}
-                        />
-                      </picture>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* product image */}
-
-              {/* product content */}
-              <div>
-                <h2 className="text-3xl font-medium uppercase mb-2">
-                  {product?.name}
-                </h2>
-
-                <div className="space-y-3">
-                  <div className="text-gray-800 font-normal space-x-2 text-xl">
-                    <span>Loại sản phẩn:</span>
-                    <span className="text-rose-500">
-                      {product?.industrialTypeName}
-                    </span>
-                  </div>
-                </div>
-                <div className="my-4">
-                  <Image
-                    src="https://cf.shopee.vn/file/4533a6c752823c3bc7491d3267e20bf2"
-                    alt=""
-                    height={44}
-                    width={665}
-                    className=""
-                  ></Image>
-                </div>
-                <div className="flex items-baseline mb-1 space-x-2 font-bold mt-4">
-                  <p className="text-4xl text-rose-600 font-semibold">
-                    {product?.mediumPrice.amount}{" "}
-                    {product?.mediumPrice.currencyCode}
-                  </p>
-                  {/* <p className="text-base text-gray-400 font-semibold line-through">
-                    $50.00
-                  </p> */}
-                </div>
-                <p className="mt-4 text-gray-400 line-clamp-4">
-                  {product?.description}
-                </p>
-                <div className="mt-4 grid grid-cols-4 space-x-5">
-                  <h3 className="text-md text-gray-800 uppercase font-medium">
-                    Kích cỡ
-                  </h3>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <div className="size-selector">
-                        <input
-                          type="radio"
-                          name="size"
-                          className="hidden"
-                          id="size-xs"
-                        />
-                        <label
-                          htmlFor="size-xs"
-                          className="text-xs border font-bold border-gray-200 shadow-sm rounded-sm h-8 w-8 flex items-center justify-center cursor-pointer text-gray-600"
-                        >
-                          XS
-                        </label>
-                      </div>
-                      <div className="size-selector">
-                        <input
-                          type="radio"
-                          name="size"
-                          className="hidden"
-                          id="size-s"
-                        />
-                        <label
-                          htmlFor="size-s"
-                          className="text-xs border font-bold border-gray-200 shadow-sm rounded-sm h-8 w-8 flex items-center justify-center cursor-pointer text-gray-600"
-                        >
-                          S
-                        </label>
-                      </div>
-
-                      <div className="size-selector">
-                        <input
-                          type="radio"
-                          name="size"
-                          className="hidden"
-                          id="size-m"
-                        />
-                        <label
-                          htmlFor="size-m"
-                          className="text-xs border font-bold border-gray-200 shadow-sm rounded-sm h-8 w-8 flex items-center justify-center cursor-pointer text-gray-600"
-                        >
-                          M
-                        </label>
-                      </div>
-                      <div className="size-selector">
-                        <input
-                          type="radio"
-                          name="size"
-                          className="hidden"
-                          id="size-l"
-                        />
-                        <label
-                          htmlFor="size-l"
-                          className="text-xs border font-bold border-gray-200 shadow-sm rounded-sm h-8 w-8 flex items-center justify-center cursor-pointer text-gray-600"
-                        >
-                          L
-                        </label>
-                      </div>
-                      <div className="size-selector">
-                        <input
-                          type="radio"
-                          name="size"
-                          className="hidden"
-                          id="size-xl"
-                        />
-                        <label
-                          htmlFor="size-xl"
-                          className="text-xs border font-bold border-gray-200 shadow-sm rounded-sm h-8 w-8 flex items-center justify-center cursor-pointer text-gray-600"
-                        >
-                          XL
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 grid grid-cols-4 space-x-5">
-                  <h3 className="text-md text-gray-800 uppercase font-medium">
-                    Màu sắc
-                  </h3>
-                  <div>
-                    <div className=" flex items-center gap-2">
-                      {/* single color */}
-                      <div className="color-selector">
-                        <input
-                          type="radio"
-                          name="color"
-                          className="hidden"
-                          id="color-red"
-                        />
-                        <label
-                          htmlFor="color-red"
-                          className="border border-gray-200 rounded-sm h-5 w-5 block cursor-pointer shadow-sm bg-red-600"
-                        ></label>
-                      </div>
-                      <div className="color-selector">
-                        <input
-                          type="radio"
-                          name="color"
-                          className="hidden"
-                          id="color-white"
-                        />
-                        <label
-                          htmlFor="color-white"
-                          className="border border-gray-200 rounded-sm h-5 w-5 block cursor-pointer shadow-sm bg-white"
-                        ></label>
-                      </div>
-                      <div className="color-selector">
-                        <input
-                          type="radio"
-                          name="color"
-                          className="hidden"
-                          id="color-black"
-                        />
-                        <label
-                          htmlFor="color-black"
-                          className="border border-gray-200 rounded-sm h-5 w-5 block cursor-pointer shadow-sm bg-black"
-                        ></label>
-                      </div>
-                      {/* single color */}
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4 grid grid-cols-4 space-x-5 items-center">
-                  <h3 className="text-md text-gray-800 uppercase font-medium">
-                    Số lượng
-                  </h3>
-                  <div>
-                    <div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
-                      <div
-                        onClick={decQty}
-                        className="text-green-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
-                      >
-                        -
-                      </div>
-                      <div className="select-none font-semibold text-black h-8 w-8 text-base flex items-center justify-center">
-                        {qty}
-                      </div>
-                      <div
-                        onClick={incQty}
-                        className=" text-red-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
-                      >
-                        +
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex gap-3 border-b border-gray-200 pb-5 mt-6">
-                  <div
-                    href="#_"
-                    className="cursor-pointer rounded px-5 py-2.5 overflow-hidden group bg-rose-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
-                  >
-                    <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                    <div className="flex items-center space-x-2">
-                      <FaShoppingBag />
-                      <span onClick={addToCartHandler} className="relative">
-                        Thêm vào giỏ hàng
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    href="#_"
-                    className="cursor-pointer rounded px-5 py-2.5 overflow-hidden group bg-rose-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
-                  >
-                    <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                    <div className="flex items-center space-x-2">
-                      <FaDollarSign />
-
-                      <a className="relative">Mua ngay</a>
-                    </div>
-                  </div>
-                </div>
-                {/* social share */}
-                <div className="flex gap-3 mt-4">
-                  <a
-                    href=""
-                    className="text-gray-400 hover:text-gray-800 h-10 w-10 rounded-full border
-                    border-gray-300 flex items-center justify-center"
-                  >
-                    <FaFacebook />
-                  </a>
-                  <a
-                    href=""
-                    className="text-gray-400 hover:text-gray-800 h-10 w-10 rounded-full border
-                    border-gray-300 flex items-center justify-center"
-                  >
-                    <FaInstagram />
-                  </a>
-                  <a
-                    href=""
-                    className="text-gray-400 hover:text-gray-800 h-10 w-10 rounded-full border
-                    border-gray-300 flex items-center justify-center"
-                  >
-                    <FaTwitter />
-                  </a>
-                </div>
-              </div>
-
-              {/* product content */}
-            </div>
-          </section>
+          <ProductVariants product={product} variants={variants} />
 
           <section>
-            <div className=" w-[1200px] mb-3 grid grid-cols-3 gap-6  mx-auto bg-white p-4 rounded shadow">
+            <div className=" w-[1400px] mb-3 grid grid-cols-3 gap-6  mx-auto bg-white p-4 rounded shadow">
               <div className="container flex col-span-1 py-2 px-4 border-2 space-x-3 border-r border-gray-200">
                 <div>
                   {shop?.imageUrl && (
@@ -497,7 +137,7 @@ export default function ProductScreen() {
           </section>
           {/* product detail */}
           <section>
-            <div className=" w-[1200px]  mx-auto   bg-white p-4 pb-16 rounded shadow">
+            <div className=" w-[1400px]  mx-auto   bg-white p-4 pb-16 rounded shadow">
               <div className="container pb-6 px-6">
                 <h3 className="border-b border-gray-200  text-gray-800 pb-3 font-medium text-3xl">
                   Chi tiết sản phẩm
@@ -507,36 +147,36 @@ export default function ProductScreen() {
                     <p>{product?.description}</p>
                   </div>
                   <div>
-                    {/* <table className="table-auto border-collapse w-full text-left my-2">
-                    <tr>
-                      <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                        Loại sản phẩm
-                      </th>
-                      <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                 
-                      </th>
-                    </tr>
-                    <tr>
-                      <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                        Vị trí
-                      </th>
-                      <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                      
-                      </th>
-                    </tr>
-                  </table> */}
+                    <table className="table-auto border-collapse w-full text-left my-2">
+                      <tbody>
+                        <tr>
+                          <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
+                            Loại sản phẩm
+                          </th>
+                          <th className="py-2 px-2 border border-gray-200 w-40 font-medium text-blue-600">
+                            {product?.name}
+                          </th>
+                        </tr>
+
+                        <tr>
+                          <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
+                            Vị trí
+                          </th>
+                          <th className="py-2 px-2 border border-gray-200 w-40 font-medium"></th>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
           </section>
           <section>
-            <div className=" w-[1200px]  mx-auto mt-5  bg-gray-200 p-4 pb-16 rounded shadow">
+            <div className=" w-[1400px]  mx-auto mt-5  bg-gray-200 p-4 pb-16 rounded shadow">
               <div className="container pb-6 px-6">
                 <h3 className="border-b border-rose-600  text-gray-800 pb-3 font-medium text-3xl">
                   Liên quan
                 </h3>
-                <ProductList productFilter={resultList} />
               </div>
             </div>
           </section>

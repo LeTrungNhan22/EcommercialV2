@@ -1,21 +1,27 @@
-import Link from "next/link";
-import { userAgent } from "next/server";
-import React, { useEffect, useState } from "react";
-import BreadCrumb from "../../../../components/BreadCrumb";
-import Layout from "../../../../components/Layout";
+import React, { useContext, useEffect, useState } from "react";
+import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
+import Layout from "../../../../components/common/Layout";
 import SideBar from "../../../../components/user-profile/SideBar";
-import AuthContext from "../../../../utils/User";
-import { useContext } from "react";
 import UserInforScreen from "../../../../components/user-profile/UserInfor";
+import AuthContext from "../../../../context/authContext";
 
 const InforScreen = () => {
   const { user } = useContext(AuthContext);
-
   const [userProfile, setUserProfile] = useState({});
-
   useEffect(() => {
     setUserProfile(user);
   }, [user]);
+  const {
+    username,
+    fullName,
+    imageUrl,
+    email,
+    birthday,
+    telephone,
+    gender,
+    id,
+  } = userProfile;
+
   return (
     <div>
       <Layout title={`Profile`}>
@@ -30,14 +36,14 @@ const InforScreen = () => {
             {/* profile info */}
             <div className="col-span-9 grid bg-white p-3 shadow rounded mt-6 lg:mt-0">
               <UserInforScreen
-                username={userProfile.username}
-                fullName={userProfile.fullName}
-                imageUrl={userProfile.imageUrl}
-                email={userProfile.email}
-                birthday={userProfile.birthday}
-                telephone={userProfile.telephone}
-                gender={userProfile.gender}
-                id={userProfile.id}
+                username={username}
+                fullName={fullName}
+                imageUrl={imageUrl}
+                email={email}
+                birthday={birthday}
+                telephone={telephone}
+                gender={gender}
+                id={id}
               />
             </div>
           </div>

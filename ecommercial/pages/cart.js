@@ -4,23 +4,14 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { AiFillMessage } from "react-icons/ai";
-import { FaDollarSign, FaShoppingBag, FaTicketAlt } from "react-icons/fa";
-import BreadCrumb from "../components/BreadCrumb";
-import Layout from "../components/Layout";
+import React, { Fragment, useContext, useEffect, useState } from "react";
+import { FaDollarSign } from "react-icons/fa";
+import BreadCrumb from "../components/breadcrumb/BreadCrumb";
+import Layout from "../components/common/Layout";
 import ProductList from "../components/product/ProductList";
-import { dataDigitalBestSeller } from "../data/mock-data";
+import { UpdateQuantity } from "../components/product/UpdateQuantity";
 import { getError } from "../utils/error";
 import AuthContext from "../utils/User";
-import GooglePayButton from "@google-pay/button-react";
-import { UpdateQuantity } from "../components/product/UpdateQuantity";
 
 const CartScreen = () => {
   const router = useRouter();

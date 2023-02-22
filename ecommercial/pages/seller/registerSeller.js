@@ -27,17 +27,9 @@ import { toast } from "react-hot-toast";
 
 const RegisterSellerScreen = () => {
   const basUrl = process.env.NEXT_PUBLIC_API_URL;
-  const {
-    user,
-    userById,
-    logout,
-    isLogin,
-    updateUserAddress,
-    createUserShop,
-    addressFetching,
-  } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  const { fullName, telephone, address, email } = userById;
+  const { fullName, telephone, address, email } = user;
   const [provinceList, setProvinceList] = useState([]);
   const [provinceId, setProvinceId] = useState("");
   const [districtId, setDistrictId] = useState("");
@@ -45,10 +37,6 @@ const RegisterSellerScreen = () => {
   const [wardList, setWardList] = useState([]);
   const [address1, setAddress1] = useState({});
   const [isFillAddress, setIsFillAddress] = useState(false);
-
-  useEffect(() => {
-    setAddress1(addressFetching);
-  }, [addressFetching]);
 
   // handle image
 
@@ -185,17 +173,8 @@ const RegisterSellerScreen = () => {
     });
     closeModal();
   };
-  const submitHandleCreateShop = ({ note, shopName },e) => {
+  const submitHandleCreateShop = ({ note, shopName }, e) => {
     e.preventDefault();
-    createUserShop({
-      address: address1?.address1,
-      description: note,
-      district_id: address1.districtCode,
-      imageUrl: downloadURL,
-      name: shopName,
-      phone: telephone,
-      wardCode: address1.wardCode,
-    });
   };
 
   return (
@@ -252,7 +231,6 @@ const RegisterSellerScreen = () => {
                           </label>
                           <input
                             type="text"
-                            disabled
                             placeholder={email}
                             id="email"
                             name="email"
@@ -268,7 +246,6 @@ const RegisterSellerScreen = () => {
                             name="telephone"
                             type="text"
                             className="input-box"
-                            disabled
                             placeholder={telephone}
                           />
                         </div>
@@ -376,7 +353,6 @@ const RegisterSellerScreen = () => {
                                             defaultValue={fullName}
                                             type="text"
                                             placeholder="Họ và Tên"
-                                            disabled
                                           />
                                           <input
                                             id="telephone"
@@ -385,7 +361,6 @@ const RegisterSellerScreen = () => {
                                             placeholder="Số điện thoại"
                                             className="px-4 py-2 w-80 rounded"
                                             defaultValue={telephone}
-                                            disabled
                                           />
                                         </div>
 

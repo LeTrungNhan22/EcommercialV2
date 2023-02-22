@@ -71,67 +71,70 @@ const authSlice = createSlice({
     },
   },
 
-  extraReducers: {
+  extraReducers: (builder) => {
     // sign up reducer
-    [registerUser.pending]: (state) => {
-      state.loading = true;
-    },
-    [registerUser.fulfilled]: (
-      state,
-      { payload: { errorMessage, message, data } }
-    ) => {
-      state.loading = false;
-      if (errorMessage) {
-        state.errorMessage = errorMessage;
-      } else {
-        state.message = message;
-        state.user = data;
-        localStorage.setItem("user", JSON.stringify(data));
-        localStorage.setItem("mailMessage", message);
-      }
-    },
-    [registerUser.rejected]: (state, action) => {
-      state.loading = false;
-      state.errorMessage = action.payload.message;
-    },
+    builder
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        registerUser.fulfilled,
+        (state, { payload: { errorMessage, message, data } }) => {
+          state.loading = false;
+          if (errorMessage) {
+            state.errorMessage = errorMessage;
+          } else {
+            state.message = message;
+            state.user = data;
+            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("mailMessage", message);
+          }
+        }
+      )
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.errorMessage = action.payload.message;
+      });
     // sign up reducer
 
     // login reducer
-    [loginUser.pending]: (state) => {
-      state.loading = true;
-    },
-    [loginUser.fulfilled]: (
-      state,
-      { payload: { errorMessage, data, user } }
-    ) => {
-      state.loading = false;
-      if (errorMessage) {
-        state.errorMessage = errorMessage;
-      } else {
-        state.accessToken = data;
-        state.user = user;
-        localStorage.setItem("accessToken", data);
-      }
-    },
-    [loginUser.rejected]: (state, action) => {
-      state.loading = false;
-      state.errorMessage = action.payload.message;
-    },
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        loginUser.fulfilled,
+        (state, { payload: { errorMessage, data, user } }) => {
+          state.loading = false;
+          if (errorMessage) {
+            state.errorMessage = errorMessage;
+          } else {
+            state.accessToken = data;
+            state.user = user;
+            localStorage.setItem("accessToken", data);
+          }
+        }
+      )
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.errorMessage = action.payload.message;
+      });
 
     // login reducer
     // get user info reducer
-    [getCustomerInfo.pending]: (state) => {
-      state.loading = true;
-    },
-    [getCustomerInfo.fulfilled]: (state, payload) => {
-      state.loading = false;
-      state.user = payload;
-      localStorage.setItem("user", JSON.stringify(payload.payload));
-    },
-    [getCustomerInfo.rejected]: (state, action) => {
-      state.loading = false;
-      state.errorMessage = action.payload.message;
-    },
+    builder
+      .addCase(getCustomerInfo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCustomerInfo.fulfilled, (state, payload) => {
+        state.loading = false;
+        state.user = payload;
+        localStorage.setItem("user", JSON.stringify(payload.payload));
+      })
+      .addCase(getCustomerInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.errorMessage = action.payload.message;
+      });
 
     // get user info reducer
   },

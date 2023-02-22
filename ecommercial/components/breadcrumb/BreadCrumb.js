@@ -26,7 +26,6 @@ const BreadCrumb = ({ pid, title, industrialTypeName }) => {
         ) : (
           ""
         )}
-
         <Link href={`/product/${pid}`}>
           <a className="text-rose-800 font-medium">{title}</a>
         </Link>

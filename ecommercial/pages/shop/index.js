@@ -1,31 +1,38 @@
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
+import { unwrapResult } from "@reduxjs/toolkit";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiOutlineFilter } from "react-icons/ai";
 import { FaList, FaTh } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import productApi from "../api/product/productApi";
-import BreadCrumb from "../components/breadcrumb/BreadCrumb";
-import Layout from "../components/common/Layout";
-import ProductList from "../components/product/ProductList";
-import { getProductByFilter } from "../redux/product/productSlice";
-import { getError } from "../utils/error";
+import productApi from "../../api/product/productApi";
+import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
+import Layout from "../../components/common/Layout";
+import ProductList from "../../components/product/ProductList";
+import { getProductByFilter } from "../../redux/product/productsSlice";
+import { getError } from "../../utils/error";
 
 const ShopScreen = () => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   const [industrials, setIndustrials] = useState([]);
   const dispatch = useDispatch();
   const resultList = useSelector((state) => state.products.products);
   const [maxResult, setMaxResult] = useState(24);
+  const [total, setTotal] = useState(0);
+  const [loadMoreProduct, setLoadMoreProduct] = useState(true);
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     const getProductList = async () => {
       const params = {
         maxResult: maxResult,
+        // industrialId: "1671551420762335",
       };
       try {
         const res = await dispatch(getProductByFilter(params));
+        const { total } = unwrapResult(res);
+
+        setTotal(total);
       } catch (error) {
         console.log(getError(error));
       }
@@ -47,7 +54,21 @@ const ShopScreen = () => {
 
   // handle load more by maxResult
   const handleLoadMore = () => {
-    setMaxResult(maxResult + 12);
+    setMaxResult(maxResult + 20);
+    if (maxResult >= total) {
+      setLoadMoreProduct(false);
+    } else {
+      setLoadMoreProduct(true);
+    }
+  };
+
+  const industrialsHandler = (id, e) => {
+    console.log(id);
+    const params = {
+      maxResult: maxResult,
+      industrialId: id,
+    };
+    dispatch(getProductByFilter(params));
   };
 
   return (
@@ -105,6 +126,9 @@ const ShopScreen = () => {
                                       type="checkbox"
                                       id="cat-1"
                                       className="text-rose-600 rounded-sm cursor-pointer focus:ring-0 outline-none"
+                                      onChange={() =>
+                                        industrialsHandler(item.id)
+                                      }
                                     />
                                     <label
                                       htmlFor="cat-1s"
@@ -409,6 +433,7 @@ const ShopScreen = () => {
             <ProductList
               productFilter={resultList}
               handleLoadMore={handleLoadMore}
+              loadMoreProduct={loadMoreProduct}
             />
             {/* sorting */}
           </div>

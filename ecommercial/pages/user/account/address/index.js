@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import BreadCrumb from "../../../../components/BreadCrumb";
-import Layout from "../../../../components/Layout";
+import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
+import Layout from "../../../../components/common/Layout";
 import SideBar from "../../../../components/user-profile/SideBar";
 import UserAddress from "../../../../components/user-profile/UserAddress";
 import AuthContext from "../../../../utils/User";
