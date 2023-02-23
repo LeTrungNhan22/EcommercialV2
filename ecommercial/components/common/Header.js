@@ -2,26 +2,22 @@ import { Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BellAlertIcon,
-  ShoppingCartIcon,
+  ShoppingCartIcon
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useContext } from "react";
-import { useDispatch } from "react-redux";
-import AuthContext from "../../context/authContext";
-import SearchBar from "./SearchBar";
 import logo from "../../assets/logo/mainLogo.png";
+import AuthContext from "../../context/authContext";
+import Searchbar from "./Searchbar";
 
 const Header = () => {
   const router = useRouter();
-  const { redirect } = router.query;
-  const dispatch = useDispatch();
   const { isLogin, user, logoutContext } = useContext(AuthContext);
   const logoutHandler = () => {
     logoutContext();
   };
-
   return (
     <header className="p-5 sticky z-50 top-0 bg-white md:px-10 shadow-md grid grid-cols-1 md:grid-cols-3">
       <div className="relative hidden md:flex items-center h-10 ">
@@ -38,9 +34,9 @@ const Header = () => {
           </a>
         </Link>
       </div>
-      <SearchBar />
+      <Searchbar />
       <div className="items-center space-x-1 justify-end hidden md:flex">
-        <Link href="/cart">
+        <Link href={`/cart/${user?.id}`}>
           <a className="text-gray-700 lg:text-lg md:text-sm flex items-center hover:bg-gray-100 p-1  rounded-full transition duration-200 cursor-pointer">
             <ShoppingCartIcon className="h-10 p-2 hover:bg-gray-100 rounded-full transition duration-200 cursor-pointer" />
           </a>

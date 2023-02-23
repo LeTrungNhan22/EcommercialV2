@@ -1,19 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
-import Layout from "../../components/common/Layout";
-import ProductList from "../../components/product/ProductList";
+import BreadCrumb from "../../components/Breadcrumb/BreadCrumb";
+import Layout from "../../components/Common/Layout";
+import ProductList from "../../components/Product/ProductList";
 import AuthContext from "../../context/authContext";
 import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
-import { getError } from "../../utils/error";
 
 const CartScreen = () => {
   const { isLogin, user } = useContext(AuthContext);
   const cartDetail = useSelector((state) => state.cart.cartDetail);
-  const { cart, itemToShops } = cartDetail;
+  const { totalPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
+  const [updateTotalPrice, setUpdateTotalPrice] = useState(totalPrice);
+  const [updateTotalQuantity, setUpdateTotalQuantity] = useState(totalQuantity);
+
+  if (user === null || cartDetail === null) {
+    return <div>Không tìm thấy thông tin giỏ hàng</div>;
+  }
+
   const dispatch = useDispatch();
   const prevCartDetailRef = useRef();
   useEffect(() => {
@@ -34,7 +40,7 @@ const CartScreen = () => {
   }, [dispatch, user.id]);
 
   console.group("cartDetail");
-  console.log({ cartDetail });
+  console.log({ cartDetail: cartDetail });
   console.groupEnd();
 
   return (
@@ -98,79 +104,108 @@ const CartScreen = () => {
               </g>
             </svg>
             <p>
-              Nhấn vào mục Mã giảm giá ở cuối trang để hưởng miễn phí vận chuyển
-              bạn nhé!
+              Ở đây bạn có thể thấy tất cả sản phẩm bạn đã thêm vào giỏ hàng
             </p>
           </div>
         </div>
 
         <div className="w-[1200px] mx-auto mb-3 ">
-          <div className=" bg-white py-3 justify-between flex items-center space-x-3 px-6 rounded shadow">
-            <div className="grid grid-cols-5 text-gray-500   items-center justify-center space-x-3">
-              <div className="col-span-2 space-x-3">
-                <input type="checkbox" />
-                <span>Sản phẩm</span>
-              </div>
-            </div>
-            <div className="flex w-1/2 text-gray-500 items-center  justify-between ">
-              <span>Đơn giá</span>
-              <span>Số lượng</span>
-              <span>Số tiền</span>
-              <span>Thao tác</span>
-            </div>
-          </div>
-        </div>
-
-        {/* product details */}
-
-        <div className="w-[1200px] mx-auto pb-3">
-          {/* {cartDetailByUserId.map(
-            ({ totalPrice, quantity, productVariant, id }) => (
-              <>
-                <div
-                  key={id}
-                  className=" bg-white   justify-between space-x-3  rounded shadow p-3 mb-3"
-                >
-                  <div>
-                    <div className="border border-gray-400 px-6">
-                      <div className="flex text-center items-center justify-between">
-                        <div className="flex flex-row justify-center items-center space-x-5 col-span-2">
-                          <input type="checkbox" />
-                          <div className="w-32 h-32 relative">
-                            <Image
-                              src={productVariant.imageUrl}
-                              alt=""
-                              layout="fill"
-                              className="object-center object-contain"
-                            ></Image>
+          {itemToShops?.length > 0 ? (
+            itemToShops?.map((item) => (
+              <div className=" bg-white rounded shadow p-3 mb-3" key={item.id}>
+                <div className="md:flex items-center  py-8 ">
+                  <div className="w-1/4 h-[200px] relative">
+                    <Image
+                      src={item.productVariant.imageUrl}
+                      alt
+                      layout="fill"
+                      className="w-full h-full object-center object-cover"
+                    />
+                  </div>
+                  <div className="md:pl-3 md:w-3/4">
+                    <p className="text-md leading-3 text-gray-800 md:pt-0 pt-4">
+                      <span className="">
+                        ProductId: {item.productVariant.productId}
+                      </span>{" "}
+                      <span className="">
+                        VariantId: {item.productVariant.id}
+                      </span>
+                    </p>
+                    <div className="flex items-center justify-between w-full pt-2">
+                      <p className="text-2xl font-black leading-none text-gray-800">
+                        {item.productVariant.productName}
+                      </p>
+                      <p className="text-base font-black leading-none text-gray-700">
+                        Giá:
+                        {item.productVariant.price.amount}
+                        {item.productVariant.price.currencyCode}
+                      </p>
+                      
+                    </div>
+                    <p className="text-md leading-3 text-gray-600 pt-2">
+                      <div className=" flex items-center text-gray-500">
+                        <span>{item.productVariant.dimension.length}</span>x
+                        <span>{item.productVariant.dimension.width}</span>x
+                        <span>{item.productVariant.dimension.height}</span>
+                        <span>
+                          {item.productVariant.dimension.dimensionUnit}
+                        </span>
+                      </div>
+                    </p>
+                    <p className="text-md leading-3 text-gray-600 py-4">
+                      Color: {item.productVariant.color}
+                    </p>
+                    <p className="w-96 text-md leading-3 text-gray-600">
+                      ShopId : {item.shopId}
+                    </p>
+                    <div className="flex items-center justify-between pt-5 ">
+                      <div className="flex itemms-center">
+                        <p className="text-md leading-3 underline text-gray-800 cursor-pointer">
+                          Add to favorites
+                        </p>
+                        <p className="text-md leading-3 underline text-red-500 pl-5 cursor-pointer">
+                          Remove
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex justify-around mx-3 w-full pt-2">
+                          <div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
+                            <div className="text-green-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer">
+                              -
+                            </div>
+                            <div className="select-none font-semibold text-black h-8 w-8 text-base flex items-center justify-center">
+                              {item.quantity}
+                            </div>
+                            <div className=" text-red-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer">
+                              +
+                            </div>
                           </div>
-                          <span>{productVariant.productName}</span>
+                          <div className="flex flex-col my-2">
+                            <p className="text-xl font-bold leading-none text-rose-700">
+                              Tổng:
+                              {item.totalPrice}
+                              {item.productVariant.price.currencyCode}
+                            </p>
+                          </div>
                         </div>
-
-                        <UpdateQuantity
-                          cartId={id}
-                          quantity={quantity}
-                          totalPrice={totalPrice}
-                          price={productVariant.price.amount}
-                        />
                       </div>
                     </div>
                   </div>
                 </div>
-              </>
-            )
-          )} */}
+              </div>
+            ))
+          ) : (
+            <div>Không có sản phẩm nào trong giỏ hàng</div>
+          )}
         </div>
+
+        {/* product details */}
+
         <div className="w-[1200px] mx-auto transition ease-in duration-100 shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] scroll-smooth hover:scroll-auto sticky bottom-0 z-2">
           <div className=" bg-white rounded shadow p-3 mb-3">
             <div className="grid grid-cols-4">
               {/* voucher */}
               <div className="w-full border-b mb-3 py-3 flex items-end justify-end col-span-4 space-x-52">
-                {/* <div className="flex items-center space-x-3 justify-center">
-                  <FaTicketAlt className="text-orange-500" />
-                  <span className="text-lg">Voucher</span>
-                </div> */}
-
                 <>
                   <button
                     type="button"
@@ -185,8 +220,10 @@ const CartScreen = () => {
 
               <div className="w-full border-b mb-3 py-1 flex items-end justify-end col-span-4 space-x-10">
                 <span>
-                  Tổng thanh toán sản phẩm
-                  <span className="text-rose-600 text-4xl"> </span>
+                  Tổng thanh toán sản phẩm ({totalQuantity} sản phẩm){" "}
+                  <span className="text-rose-600 text-4xl">
+                    {totalPrice}VND{" "}
+                  </span>
                 </span>
                 <Link href="/checkout">
                   <a className="cursor-pointer rounded px-5 py-2.5 overflow-hidden group bg-rose-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">

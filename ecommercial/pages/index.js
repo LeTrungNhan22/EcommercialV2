@@ -20,9 +20,9 @@ import { unwrapResult } from "@reduxjs/toolkit";
 initFirebase();
 
 export default function Home() {
-  const [industrialList, setIndustrialList] = useState([]);
   const dispatch = useDispatch();
   const resultList = useSelector((state) => state.products.products);
+  const [industrialList, setIndustrialList] = useState([]);
   const [maxResult, setMaxResult] = useState(24);
   const [total, setTotal] = useState(0);
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
