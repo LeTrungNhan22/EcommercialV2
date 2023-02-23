@@ -3,7 +3,7 @@ import authApi from "../../api/auth/authApi";
 
 const initialState = {
   user: {},
-  accessToken: "",
+  accessToken: null,
   message: "",
   loading: false,
   errorMessage: "",
@@ -68,6 +68,8 @@ const authSlice = createSlice({
       localStorage.removeItem("accessToken");
       localStorage.removeItem("user");
       localStorage.removeItem("mailMessage");
+      localStorage.removeItem("cartItems");
+      localStorage.clear();
     },
   },
 
@@ -126,10 +128,10 @@ const authSlice = createSlice({
       .addCase(getCustomerInfo.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getCustomerInfo.fulfilled, (state, payload) => {
+      .addCase(getCustomerInfo.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = payload;
-        localStorage.setItem("user", JSON.stringify(payload.payload));
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
       })
       .addCase(getCustomerInfo.rejected, (state, action) => {
         state.loading = false;

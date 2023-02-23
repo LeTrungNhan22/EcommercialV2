@@ -22,11 +22,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       />
       <Provider store={store}>
         <StoreProvider>
-          <ProductContextProvider>
-            <AuthContextProvider>
-              <Component {...pageProps} />
-            </AuthContextProvider>
-          </ProductContextProvider>
+          <AuthContextProvider>
+            <Component {...pageProps} />
+          </AuthContextProvider>
         </StoreProvider>
       </Provider>
     </>

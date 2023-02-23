@@ -1,59 +1,41 @@
-import { Dialog, Transition } from "@headlessui/react";
-import axios from "axios";
-import Cookies from "js-cookie";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
-import BreadCrumb from "../components/breadcrumb/BreadCrumb";
-import Layout from "../components/common/Layout";
-import ProductList from "../components/product/ProductList";
-import { UpdateQuantity } from "../components/product/UpdateQuantity";
-import { getError } from "../utils/error";
-import AuthContext from "../utils/User";
+import { useDispatch, useSelector } from "react-redux";
+import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
+import Layout from "../../components/common/Layout";
+import ProductList from "../../components/product/ProductList";
+import AuthContext from "../../context/authContext";
+import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
+import { getError } from "../../utils/error";
 
 const CartScreen = () => {
-  const router = useRouter();
-  const { user, isLogin } = useContext(AuthContext);
-  const [cartDetailByUserId, setCartDetailByUserId] = useState([]);
-  const [cartTotalPrice, setCartTotalPrice] = useState("");
-  const { productVariant } = cartDetailByUserId;
-  const [qty, setQty] = useState(0);
-  const basUrl = process.env.NEXT_PUBLIC_API_URL;
-  const [isOpen, setIsOpen] = useState(false);
-  function refreshPage() {
-    window.location.reload(true);
-  }
-
-  // get cart detail by user id
-
+  const { isLogin, user } = useContext(AuthContext);
+  const cartDetail = useSelector((state) => state.cart.cartDetail);
+  const { cart, itemToShops } = cartDetail;
+  const dispatch = useDispatch();
+  const prevCartDetailRef = useRef();
   useEffect(() => {
+    if (
+      !prevCartDetailRef.current ||
+      prevCartDetailRef.current !== cartDetail
+    ) {
+      prevCartDetailRef.current = cartDetail;
+    }
     const getCartDetail = async () => {
-      if (Cookies.get("cart") != null) {
-        if (isLogin == true) {
-          try {
-            await axios
-              .get(`${basUrl}/cart/1.0.0/cart/${user.id}/detail`)
-              .then(function (response) {
-                const { data } = response;
-                const { cart, itemToShops } = data;
-                const { totalPrice } = cart;
-                setCartTotalPrice(totalPrice);
-                setCartDetailByUserId(itemToShops);
-              })
-              .catch(function (error) {
-                console.error(getError(error));
-              });
-          } catch (error) {
-            console.log(getError(error));
-          }
-        }
+      try {
+        const response = await dispatch(getCartDetailByUserId(user.id));
+      } catch (error) {
+        console.log(error);
       }
     };
     getCartDetail();
-  }, [user.id]);
-  useEffect(() => {}, []);
+  }, [dispatch, user.id]);
+
+  console.group("cartDetail");
+  console.log({ cartDetail });
+  console.groupEnd();
 
   return (
     <Layout title="Giỏ hàng">
@@ -67,12 +49,12 @@ const CartScreen = () => {
               height="12"
               viewBox="0 0 20 12"
               width="20"
-              class="shopee-svg-icon _7DXJyE icon-free-shipping"
+              className="shopee-svg-icon _7DXJyE icon-free-shipping"
             >
-              <g fill="none" fill-rule="evenodd" transform="">
+              <g fill="none" fillRule="evenodd" transform="">
                 <rect
                   fill="#00bfa5"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   height="9"
                   rx="1"
                   width="12"
@@ -88,7 +70,7 @@ const CartScreen = () => {
                 ></rect>
                 <rect
                   fill="#00bfa5"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   height="7"
                   rx="1"
                   width="7"
@@ -142,7 +124,7 @@ const CartScreen = () => {
         {/* product details */}
 
         <div className="w-[1200px] mx-auto pb-3">
-          {cartDetailByUserId.map(
+          {/* {cartDetailByUserId.map(
             ({ totalPrice, quantity, productVariant, id }) => (
               <>
                 <div
@@ -177,7 +159,7 @@ const CartScreen = () => {
                 </div>
               </>
             )
-          )}
+          )} */}
         </div>
         <div className="w-[1200px] mx-auto transition ease-in duration-100 shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] scroll-smooth hover:scroll-auto sticky bottom-0 z-2">
           <div className=" bg-white rounded shadow p-3 mb-3">
@@ -192,88 +174,10 @@ const CartScreen = () => {
                 <>
                   <button
                     type="button"
-                    onClick={refreshPage}
                     className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-rose-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                   >
                     Cập nhật
                   </button>
-
-                  <Transition appear show={isOpen} as={Fragment}>
-                    <Dialog as="div" className="relative z-10">
-                      <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                      >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
-                      </Transition.Child>
-
-                      <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                          <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 scale-95"
-                            enterTo="opacity-100 scale-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100 scale-100"
-                            leaveTo="opacity-0 scale-95"
-                          >
-                            <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                              <Dialog.Title
-                                as="h3"
-                                className="text-lg font-medium leading-6 text-gray-900"
-                              >
-                                Chọn voucher
-                              </Dialog.Title>
-                              <div className="mt-2">
-                                <div className="bg-gray-200 p-2">
-                                  <div className="flex items-center justify-evenly">
-                                    <span>Mã voucher</span>
-                                    <input
-                                      type="text"
-                                      placeholder="MÃ VOUCHER"
-                                      className="px-4 py-2 w-80 rounded"
-                                    />
-                                    <div
-                                      href="#_"
-                                      className="cursor-pointer rounded px-3 py-2 overflow-hidden group bg-rose-300 relative hover:bg-gradient-to-r hover:from-rose-500 hover:to-orange-400 text-rose-600 hover:text-black hover:ring-2 hover:ring-offset-2 hover:ring-orange-400 transition-all ease-out duration-300 border border-rose-600"
-                                    >
-                                      <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                                      <div className="flex items-center space-x-2 ">
-                                        <span className="relative">
-                                          Áp dụng{" "}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="mt-4 flex justify-end space-x-2">
-                                <button
-                                  type="button"
-                                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                >
-                                  Trở lại
-                                </button>
-                                <button
-                                  type="button"
-                                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                >
-                                  Áp dụng
-                                </button>
-                              </div>
-                            </Dialog.Panel>
-                          </Transition.Child>
-                        </div>
-                      </div>
-                    </Dialog>
-                  </Transition>
                 </>
               </div>
 
@@ -281,14 +185,8 @@ const CartScreen = () => {
 
               <div className="w-full border-b mb-3 py-1 flex items-end justify-end col-span-4 space-x-10">
                 <span>
-                  Tổng thanh toán ({cartDetailByUserId.length} sản phẩm) :
-                  <span className="text-rose-600 text-4xl">
-                    {" "}
-                    {cartTotalPrice.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
-                  </span>
+                  Tổng thanh toán sản phẩm
+                  <span className="text-rose-600 text-4xl"> </span>
                 </span>
                 <Link href="/checkout">
                   <a className="cursor-pointer rounded px-5 py-2.5 overflow-hidden group bg-rose-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">

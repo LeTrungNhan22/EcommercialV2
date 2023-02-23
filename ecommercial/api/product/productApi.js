@@ -9,7 +9,7 @@ const productApi = {
     const url = "/product/1.0.0/product/industrials";
     return axiosClient.get(url);
   },
-  getProductVariantsById: (id) => {
+  getProductVariantById: (id) => {
     const url = `/product/1.0.0/product-variant/${id}`;
     return axiosClient.get(url);
   },
@@ -21,6 +21,7 @@ const productApi = {
     const url = `/product/1.0.0/product/${id}/detail`;
     return axiosClient.get(url);
   },
+
 };
 
 export default productApi;

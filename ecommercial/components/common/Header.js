@@ -7,10 +7,11 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useContext } from "react";
 import { useDispatch } from "react-redux";
 import AuthContext from "../../context/authContext";
 import SearchBar from "./SearchBar";
+import logo from "../../assets/logo/mainLogo.png";
 
 const Header = () => {
   const router = useRouter();
@@ -23,15 +24,16 @@ const Header = () => {
 
   return (
     <header className="p-5 sticky z-50 top-0 bg-white md:px-10 shadow-md grid grid-cols-1 md:grid-cols-3">
-      <div className="relative hidden md:flex items-center h-10">
+      <div className="relative hidden md:flex items-center h-10 ">
         <Link href="/">
           <a href="">
             <Image
-              src="https://links.papareact.com/qd3"
+              src={logo}
               layout="fill"
               alt=""
               objectFit="contain"
               objectPosition="left"
+              className="shadow-md"
             />
           </a>
         </Link>

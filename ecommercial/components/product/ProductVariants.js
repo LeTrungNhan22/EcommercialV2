@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { default as React, useEffect, useState } from "react";
+import { default as React, useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import {
   FaDollarSign,
   FaFacebook,
@@ -7,18 +8,24 @@ import {
   FaShoppingBag,
   FaTwitter,
 } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import cartApi from "../../api/cart/cartApi";
+import AuthContext from "../../context/authContext";
+import { addToCart, createCartItems } from "../../redux/cart/cartSlice";
+import { getProductVariantById } from "../../redux/product/productDetailSlice";
 
 export default function ProductVariants({ product, variants }) {
   const [originalPrice, setOriginalPrice] = useState(0);
   const [productSingle, setProductSingle] = useState({});
   const [dimension, setDimension] = useState(null);
-  const [selectedVariant, setSelectedVariant] = useState(false);
-
-  useEffect(() => {
-    console.log("Run something");
-  }, []);
+  const [selectedVariant, setSelectedVariant] = useState(null);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const { isLogin, user } = useContext(AuthContext);
+  const [variantDetail, setVariantDetail] = useState({});
+  const [cartDetail, setCartDetail] = useState({});
 
   useEffect(() => {
     setProductSingle(product);
@@ -30,6 +37,9 @@ export default function ProductVariants({ product, variants }) {
   }
 
   if (product === null) {
+    return <div>Loading....</div>;
+  }
+  if (variantDetail === null) {
     return <div>Loading....</div>;
   }
 
@@ -51,12 +61,111 @@ export default function ProductVariants({ product, variants }) {
     });
     setOriginalPrice(price);
     setDimension(dimension);
+    getVariantDetail(variantId);
   };
 
   // console.group("productVariants");
   // console.log({ product: productSingle, variants: variants });
   // console.log({ dimension: dimension });
   // console.groupEnd();
+
+  // increment
+  const incrementQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+  const decrementQuantity = () => {
+    // decrement not less than 1
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    } else {
+      setQuantity(1);
+    }
+  };
+  const handleAddToCart = async (productAddToCart) => {
+    if (isLogin == false) {
+      toast.error("Bạn cần đăng nhập để thực hiện chức năng này");
+      return;
+    }
+    if (dimension == null) {
+      toast.error("Hãy chọn một loại sản phẩm");
+      setSelectedVariant(false);
+    } else {
+      setSelectedVariant(true);
+      const {
+        options,
+        name,
+        shopId,
+        industrialId,
+        industrialTypeName,
+        description,
+        featuredImageUrl,
+      } = productAddToCart;
+      try {
+        const addToCartAction = dispatch(
+          addToCart({
+            quantity,
+            options,
+            name,
+            shopId,
+            industrialId,
+            industrialTypeName,
+            description,
+            featuredImageUrl,
+            options,
+          })
+        );
+
+        try {
+          const response = await cartApi.getCartDetailByUserId(user?.id);
+          if (response.cart !== null) {
+            const { cart } = response;
+            setCartDetail(cart);
+            const data = {
+              cartId: cart?.id,
+              productVariant: variantDetail,
+              quantity: quantity,
+              shopId: shopId,
+            };
+            // create cart item to api
+            try {
+              const response = await cartApi.createCartItems(data);
+              // console.log({ response: response });
+            } catch (err) {
+              console.log(err);
+            }
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+  const getVariantDetail = async (variantId) => {
+    try {
+      const response = await dispatch(getProductVariantById(variantId));
+      if (response.payload === null) {
+        return;
+      } else {
+        console.log({ response: response.payload });
+        setVariantDetail(response.payload);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getCartDetailByUserId = async () => {
+    try {
+      const response = await cartApi.getCartDetailByUserId(user?.id);
+      const { cart } = response;
+      setCartDetail(cart);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // console.log({ variantDetail: variantDetail, cartDetail: cartDetail });
 
   return (
     <>
@@ -200,24 +309,43 @@ export default function ProductVariants({ product, variants }) {
                 </div>
               </div>
             </div>
-            <div className="mt-4 grid grid-cols-4 space-x-5 items-center">
+            <div className="mt-4 grid grid-cols-4 space-x-5 items-center mb-3">
               <h3 className="text-md text-gray-800 uppercase font-medium">
                 Số lượng
               </h3>
               <div>
                 <div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
-                  <div className="text-green-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer">
+                  <div
+                    onClick={() => {
+                      decrementQuantity();
+                    }}
+                    className="text-green-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                  >
                     -
                   </div>
                   <div className="select-none font-semibold text-black h-8 w-8 text-base flex items-center justify-center">
-                    1
+                    {quantity}
                   </div>
-                  <div className=" text-red-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer">
+                  <div
+                    onClick={() => {
+                      incrementQuantity();
+                    }}
+                    className=" text-red-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                  >
                     +
                   </div>
                 </div>
               </div>
             </div>
+
+            {selectedVariant == null ? (
+              ""
+            ) : selectedVariant == false ? (
+              <span className="text-red-500">
+                Hãy chọn một loại sản phẩm để thêm vào giỏ hàng
+              </span>
+            ) : null}
+
             <div className="flex gap-3 border-b border-gray-200 pb-5 mt-6">
               <div
                 href="#_"
@@ -226,7 +354,12 @@ export default function ProductVariants({ product, variants }) {
                 <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                 <div className="flex items-center space-x-2">
                   <FaShoppingBag />
-                  <span className="relative">Thêm vào giỏ hàng</span>
+                  <button
+                    onClick={() => handleAddToCart(productSingle)}
+                    className="relative"
+                  >
+                    Thêm vào giỏ hàng
+                  </button>
                 </div>
               </div>
               <div

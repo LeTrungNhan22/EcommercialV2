@@ -6,15 +6,16 @@ const initialState = {
   errorMessage: "",
   message: "",
   product: {},
-  variants: [],
+  variant: {},
   shop: {},
+  variants: [],
 };
 
-export const getProductVariantsById = createAsyncThunk(
+export const getProductVariantById = createAsyncThunk(
   "product/getProductVariantsById",
   async (payload, thunkAPI, productVariantId) => {
     try {
-      const response = await productApi.getProductVariantsById(
+      const response = await productApi.getProductVariantById(
         payload,
         productVariantId
       );
@@ -59,15 +60,15 @@ export const productDetailSlice = createSlice({
   extraReducers: (builder) => {
     // getProductVariantsById
     builder
-      .addCase(getProductVariantsById.pending, (state, action) => {
+      .addCase(getProductVariantById.pending, (state, action) => {
         state.loading = true;
       })
 
-      .addCase(getProductVariantsById.fulfilled, (state, action) => {
+      .addCase(getProductVariantById.fulfilled, (state, action) => {
         state.loading = false;
-        state.variants = action.payload;
+        state.variant = action.payload;
       })
-      .addCase(getProductVariantsById.rejected, (state, action) => {
+      .addCase(getProductVariantById.rejected, (state, action) => {
         state.loading = false;
         state.errorMessage = action.payload.message;
       });

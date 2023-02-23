@@ -35,7 +35,7 @@ const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
               className="bg-white shadow-md rounded overflow-hidden group p-3 hover:shadow-xl transition"
               key={id}
             >
-              <div className="relative h-[200px] w-full">
+              <div className="relative h-[200px]  w-full">
                 <div>
                   <Image
                     src={featuredImageUrl}

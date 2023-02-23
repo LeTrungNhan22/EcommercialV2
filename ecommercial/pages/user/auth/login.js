@@ -54,7 +54,7 @@ const LoginScreen = () => {
         };
         await dispatch(getCustomerInfo(loginData));
         toast.success("Đăng nhập thành công");
-        router.push("/");
+        router.back();
       } else {
         throw new Error(data.message);
       }
