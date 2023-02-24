@@ -1,22 +1,18 @@
 import React from "react";
 
-import Topbar from "./components/topbar/Topbar";
-import Sidebar from "./components/sidebar/Sidebar";
 import "./app.css";
-import Home from "./pages/home/Home";
-import UserList from "./pages/userList/UserList";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
-import User from "./pages/user/User";
-import NewUser from "./pages/newUser/NewUser";
-import ProductList from "./pages/productList/ProductList";
-import Product from "./pages/product/Product";
-import NewProduct from "./pages/newProduct/NewProduct";
+import Sidebar from "./components/sidebar/Sidebar";
+import Topbar from "./components/topbar/Topbar";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import UserList from "./features/User/components/userList/UserList";
+import Home from "./features/Home/Home";
+import ProductList from "./features/Product/components/productList/ProductList";
+import Product from "./features/Product/index/product/Product";
+import NewProduct from "./features/Product/pages/newProduct/NewProduct";
+import User from "./features/User/index/user/User";
+import NewUser from "./features/User/pages/newUser/NewUser";
+
 function App() {
   return (
     <div className="App">
@@ -25,27 +21,13 @@ function App() {
         <div className="container">
           <Sidebar />
           <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/users">
-              <UserList />
-            </Route>
-            <Route path="/user/:userId">
-              <User />
-            </Route>
-            <Route path="/newUser">
-              <NewUser />
-            </Route>
-            <Route path="/products">
-              <ProductList />
-            </Route>
-            <Route path="/product/:productId">
-              <Product />
-            </Route>
-            <Route path="/newProduct">
-              <NewProduct />
-            </Route>
+            <Route exact path="/" component={Home}></Route>
+            <Route path="/users" component={UserList}></Route>
+            <Route path="/user/:userId" component={User}></Route>
+            <Route path="/newUser" component={NewUser}></Route>
+            <Route path="/products" component={ProductList}></Route>
+            <Route path="/product/:productId" component={Product} />
+            <Route path="/newProduct" component={NewProduct}></Route>
           </Switch>
         </div>
       </Router>

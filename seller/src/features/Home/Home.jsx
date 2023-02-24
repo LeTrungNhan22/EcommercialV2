@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "../../components/chart/Chart";
 import FeaturedInfor from "../../components/featuredInfor/FeaturedInfor";
-import "./Home.css";
+import "./Home.scss";
 import { userData } from "../../dummyData";
 import WidgetSm from "../../components/WidgetSmall/WidgetSm";
 import WidgetLg from "../../components/WidgetLarge/WidgetLg";
@@ -16,7 +16,7 @@ export default function Home() {
         grid
         dataKey="Active User"
       />
-      <div className="homeWidgets">
+      <div className="home__widgets">
         <WidgetSm />
         <WidgetLg />
       </div>

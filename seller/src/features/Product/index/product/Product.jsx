@@ -1,8 +1,9 @@
 import { Publish } from "@mui/icons-material";
 import React from "react";
 import { Link } from "react-router-dom";
-import Chart from "../../components/chart/Chart";
-import { productData } from "../../dummyData";
+import Chart from "../../../../components/chart/Chart";
+import { productData } from "../../../../dummyData";
+
 import "./Product.css";
 
 export default function Product() {
