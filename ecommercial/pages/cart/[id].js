@@ -1,13 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FaDollarSign } from "react-icons/fa";
+import { FaDollarSign, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/Breadcrumb/BreadCrumb";
 import Layout from "../../components/Common/Layout";
 import ProductList from "../../components/Product/ProductList";
 import AuthContext from "../../context/authContext";
-import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
+import {
+  getCartDetailByUserId,
+  updateQuantityCartItem,
+} from "../../redux/cart/cartSlice";
 
 const CartScreen = () => {
   const { isLogin, user } = useContext(AuthContext);
@@ -22,6 +25,7 @@ const CartScreen = () => {
 
   const dispatch = useDispatch();
   const prevCartDetailRef = useRef();
+
   useEffect(() => {
     if (
       !prevCartDetailRef.current ||
@@ -39,14 +43,27 @@ const CartScreen = () => {
     getCartDetail();
   }, [dispatch, user.id]);
 
+  const handleUpdateQuantity = async (cartItemId, newQuantity) => {
+    try {
+      const response = await dispatch(
+        updateQuantityCartItem({ cartItemId, quantity: newQuantity })
+      );
+      console.log({ response: response });
+      dispatch(getCartDetailByUserId(user.id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   console.group("cartDetail");
   console.log({ cartDetail: cartDetail });
+  console.log({ itemToShops: itemToShops });
   console.groupEnd();
 
   return (
     <Layout title="Giỏ hàng">
       <div className="py-2">
-        <BreadCrumb title={`Giỏ Hàng`} />
+        <BreadCrumb title={`Giỏ Hàng`} userId={user?.id} />
       </div>
       <div className="bg-gray-300">
         <div className="w-[1200px] mx-auto py-2">
@@ -131,7 +148,7 @@ const CartScreen = () => {
                         VariantId: {item.productVariant.id}
                       </span>
                     </p>
-                    <div className="flex items-center justify-between w-full pt-2">
+                    <div className="flex items-center justify-between w-full pt-2 border-b border-gray-600 py-2 mb-2">
                       <p className="text-2xl font-black leading-none text-gray-800">
                         {item.productVariant.productName}
                       </p>
@@ -140,7 +157,6 @@ const CartScreen = () => {
                         {item.productVariant.price.amount}
                         {item.productVariant.price.currencyCode}
                       </p>
-                      
                     </div>
                     <p className="text-md leading-3 text-gray-600 pt-2">
                       <div className=" flex items-center text-gray-500">
@@ -158,25 +174,33 @@ const CartScreen = () => {
                     <p className="w-96 text-md leading-3 text-gray-600">
                       ShopId : {item.shopId}
                     </p>
-                    <div className="flex items-center justify-between pt-5 ">
-                      <div className="flex itemms-center">
-                        <p className="text-md leading-3 underline text-gray-800 cursor-pointer">
-                          Add to favorites
+                    <div className="flex  justify-between  ">
+                      <div className="flex items-center text-red-500 cursor-pointer">
+                        <p className="text-md leading-3 underline mr-3  ">
+                          Xóa khỏi giỏ hàng
                         </p>
-                        <p className="text-md leading-3 underline text-red-500 pl-5 cursor-pointer">
-                          Remove
-                        </p>
+                        <FaTrashAlt />
                       </div>
                       <div>
                         <div className="flex justify-around mx-3 w-full pt-2">
                           <div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
-                            <div className="text-green-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer">
+                            <div
+                              onClick={() =>
+                                handleUpdateQuantity(item.id, item.quantity - 1)
+                              }
+                              className="text-green-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                            >
                               -
                             </div>
                             <div className="select-none font-semibold text-black h-8 w-8 text-base flex items-center justify-center">
                               {item.quantity}
                             </div>
-                            <div className=" text-red-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer">
+                            <div
+                              onClick={() =>
+                                handleUpdateQuantity(item.id, item.quantity + 1)
+                              }
+                              className=" text-red-500 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                            >
                               +
                             </div>
                           </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { FaChevronRight, FaHome } from "react-icons/fa";
 
-const BreadCrumb = ({ pid, title, industrialTypeName }) => {
+const BreadCrumb = ({ pid, title, industrialTypeName, userId }) => {
   return (
     <>
       {/* breadcrumb */}
@@ -12,7 +12,6 @@ const BreadCrumb = ({ pid, title, industrialTypeName }) => {
             <FaHome />
           </a>
         </Link>
-
         <span className="text-sm text-gray-00">
           <FaChevronRight />
         </span>
@@ -28,6 +27,16 @@ const BreadCrumb = ({ pid, title, industrialTypeName }) => {
         )}
         <Link href={`/product/${pid}`}>
           <a className="text-rose-800 font-medium">{title}</a>
+        </Link>
+        {userId != null ? (
+          <span className="text-sm text-gray-00">
+            <FaChevronRight />
+          </span>
+        ) : (
+          ""
+        )}
+        <Link href={`/user/account/profile`}>
+          <a className="text-rose-800 font-medium">{userId}</a>
         </Link>
       </div>
       {/* breadcrumb */}

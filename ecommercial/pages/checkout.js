@@ -1,15 +1,13 @@
-import { Dialog, Transition } from "@headlessui/react";
-import { PlusIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
-import { dataDigitalBestSeller } from "../data/mock-data";
+
 import { getError } from "../utils/error";
 import AuthContext from "../utils/User";
 

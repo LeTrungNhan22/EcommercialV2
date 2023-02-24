@@ -1,9 +1,39 @@
 import Head from "next/head";
-import React from "react";
+import React, { useContext, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AuthContext from "../../context/authContext";
+import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
 import Footer from "./Footer";
 import Header from "./Header";
 
 const Layout = ({ title, children }) => {
+  const cartDetail = useSelector((state) => state.cart.cartDetail);
+  const { itemToShops } = cartDetail;
+  const { isLogin, user, logoutContext } = useContext(AuthContext);
+
+  if (user === null || cartDetail === null) {
+    return <div>Không tìm thấy thông tin giỏ hàng</div>;
+  }
+
+  const dispatch = useDispatch();
+  const prevCartDetailRef = useRef();
+  useEffect(() => {
+    if (
+      !prevCartDetailRef.current ||
+      prevCartDetailRef.current !== cartDetail
+    ) {
+      prevCartDetailRef.current = cartDetail;
+    }
+    const getCartDetail = async () => {
+      try {
+        const response = await dispatch(getCartDetailByUserId(user.id));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCartDetail();
+  }, [dispatch, user.id]);
+
   return (
     <div>
       <Head>
@@ -13,7 +43,7 @@ const Layout = ({ title, children }) => {
       </Head>
       {/* Header */}
 
-      <Header />
+      <Header cartAmount={itemToShops?.length} itemToShops={itemToShops} />
       {/* Header */}
       <main>{children}</main>
       <Footer />

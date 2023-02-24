@@ -32,6 +32,21 @@ export const getCartDetailByUserId = createAsyncThunk(
     }
   }
 );
+export const updateQuantityCartItem = createAsyncThunk(
+  "cart/updateQuantityCartItem",
+  async ({ cartItemId, quantity }, payload, thunkAPI) => {
+    try {
+      const response = await cartApi.updateQuantityCartItem(
+        cartItemId,
+        quantity,
+        payload
+      );
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const cartSlice = createSlice({
   name: "cart",
@@ -83,7 +98,20 @@ const cartSlice = createSlice({
     builder.addCase(getCartDetailByUserId.rejected, (state, action) => {
       state.loading = false;
     });
-    //create cart item
+    //update quantity cart item
+    builder.addCase(updateQuantityCartItem.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateQuantityCartItem.fulfilled, (state, action) => {
+      state.loading = false;
+      state.cartDetail = {
+        ...action.payload.cart,
+        itemToShops: action.payload.itemToShops,
+      };
+    });
+    builder.addCase(updateQuantityCartItem.rejected, (state, action) => {
+      state.loading = false;
+    });
   },
 });
 

@@ -10,5 +10,9 @@ const cartApi = {
     const url = `/cart/1.0.0/cart/1677049250644450/detail`;
     return axiosClient.get(url);
   },
+  updateQuantityCartItem: (cartItemId, quantity) => {
+    const url = `/cart/1.0.0/cart-item/${cartItemId}/update-quantity?quantity=${quantity}`;
+    return axiosClient.put(url);
+  },
 };
 export default cartApi;
