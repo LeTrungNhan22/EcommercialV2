@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
@@ -23,6 +23,7 @@ const UserInforScreen = ({
     handleSubmit,
     formState: { errors },
     getValues,
+    setValue,
   } = useForm();
   const dispatch = useDispatch();
 
@@ -38,7 +39,8 @@ const UserInforScreen = ({
       email: emailInput === "" ? email : emailInput,
       fullName: fullNameInput === "" ? fullName : fullNameInput,
       telephone: telephoneInput === "" ? telephone : telephoneInput,
-      gender: genderInput === "" ? gender : genderInput,
+      gender:
+        getValues("genderInput") === "" ? gender : getValues("genderInput"),
       username: usernameInput === "" ? username : usernameInput,
       birthday: birthdayInput === "" ? birthday : birthdayInput,
     };
@@ -46,6 +48,16 @@ const UserInforScreen = ({
     const response = await dispatch(updateInfoBasic({ userId, data }));
     const getUserById = await dispatch(getUserInfoById({ userId }));
   };
+  const [genderCurrent, setGenderCurrent] = useState(gender || "");
+
+  useEffect(() => {
+    if (gender !== undefined && gender !== "") {
+      setGenderCurrent(gender);
+    }
+    if (gender) {
+      setValue("genderInput", gender);
+    }
+  }, [gender, setValue]);
 
   return (
     <div>
@@ -125,25 +137,18 @@ const UserInforScreen = ({
                 </label>
                 <select
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  typeof="text"
                   name="genderInput"
                   id="genderInput"
-                  {...register(
-                    "genderInput",
-                    {
-                      required: "Hãy chọn giới tính",
-                    },
-                    {
-                      defaultValue: gender || "",
-                    }
-                  )}
+                  {...register("genderInput", {
+                    required: "Hãy chọn giới tính",
+                  })}
                 >
                   <option value="">Chọn giới tính</option>
                   <option value="MAN">Nam</option>
                   <option value="WOMEN">Nữ</option>
                   <option value="OTHER">Khác</option>
                 </select>
-                {errors?.genderInput?.type === "required" && (
+                {errors?.genderInput?.message && (
                   <p className="text-red-500">{errors.genderInput.message}</p>
                 )}
               </div>
@@ -199,7 +204,7 @@ const UserInforScreen = ({
           <div className="mt-6">
             <button
               type="submit"
-              className="w-1/4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-3"
+              className="w-1/4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 cursor-pointer hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-3"
             >
               Cập nhật thông tin
             </button>
