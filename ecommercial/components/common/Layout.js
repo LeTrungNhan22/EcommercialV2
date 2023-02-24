@@ -17,6 +17,7 @@ const Layout = ({ title, children }) => {
 
   const dispatch = useDispatch();
   const prevCartDetailRef = useRef();
+
   useEffect(() => {
     if (
       !prevCartDetailRef.current ||
@@ -25,8 +26,12 @@ const Layout = ({ title, children }) => {
       prevCartDetailRef.current = cartDetail;
     }
     const getCartDetail = async () => {
+      const userId = user?.id;
+      if (userId === undefined) {
+        return;
+      }
       try {
-        const response = await dispatch(getCartDetailByUserId(user.id));
+        const response = await dispatch(getCartDetailByUserId({ userId }));
       } catch (error) {
         console.log(error);
       }

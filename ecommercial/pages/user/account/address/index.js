@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
 import Layout from "../../../../components/common/Layout";
-import SideBar from "../../../../components/user-profile/SideBar";
-import UserAddress from "../../../../components/user-profile/UserAddress";
+import SideBar from "../../../../components/UserProfile/SideBar";
+import UserAddress from "../../../../components/UserProfile/UserAddress";
 import AuthContext from "../../../../utils/User";
 
 const UserAddressScreen = () => {

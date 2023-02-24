@@ -7,7 +7,7 @@ const cartApi = {
     return axiosClient.post(url, data);
   },
   getCartDetailByUserId: (userId) => {
-    const url = `/cart/1.0.0/cart/1677049250644450/detail`;
+    const url = `/cart/1.0.0/cart/${userId}/detail`;
     return axiosClient.get(url);
   },
   updateQuantityCartItem: (cartItemId, quantity) => {

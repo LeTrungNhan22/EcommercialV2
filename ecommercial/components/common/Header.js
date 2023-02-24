@@ -42,21 +42,19 @@ const Header = ({ cartAmount, itemToShops }) => {
       </div>
       <Searchbar />
       <div className="items-center space-x-1 justify-end hidden md:flex">
-        <Link href={`/cart/${user?.id}`}>
+        <div className={`flex items-center justify-center`}>
           <div
             onMouseEnter={() => setIsShowed(true)}
-            className={`flex items-center justify-center`}
+            className="text-gray-700 lg:text-lg md:text-sm flex items-center hover:bg-gray-100 p-1  rounded-full transition duration-200 cursor-pointer"
           >
-            <div className="text-gray-700 lg:text-lg md:text-sm flex items-center hover:bg-gray-100 p-1  rounded-full transition duration-200 cursor-pointer">
-              <ShoppingCartIcon className="h-10 p-1  hover:bg-gray-100 rounded-full transition duration-200 cursor-pointer" />
-              {cartAmount != 0 ? (
-                <span className="absolute bg-red-500 w-5 h-5 text-white text-base text-center rounded-full top-5 right-[1] flex justify-center items-center">
-                  {cartAmount}
-                </span>
-              ) : null}
-            </div>
+            <ShoppingCartIcon className="h-10 p-1  hover:bg-gray-100 rounded-full transition duration-200 cursor-pointer" />
+            {cartAmount != 0 ? (
+              <span className="absolute bg-red-500 w-5 h-5 text-white text-base text-center rounded-full top-5 right-[1] flex justify-center items-center">
+                {cartAmount}
+              </span>
+            ) : null}
           </div>
-        </Link>
+        </div>
 
         <div
           className={`absolute top-12 right-56 z-50 flex ${
@@ -67,7 +65,7 @@ const Header = ({ cartAmount, itemToShops }) => {
             className="w-screen max-w-sm border border-gray-200 rounded bg-gray-100 shadow-md  sm:p-4 lg:p-8"
             aria-modal="true"
             role="dialog"
-            tabindex="-1"
+            tabIndex="-1"
           >
             <button
               type="button"
@@ -79,13 +77,13 @@ const Header = ({ cartAmount, itemToShops }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 className="h-5 w-5"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>

@@ -13,8 +13,9 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import facebookLogo from "../../../assets/icon/facebook.png";
 import googleLogo from "../../../assets/icon/google.png";
-import { getCustomerInfo, loginUser } from "../../../redux/auth/authSlice";
+import { getCustomerInfoByToken, loginUser } from "../../../redux/auth/authSlice";
 import { getError } from "../../../utils/error";
+import Footer from "../../../components/Common/Footer";
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -52,7 +53,7 @@ const LoginScreen = () => {
           "code-token": token,
           "service-type": "NORMALLY",
         };
-        await dispatch(getCustomerInfo(loginData));
+        await dispatch(getCustomerInfoByToken(loginData));
         toast.success("Đăng nhập thành công");
         router.back();
       } else {
@@ -91,8 +92,8 @@ const LoginScreen = () => {
           <p>Bạn cần hỗ trợ?</p>
         </div>
       </header>
-      <main className="min-h-screen overflow-hidden bg-gray-200 ">
-        <section className="bg-white   w-[370px] md:w-[470px]  mx-auto my-10  rounded-md shadow-md">
+      <main className="min-h-screen overflow-hidden bg-gradient-to-r from-[#ff4066] to-[#fff16a] ">
+        <section className="bg-white  bg-opacity-90   w-[370px] md:w-[500px]  mx-auto my-10  rounded-md drop-shadow-lg">
           <div className="p-5">
             <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center">
               Đăng nhập
@@ -219,6 +220,7 @@ const LoginScreen = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 };

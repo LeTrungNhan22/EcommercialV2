@@ -9,8 +9,6 @@ import AuthContext from "../../utils/User";
 
 export default function UserAddress({ fullName, telephone }) {
   const basUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { user, userById, logout, isLogin, updateUserAddress } =
-    useContext(AuthContext);
 
   // pop up voucher
   const [isOpen, setIsOpen] = useState(false);
@@ -275,26 +273,6 @@ export default function UserAddress({ fullName, telephone }) {
                           </div>
                         )}
 
-                        {/* <div className="mt-2">
-                          <div>
-                            <span>Loại địa chỉ:</span>
-                            <div className="mt-4 flex space-x-2">
-                              <button
-                                type="button"
-                                class="text-gray-900 bg-white border  focus:outline-none  focus:ring-1 focus:ring-rose-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                              >
-                                Nhà Riêng
-                              </button>
-                              <button
-                                type="button"
-                                class="text-gray-900 bg-white border  focus:outline-none  focus:ring-1 focus:ring-rose-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                              >
-                                Văn Phòng
-                              </button>
-                            </div>
-                          </div>
-                        </div> */}
-
                         <div className="flex items-center ml-2 mt-4">
                           <span className="mr-2">
                             <input type="checkbox" />
@@ -344,11 +322,11 @@ export default function UserAddress({ fullName, telephone }) {
 
         <div className="grid grid-cols-4 mx-auto items-center justify-center px-4 pb-6">
           <div className=" flex flex-col">
-            <span>{userById.fullName}</span>
-            <span className="font-bold">{userById.telephone}</span>
+            {/* <span>{userById.fullName}</span> */}
+            {/* <span className="font-bold">{userById.telephone}</span> */}
           </div>
           <div className="col-span-2">
-            <p>{userById.address?.address1}</p>
+            {/* <p>{userById.address?.address1}</p> */}
           </div>
           <div className="space-x-10 mx-auto">
             <>

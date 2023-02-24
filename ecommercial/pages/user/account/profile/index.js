@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
 import Layout from "../../../../components/common/Layout";
-import SideBar from "../../../../components/user-profile/SideBar";
+import SideBar from "../../../../components/UserProfile/SideBar";
 import AuthContext from "../../../../context/authContext";
 
 const UserProfileScreen = () => {
@@ -12,7 +12,6 @@ const UserProfileScreen = () => {
   useEffect(() => {
     setUserProfile(user);
   }, []);
-  
 
   return (
     <Layout title={`Profile`}>

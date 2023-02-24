@@ -18,6 +18,7 @@ const CartScreen = () => {
   const { totalPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
   const [updateTotalPrice, setUpdateTotalPrice] = useState(totalPrice);
   const [updateTotalQuantity, setUpdateTotalQuantity] = useState(totalQuantity);
+  console.log(user);
 
   if (user === null || cartDetail === null) {
     return <div>Không tìm thấy thông tin giỏ hàng</div>;
@@ -34,8 +35,12 @@ const CartScreen = () => {
       prevCartDetailRef.current = cartDetail;
     }
     const getCartDetail = async () => {
+      const userId = user?.id;
+      if (userId === undefined) {
+        return;
+      }
       try {
-        const response = await dispatch(getCartDetailByUserId(user.id));
+        const response = await dispatch(getCartDetailByUserId({ userId }));
       } catch (error) {
         console.log(error);
       }

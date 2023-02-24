@@ -23,9 +23,9 @@ export const createCartItems = createAsyncThunk(
 );
 export const getCartDetailByUserId = createAsyncThunk(
   "cart/getCartDetailByUserId",
-  async (userId, payload, thunkAPI) => {
+  async ({userId}, payload, thunkAPI) => {
     try {
-      const response = await cartApi.getCartDetailByUserId(payload, userId);
+      const response = await cartApi.getCartDetailByUserId(userId,payload);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

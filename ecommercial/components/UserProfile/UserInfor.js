@@ -1,177 +1,197 @@
-import axios from "axios";
-import moment from "moment/moment";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { getError } from "../../utils/error";
-import AuthContext from "../../utils/User";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserInfoById, updateInfoBasic } from "../../redux/auth/authSlice";
+import { formatDate } from "../../utils/formatDate";
 
 const UserInforScreen = ({
-  fullName,
   username,
+  fullName,
   imageUrl,
-  birthday,
   email,
+  birthday,
   telephone,
   gender,
   id,
+  address,
+  shop,
 }) => {
-  const convertDob = moment(birthday).format("YYYY-MM-DD");
-  const [dobApi, setDobApi] = useState("");
-  const [genderApi, setGenderApi] = useState("");
-
-  useEffect(() => {
-    setDobApi(convertDob);
-    setGenderApi(gender);
-  }, [convertDob, gender]);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
   } = useForm();
+  const dispatch = useDispatch();
 
-  const handleDob = (e) => {
-    const selectDob = e.target.value;
-    setDobApi(selectDob);
-  };
-  const handleGender = (e) => {
-    const selectGender = e.target.value;
-    setGenderApi(selectGender);
-  };
-
-  const { updateUserProfile } = useContext(AuthContext);
-  const submitHandler = async ({ email, fullName, telephone, gender }, e) => {
-    // var date = new Date(dobApi); // some mock date
-    // var dateMilliseconds = date.getTime();
-    console.log({ email, fullName, telephone, gender });
+  const submitHandler = async ({
+    emailInput,
+    fullNameInput,
+    telephoneInput,
+    genderInput,
+    usernameInput,
+    birthdayInput,
+  }) => {
+    const data = {
+      email: emailInput === "" ? email : emailInput,
+      fullName: fullNameInput === "" ? fullName : fullNameInput,
+      telephone: telephoneInput === "" ? telephone : telephoneInput,
+      gender: genderInput === "" ? gender : genderInput,
+      username: usernameInput === "" ? username : usernameInput,
+      birthday: birthdayInput === "" ? birthday : birthdayInput,
+    };
+    const userId = id;
+    const response = await dispatch(updateInfoBasic({ userId, data }));
+    const getUserById = await dispatch(getUserInfoById({ userId }));
   };
 
   return (
     <div>
       <div className="col-span-9 shadow rounded px-6 pt-5 pb-7 mt-6 lg:mt-0">
         <form onSubmit={handleSubmit(submitHandler)}>
-          <h3 className="text-lg font-medium capitalize mb-4">
+          <h3 className="block text-gray-700 text-2xl font-bold mt-3 mb-2">
             Thông tin tài khoản
           </h3>
-          <div className="space-y-4">
+          <div className="">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-gray-600 mb-2 block">username</label>
+                <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+                  Username
+                </label>
                 <input
-                  {...register("username", {
-                    required: false,
-                    pattern: {
-                      message: "Vui lòng nhập username",
-                    },
-                  })}
-                  id="username"
-                  name="username"
-                  type="text"
-                  className="input-box"
+                  id="usernameInput"
                   defaultValue={username}
+                  {...register("usernameInput", {
+                    maxLength: 20,
+                    required: username === "" ? true : false,
+                  })}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
                 />
-                {errors.username && (
-                  <p className="text-red-500 text-sm">
-                    {getError(errors.username)}
-                  </p>
+                {errors?.usernameInput?.type === "required" && (
+                  <p className="text-red-500">Vui lòng nhập tên người dùng</p>
+                )}
+                {errors?.usernameInput?.type === "maxLength" && (
+                  <p className="text-red-500">Username không quá 20 ký tự</p>
                 )}
               </div>
 
               <div>
-                <label className="text-gray-600 mb-2 block">Tên đầy đủ</label>
+                <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+                  Họ và Tên
+                </label>
                 <input
-                  {...register("fullName", {
-                    required: "fullName không thể trống",
-                    pattern: {
-                      message: "Vui lòng nhập fullName",
-                    },
-                  })}
-                  id="fullName"
-                  name="fullName"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
-                  className="input-box"
+                  id="fullNameInput"
                   defaultValue={fullName}
+                  {...register("fullNameInput", {
+                    required: fullName === "" ? true : false,
+                    pattern: /^[A-Za-z\\^\u00C0-\u1EF9. '-]+$/i,
+                  })}
                 />
-                {errors.fullName && (
-                  <p className="text-red-500 text-sm">
-                    {getError(errors.fullName)}
-                  </p>
+                {errors?.fullNameInput?.type === "pattern" && (
+                  <p className="text-red-500">Họ và tên không thể có số</p>
+                )}
+                {errors?.fullNameInput?.type === "required" && (
+                  <p className="text-red-500">Họ và tên không thể trống</p>
                 )}
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-gray-600 mb-2 block">Birthday</label>
+                <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+                  Ngày sinh
+                </label>
                 <input
+                  className="shadow  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="date"
-                  onChange={(e) => handleDob(e)}
-                  id="dob"
-                  name="dob"
-                  value={dobApi}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  id="birthdayInput"
+                  defaultValue={
+                    formatDate(birthday) === "NaN-NaN-NaN"
+                      ? ""
+                      : formatDate(birthday)
+                  }
+                  {...register("birthdayInput", {
+                    required: birthday === "" ? true : false,
+                  })}
                 />
               </div>
               <div>
-                <label className="text-gray-600 mb-2 block">Giới tính</label>
+                <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+                  Giới tính
+                </label>
                 <select
-                  {...register("gender", {})}
-                  value={genderApi === "MAN" ? "MAN" : "WOMEN"}
-                  className="input-box"
-                  onChange={(e) => handleGender(e)}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  typeof="text"
+                  name="genderInput"
+                  id="genderInput"
+                  {...register(
+                    "genderInput",
+                    {
+                      required: "Hãy chọn giới tính",
+                    },
+                    {
+                      defaultValue: gender || "",
+                    }
+                  )}
                 >
+                  <option value="">Chọn giới tính</option>
                   <option value="MAN">Nam</option>
                   <option value="WOMEN">Nữ</option>
+                  <option value="OTHER">Khác</option>
                 </select>
+                {errors?.genderInput?.type === "required" && (
+                  <p className="text-red-500">{errors.genderInput.message}</p>
+                )}
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="text-gray-600 mb-2 block">Email</label>
+                <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+                  Email
+                </label>
                 <input
-                  type="text"
-                  {...register("email", {
-                    required: false,
-                    pattern: {
-                      message: "Vui lòng nhập fullName",
-                    },
-                  })}
-                  id="email"
-                  name="email"
-                  className="input-box"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="email"
+                  id="emailInput"
+                  placeholder="example@gmail.com"
                   defaultValue={email}
+                  {...register("emailInput", {
+                    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    required: email === "" ? true : false,
+                  })}
                 />
-                {errors.email && (
-                  <p className="text-red-500 text-sm">
-                    {getError(errors.email)}
-                  </p>
+                {errors?.emailInput?.type === "pattern" && (
+                  <p className="text-red-500">Vui lòng nhập email hợp lệ</p>
+                )}
+                {errors?.emailInput?.type === "required" && (
+                  <p className="text-red-500">Email không thể trống</p>
                 )}
               </div>
               <div>
-                <label className="text-gray-600 mb-2 block">Phone Number</label>
+                <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
+                  Số điện thoại
+                </label>
                 <input
-                  {...register("telephone", {
-                    required: "fullName không thể trống",
-                    pattern: {
-                      message: "Vui lòng nhập fullName",
-                    },
-                  })}
-                  id="telephone"
-                  name="telephone"
-                  type="text"
-                  className="input-box"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="number"
+                  id="telephoneInput"
                   defaultValue={telephone}
+                  {...register("telephoneInput", {
+                    minLength: 8,
+                    required: telephone === "" ? true : false,
+                  })}
                 />
-                {errors.telephone && (
-                  <p className="text-red-500 text-sm">
-                    {getError(errors.telephone)}
+                {errors?.telephoneInput?.type === "minLength" && (
+                  <p className="text-red-500">
+                    Số điện thoại phải có ít nhất 8 số
                   </p>
+                )}
+                {errors?.telephoneInput?.type === "required" && (
+                  <p className="text-red-500">Vui lòng nhập số điện thoại</p>
                 )}
               </div>
             </div>
@@ -179,9 +199,9 @@ const UserInforScreen = ({
           <div className="mt-6">
             <button
               type="submit"
-              className="px-6 py-2 text-center text-white bg-rose-600 border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium"
+              className="w-1/4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-3"
             >
-              Thay đổi
+              Cập nhật thông tin
             </button>
           </div>
         </form>

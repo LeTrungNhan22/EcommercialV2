@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authApi from "../../api/auth/authApi";
+import { toast } from "react-hot-toast";
 
 const initialState = {
   user: {},
@@ -35,11 +36,35 @@ export const loginUser = createAsyncThunk(
   }
 );
 // get user info
-export const getCustomerInfo = createAsyncThunk(
+export const getCustomerInfoByToken = createAsyncThunk(
   "auth/getCustomerInfo",
   async (payload, thunkAPI) => {
     try {
-      const response = await authApi.getCustomerInfo(payload);
+      const response = await authApi.getCustomerInfoByToken(payload);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+// update user info
+export const updateInfoBasic = createAsyncThunk(
+  "auth/updateInfoBasic",
+  async ({ userId, data }, payload, thunkAPI) => {
+    try {
+      const response = await authApi.updateInfoBasic(userId, data, payload);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+// get user info by id
+export const getUserInfoById = createAsyncThunk(
+  "auth/getUserInfoById",
+  async ({ userId }, payload, thunkAPI) => {
+    try {
+      const response = await authApi.getUserInfoById(userId, payload);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -125,20 +150,53 @@ const authSlice = createSlice({
     // login reducer
     // get user info reducer
     builder
-      .addCase(getCustomerInfo.pending, (state) => {
+      .addCase(getCustomerInfoByToken.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getCustomerInfo.fulfilled, (state, action) => {
+      .addCase(getCustomerInfoByToken.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         localStorage.setItem("user", JSON.stringify(action.payload));
       })
-      .addCase(getCustomerInfo.rejected, (state, action) => {
+      .addCase(getCustomerInfoByToken.rejected, (state, action) => {
         state.loading = false;
         state.errorMessage = action.payload.message;
       });
 
-    // get user info reducer
+    // update user info reducer
+    builder
+      .addCase(updateInfoBasic.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateInfoBasic.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+      })
+
+      .addCase(updateInfoBasic.rejected, (state, action) => {
+        state.loading = false;
+        // state.errorMessage = action.payload.message;
+      });
+
+    // get user info by id reducer
+    builder
+      .addCase(getUserInfoById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUserInfoById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        toast.success("Cập nhật thông tin thành công");
+      })
+      .addCase(getUserInfoById.rejected, (state, action) => {
+        state.loading = false;
+        // state.errorMessage = action.payload.message;
+      });
+    // .addDefaultCase((state, action) => {
+    //   state.loading = false;
+    // });
   },
 });
 

@@ -7,13 +7,21 @@ const authApi = {
     return axiosClient.post(url, null, { params });
   },
   // get user info from token
-  getCustomerInfo: (params) => {
+  getCustomerInfoByToken: (params) => {
     const url = "/user/1.0.0/login/info";
     return axiosClient.get(url, { params });
   },
   register: (params) => {
     const url = "/user/1.0.0/register/user";
     return axiosClient.post(url, params);
+  },
+  updateInfoBasic: (userId, data) => {
+    const url = `/user/1.0.0/user/${userId}/info-basic`;
+    return axiosClient.put(url, data);
+  },
+  getUserInfoById: (userId) => {
+    const url = `user/1.0.0/user/${userId}`;
+    return axiosClient.get(url);
   },
 };
 
