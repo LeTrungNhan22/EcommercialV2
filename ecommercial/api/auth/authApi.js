@@ -23,6 +23,10 @@ const authApi = {
     const url = `user/1.0.0/user/${userId}`;
     return axiosClient.get(url);
   },
+  updateAddress: (userId, data) => {
+    const url = `/user/1.0.0/user/${userId}/info-address`;
+    return axiosClient.put(url, data);
+  },
 };
 
 export default authApi;

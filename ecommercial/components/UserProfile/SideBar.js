@@ -10,7 +10,7 @@ import {
 import AuthContext from "../../context/authContext";
 
 const SideBar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, isLogin, logoutContext } = useContext(AuthContext);
   const { fullName, imageUrl, username } = user;
   return (
     <>
@@ -57,12 +57,11 @@ const SideBar = () => {
               Địa chỉ
             </a>
           </Link>
-          <a
-            href="change-password.html"
-            className="hover:text-primary transition capitalize block"
-          >
-            Đổi mật khẩu
-          </a>
+          <Link href={`/user/account/change-password/${user.id}`}>
+            <a className="hover:text-primary transition capitalize block">
+              Đổi mật khẩu
+            </a>
+          </Link>
         </div>
 
         <div className="space-y-1 pl-8 pt-4">
@@ -124,7 +123,10 @@ const SideBar = () => {
       </div>
       <div className="space-y-1 mt-4">
         <div className="mx-auto w-full max-w-md rounded bg-white p-2">
-          <button className="flex w-full justify-between rounded bg-rose-100 px-4 py-2 text-left text-sm font-sans text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
+          <button
+            onClick={() => logoutContext()}
+            className="flex w-full justify-between rounded bg-rose-100 px-4 py-2 text-left text-sm font-sans text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75"
+          >
             <div className="flex  items-center justify-center space-x-4">
               <FaSignOutAlt />
               <span>Đăng xuất</span>

@@ -13,7 +13,10 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import facebookLogo from "../../../assets/icon/facebook.png";
 import googleLogo from "../../../assets/icon/google.png";
-import { getCustomerInfoByToken, loginUser } from "../../../redux/auth/authSlice";
+import {
+  getCustomerInfoByToken,
+  loginUser,
+} from "../../../redux/auth/authSlice";
 import { getError } from "../../../utils/error";
 import Footer from "../../../components/Common/Footer";
 
@@ -80,7 +83,7 @@ const LoginScreen = () => {
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon " href="/favicon.ico" />
       </Head>
-      <header className="p-5 sticky z-50 top-0 bg-white md:px-10 shadow-md grid grid-cols-1">
+      <header className="py-3 sticky z-50 top-0 bg-white md:px-5 shadow-md grid grid-cols-1">
         <div className="flex items-center justify-between w-full">
           <div>
             <h3 className="text-3xl font-semibold">Đăng nhập</h3>
@@ -92,8 +95,8 @@ const LoginScreen = () => {
           <p>Bạn cần hỗ trợ?</p>
         </div>
       </header>
-      <main className="min-h-screen overflow-hidden bg-gradient-to-r from-[#ff4066] to-[#fff16a] ">
-        <section className="bg-white  bg-opacity-90   w-[370px] md:w-[500px]  mx-auto my-10  rounded-md drop-shadow-lg">
+      <main className="min-h-screen overflow-hidden bg-gradient-to-r bg-custome ">
+        <section className="bg-white  w-[370px] md:w-[500px]  mx-auto my-10  rounded-md drop-shadow-lg">
           <div className="p-5">
             <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center">
               Đăng nhập

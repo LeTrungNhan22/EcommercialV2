@@ -60,7 +60,7 @@ const UserInforScreen = ({
   }, [gender, setValue]);
 
   return (
-    <div>
+    <div className="bg-white rounded-md">
       <div className="col-span-9 shadow rounded px-6 pt-5 pb-7 mt-6 lg:mt-0">
         <form onSubmit={handleSubmit(submitHandler)}>
           <h3 className="block text-gray-700 text-2xl font-bold mt-3 mb-2">

@@ -59,6 +59,17 @@ export const updateInfoBasic = createAsyncThunk(
     }
   }
 );
+export const updateAddress = createAsyncThunk(
+  "auth/updateAddress",
+  async ({ userId, data }, payload, thunkAPI) => {
+    try {
+      const response = await authApi.updateAddress(userId, data, payload);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 // get user info by id
 export const getUserInfoById = createAsyncThunk(
   "auth/getUserInfoById",
@@ -194,9 +205,24 @@ const authSlice = createSlice({
         state.loading = false;
         // state.errorMessage = action.payload.message;
       });
-    // .addDefaultCase((state, action) => {
-    //   state.loading = false;
-    // });
+    // update address reducer
+    builder
+      .addCase(updateAddress.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateAddress.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        toast.success("Cập nhật thông tin địa chỉ thành công");
+      })
+      .addCase(updateAddress.rejected, (state, action) => {
+        state.loading = false;
+        // state.errorMessage = action.payload.message;
+        toast.error(
+          "Cập nhật thông tin địa chỉ không  thành công vui lòng thử lại"
+        );
+      });
   },
 });
 

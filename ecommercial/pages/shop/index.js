@@ -63,7 +63,6 @@ const ShopScreen = () => {
   };
 
   const industrialsHandler = (id, e) => {
-    console.log(id);
     const params = {
       maxResult: maxResult,
       industrialId: id,

@@ -1,3 +1,4 @@
+import { Router, useRouter } from "next/router";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -8,7 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
-
+  const router = useRouter();
   if (typeof window !== "undefined") {
     var items = localStorage.getItem("user");
   }
@@ -27,6 +28,7 @@ export const AuthContextProvider = ({ children }) => {
     setIsLogin(false);
     setUser({});
     toast.success("Logout success");
+    router.push("/").then(() => window.location.reload());
   };
 
   // console.group("AuthContext");
