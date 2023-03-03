@@ -33,7 +33,10 @@ const CartScreen = () => {
       prevCartDetailRef.current !== cartDetail
     ) {
       prevCartDetailRef.current = cartDetail;
+    } else {
+      return;
     }
+
     const getCartDetail = async () => {
       const userId = user?.id;
       if (userId === undefined) {

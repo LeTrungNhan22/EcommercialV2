@@ -2,10 +2,8 @@ import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { AuthContextProvider } from "../context/authContext";
-
 import store from "../redux/store/store";
 import "../styles/globals.css";
-import { ProductContextProvider } from "../utils/Product";
 import { StoreProvider } from "../utils/Store";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
@@ -20,6 +18,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         showOnShallow={true}
         options={{ showSpinner: false, easing: "ease" }}
       />
+
       <Provider store={store}>
         <StoreProvider>
           <AuthContextProvider>

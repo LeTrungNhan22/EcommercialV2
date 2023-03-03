@@ -7,7 +7,7 @@ import {
   SettingsOutlined,
 } from "@mui/icons-material";
 import React from "react";
-import "./Topbar.css";
+import "./Topbar.scss";
 
 export default function Topbar() {
   return (

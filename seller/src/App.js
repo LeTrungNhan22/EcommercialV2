@@ -1,35 +1,20 @@
-import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./app.css";
-import Sidebar from "./components/sidebar/Sidebar";
-import Topbar from "./components/topbar/Topbar";
+import Login from "./components/login/Login";
+import SellerRegisterForm from "./components/onBoardingForm/index/OnBoardingForm";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import UserList from "./features/User/components/userList/UserList";
-import Home from "./features/Home/Home";
-import ProductList from "./features/Product/components/productList/ProductList";
-import Product from "./features/Product/index/product/Product";
-import NewProduct from "./features/Product/pages/newProduct/NewProduct";
-import User from "./features/User/index/user/User";
-import NewUser from "./features/User/pages/newUser/NewUser";
+import Dashboard from "./features/Dashboard/index.js/Dashboard";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Topbar />
-        <div className="container">
-          <Sidebar />
-          <Switch>
-            <Route exact path="/" component={Home}></Route>
-            <Route path="/users" component={UserList}></Route>
-            <Route path="/user/:userId" component={User}></Route>
-            <Route path="/newUser" component={NewUser}></Route>
-            <Route path="/products" component={ProductList}></Route>
-            <Route path="/product/:productId" component={Product} />
-            <Route path="/newProduct" component={NewProduct}></Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/onboarding/form" component={SellerRegisterForm} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/dashboard-seller" component={Dashboard} />
+        </Switch>
       </Router>
     </div>
   );

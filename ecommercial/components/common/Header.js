@@ -17,6 +17,10 @@ const Header = ({ cartAmount, itemToShops }) => {
   const { isLogin, user, logoutContext } = useContext(AuthContext);
   const [isShowed, setIsShowed] = useState(false);
 
+  if (cartAmount === undefined) {
+    return <div>...</div>;
+  }
+
   const exitPopUpHandler = () => {
     setIsShowed(false);
   };
@@ -48,7 +52,7 @@ const Header = ({ cartAmount, itemToShops }) => {
             className="text-gray-700 lg:text-lg md:text-sm flex items-center hover:bg-gray-100 p-1  rounded-full transition duration-200 cursor-pointer"
           >
             <ShoppingCartIcon className="h-10 p-1  hover:bg-gray-100 rounded-full transition duration-200 cursor-pointer" />
-            {cartAmount != 0 ? (
+            {cartAmount != null ? (
               <span className="absolute bg-red-500 w-5 h-5 text-white text-base text-center rounded-full top-5 right-[1] flex justify-center items-center">
                 {cartAmount}
               </span>
@@ -317,7 +321,7 @@ const Header = ({ cartAmount, itemToShops }) => {
                     <button
                       onClick={() => {
                         isLogin
-                          ? router.push(`/seller/registerSeller`)
+                          ? router.push(`/shop/create`)
                           : router.push(`/user/auth/login`);
                       }}
                       className={`${

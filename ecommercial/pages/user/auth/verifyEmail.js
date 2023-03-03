@@ -2,8 +2,15 @@ import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "react-hot-toast";
+import AuthContext from "../../../context/authContext";
 import { getError } from "../../../utils/error";
 
 const VerifyEmailScreen = () => {
@@ -14,7 +21,7 @@ const VerifyEmailScreen = () => {
   const axios = require("axios");
   const router = useRouter();
   const [isSend, setIsSend] = useState(false);
-  const userInfo = JSON.parse(localStorage.getItem("user"));
+  const { user } = useContext(AuthContext);
 
   const handleOnChange = (index, e) => {
     e.preventDefault();
@@ -35,13 +42,13 @@ const VerifyEmailScreen = () => {
     if (mailMessage === inputData) {
       try {
         await axios
-          .put(`${basUrl}/user/1.0.0/user/${userInfo.id}/status`, {
+          .put(`${basUrl}/user/1.0.0/user/${user.id}/status`, {
             status: "ACTIVE",
           })
           .then(function (response) {
             if (response.status === 200) {
               console.log(response.status);
-              toast.success("Đăng ký thành công");
+              toast.success("Đăng ký tài khoản thành công");
               router.push("/user/auth/login");
               localStorage.removeItem("mailMessage");
             }
@@ -106,12 +113,12 @@ const VerifyEmailScreen = () => {
         </div>
       </header>
 
-      <div className="min-h-screen shadow-md bg-gray-200 flex-col max-w-full flex justify-center items-center space-x-2">
+      <div className="min-h-screen shadow-md bg-gray-300 flex-col max-w-full flex justify-center items-center space-x-2">
         <div className="space-x-5 flex w-[1000px] h-[300px] shadow-md rounded bg-white px-10 py-2 items-center text-left justify-center -mt-40">
           <div className="text-left flex flex-col items-start">
             <span className="text-2xl">Xin chào đây là bước cùng</span>
             <p> Vui lòng nhập 6 chữa số gửi tới email</p>
-            <span className="font-bold">{userInfo.email}</span>
+            <span className="font-bold">{user.email}</span>
             <Link href="/user/account/register">
               <button className="text-red-500">Sửa địa chỉ email</button>
             </Link>

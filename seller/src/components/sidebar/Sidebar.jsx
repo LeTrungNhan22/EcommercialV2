@@ -30,7 +30,11 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
-            <Link to="/" className="link" onClick={handleActive}>
+            <Link
+              to="/dashboard-seller"
+              className="link"
+              onClick={handleActive}
+            >
               <li
                 className={`sidebarListItem ${
                   active === "home" ? "active" : null
@@ -83,7 +87,7 @@ export default function Sidebar() {
             </li>
           </ul>
         </div>
-        <div className="sidebarMenu">
+        {/* <div className="sidebarMenu">
           <h3 className="sidebarTitle">Notifications</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem">
@@ -99,8 +103,8 @@ export default function Sidebar() {
               Messages
             </li>
           </ul>
-        </div>
-        <div className="sidebarMenu">
+        </div> */}
+        {/* <div className="sidebarMenu">
           <h3 className="sidebarTitle">Staff</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem">
@@ -116,7 +120,7 @@ export default function Sidebar() {
               Report
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );
