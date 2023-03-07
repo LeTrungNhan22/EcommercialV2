@@ -17,9 +17,6 @@ const Header = ({ cartAmount, itemToShops }) => {
   const { isLogin, user, logoutContext } = useContext(AuthContext);
   const [isShowed, setIsShowed] = useState(false);
 
-  if (cartAmount === undefined) {
-    return <div>...</div>;
-  }
 
   const exitPopUpHandler = () => {
     setIsShowed(false);
