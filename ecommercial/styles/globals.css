@@ -83,7 +83,23 @@ a {
 .spin-button-none::-webkit-outer-spin-button {
   appearance: none;
 }
-.bg-custome{
-  background: linear-gradient(45deg,rgba(29, 236, 197, 0.7),
-  rgba(91, 14, 214, 0.7) 100%);
+.bg-custome {
+  background: linear-gradient(
+    45deg,
+    rgba(29, 236, 197, 0.7),
+    rgba(91, 14, 214, 0.7) 100%
+  );
+}
+rogress {
+}
+progress::-webkit-progress-bar {
+  background-color: rgb(135, 135, 135);
+  border-radius: 10px;
+}
+progress::-webkit-progress-value {
+  background-color: rgb(240, 45, 84);
+  border-radius: 10px;
+}
+progress::-moz-progress-bar {
+  /* style rules */
 }

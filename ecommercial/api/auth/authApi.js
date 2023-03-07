@@ -27,6 +27,11 @@ const authApi = {
     const url = `/user/1.0.0/user/${userId}/info-address`;
     return axiosClient.put(url, data);
   },
+  // create shop with params: userId, data
+  createShop: (params, data) => {
+    const url = `/user/1.0.0/shop/create`;
+    return axiosClient.post(url, data, params);
+  },
 };
 
 export default authApi;

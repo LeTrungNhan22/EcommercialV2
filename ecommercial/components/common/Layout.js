@@ -8,7 +8,7 @@ import Header from "./Header";
 
 const Layout = ({ title, children }) => {
   const cartDetail = useSelector((state) => state.cart.cartDetail);
-  const { itemToShops } = cartDetail;
+  const { itemToShops, totalQuantity } = cartDetail;
   const { isLogin, user, logoutContext } = useContext(AuthContext);
 
   if (user === null || cartDetail === null) {
@@ -19,11 +19,9 @@ const Layout = ({ title, children }) => {
   const prevCartDetailRef = useRef();
 
   useEffect(() => {
-    if (
-      !prevCartDetailRef.current ||
-      prevCartDetailRef.current !== cartDetail
-    ) {
+    if (!prevCartDetailRef.current) {
       prevCartDetailRef.current = cartDetail;
+      return;
     }
     const getCartDetail = async () => {
       const userId = user?.id;
@@ -37,7 +35,7 @@ const Layout = ({ title, children }) => {
       }
     };
     getCartDetail();
-  }, [dispatch, user.id]);
+  }, [dispatch, user?.id, totalQuantity]);
 
   return (
     <div>
@@ -48,7 +46,7 @@ const Layout = ({ title, children }) => {
       </Head>
       {/* Header */}
 
-      <Header cartAmount={itemToShops?.length} itemToShops={itemToShops} />
+      <Header totalQuantity={totalQuantity} itemToShops={itemToShops} />
       {/* Header */}
       <main>{children}</main>
       <Footer />

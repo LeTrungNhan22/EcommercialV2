@@ -82,6 +82,18 @@ export const getUserInfoById = createAsyncThunk(
     }
   }
 );
+// create shop
+export const createShop = createAsyncThunk(
+  "auth/createShop",
+  async ({ userId, data }, payload, thunkAPI) => {
+    try {
+      const response = await authApi.createShop(userId, data, payload);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -222,6 +234,23 @@ const authSlice = createSlice({
         toast.error(
           "Cập nhật thông tin địa chỉ không  thành công vui lòng thử lại"
         );
+      });
+    // create shop reducer
+    builder
+
+      .addCase(createShop.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createShop.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        localStorage.setItem("user", JSON.stringify(action.payload));
+        toast.success("Tạo shop thành công");
+      })
+      .addCase(createShop.rejected, (state, action) => {
+        state.loading = false;
+        // state.errorMessage = action.payload.message;
+        toast.error("Tạo shop không thành công vui lòng thử lại");
       });
   },
 });

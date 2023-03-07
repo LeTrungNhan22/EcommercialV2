@@ -12,11 +12,10 @@ import logo from "../../assets/logo/mainLogo.png";
 import AuthContext from "../../context/authContext";
 import Searchbar from "./Searchbar";
 
-const Header = ({ cartAmount, itemToShops }) => {
+const Header = ({ totalQuantity, itemToShops }) => {
   const router = useRouter();
   const { isLogin, user, logoutContext } = useContext(AuthContext);
   const [isShowed, setIsShowed] = useState(false);
-
 
   const exitPopUpHandler = () => {
     setIsShowed(false);
@@ -49,9 +48,9 @@ const Header = ({ cartAmount, itemToShops }) => {
             className="text-gray-700 lg:text-lg md:text-sm flex items-center hover:bg-gray-100 p-1  rounded-full transition duration-200 cursor-pointer"
           >
             <ShoppingCartIcon className="h-10 p-1  hover:bg-gray-100 rounded-full transition duration-200 cursor-pointer" />
-            {cartAmount != null ? (
+            {totalQuantity != null ? (
               <span className="absolute bg-red-500 w-5 h-5 text-white text-base text-center rounded-full top-5 right-[1] flex justify-center items-center">
-                {cartAmount}
+                {totalQuantity}
               </span>
             ) : null}
           </div>
@@ -135,7 +134,7 @@ const Header = ({ cartAmount, itemToShops }) => {
                     href=""
                     className="block rounded border border-gray-600 px-5 py-3 text-sm text-gray-600 transition hover:ring-1 hover:ring-gray-400"
                   >
-                    Xem giỏ hàng ({cartAmount})
+                    Xem giỏ hàng ({totalQuantity})
                   </a>
                 </Link>
 

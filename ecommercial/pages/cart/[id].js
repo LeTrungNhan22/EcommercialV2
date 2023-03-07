@@ -56,8 +56,15 @@ const CartScreen = () => {
       const response = await dispatch(
         updateQuantityCartItem({ cartItemId, quantity: newQuantity })
       );
-      console.log({ response: response });
-      dispatch(getCartDetailByUserId(user.id));
+      const userId = user?.id;
+      if (userId === undefined) {
+        return;
+      }
+      try {
+        const response = await dispatch(getCartDetailByUserId({ userId }));
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
     }

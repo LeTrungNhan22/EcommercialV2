@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import cartApi from "../../api/cart/cartApi";
 import AuthContext from "../../context/authContext";
-import { addToCart, createCartItems } from "../../redux/cart/cartSlice";
+import { addToCart, createCartItems, getCartDetailByUserId } from "../../redux/cart/cartSlice";
 import { getProductVariantById } from "../../redux/product/productDetailSlice";
 
 export default function ProductVariants({ product, variants }) {
@@ -130,6 +130,11 @@ export default function ProductVariants({ product, variants }) {
             try {
               const response = await cartApi.createCartItems(data);
               // console.log({ response: response });
+              const userId = user?.id;
+              if (userId === undefined) {
+                return;
+              }
+              await dispatch(getCartDetailByUserId({ userId }));
             } catch (err) {
               console.log(err);
             }
@@ -151,15 +156,6 @@ export default function ProductVariants({ product, variants }) {
         console.log({ response: response.payload });
         setVariantDetail(response.payload);
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const getCartDetailByUserId = async () => {
-    try {
-      const response = await cartApi.getCartDetailByUserId(user?.id);
-      const { cart } = response;
-      setCartDetail(cart);
     } catch (err) {
       console.log(err);
     }

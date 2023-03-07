@@ -1,5 +1,9 @@
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { storage } from "../../firebase/initFirebase";
 import Layout from "../common/Layout";
 import AddressPopUp from "../UserProfile/AddressPopUp";
 
@@ -18,75 +22,132 @@ const CreateShopPage = ({
   openModal,
   isOpen,
 }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm();
+  const dispatch = useDispatch();
   const [addressList, setAddressList] = useState({});
   useEffect(() => {
     setAddressList(address);
   }, [address]);
+  // handle image
+
+  const [downloadURL, setDownloadURL] = useState("");
+  // console.log(downloadURL);
+  const inputEl = useRef(null);
+  let [value, setValue] = useState(0);
+  const [selectedFile, setSelectedFile] = useState();
+
+  const [checkFile, setCheckFile] = useState(false);
+  function uploadFile() {
+    // get file
+    var file = inputEl.current.files[0];
+    setSelectedFile(file);
+    setCheckFile(true);
+    console.log(file);
+    // create a storage ref
+    const storageRef = ref(storage, `shopImage/${id}/` + file.name);
+    // upload file
+    const task = uploadBytesResumable(storageRef, file);
+    // update progress bar
+    task.on(
+      "state_change",
+      function progress(snapshot) {
+        setValue((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+      function error(err) {
+        console.log(getError(err));
+      },
+      () => {
+        getDownloadURL(task.snapshot.ref).then((url) => {
+          setDownloadURL(url);
+        });
+      },
+
+      function complete() {
+        toast.success("Uploaded to firebase storage successfully!");
+      }
+    );
+  }
+  // handle image
+  const submitHandler = async ({
+    shopNameInput,
+    emailInput,
+    telephoneInput,
+    descriptionInput,
+  }) => {
+    const data = {
+      shopName: shopNameInput,
+      email: emailInput === undefined ? email : emailInput,
+      telephone: telephoneInput === undefined ? telephone : telephoneInput,
+      description: descriptionInput,
+      address: addressList,
+      imageUrl:
+        downloadURL === ""
+          ? "https://firebasestorage.googleapis.com/v0/b/storageimageweb.appspot.com/o/common%2FcommonAnvatar.png?alt=media&token=ed5c9b52-4338-40ad-bd40-75359e99d379"
+          : downloadURL,
+    };
+    console.log(data);
+  };
   return (
     <>
       <Layout title={"Tạo kênh bán hàng"}>
-        <div className="bg-custome p-6">
-          <div class="max-w-4xl w-full space-y-5 p-10 bg-white rounded-xl shadow-lg z-10 mx-auto ">
-            <div class="grid gap-8 grid-cols-1">
-              <div class="flex flex-col ">
-                <div class="flex flex-col sm:flex-row items-center">
-                  <h2 class="font-semibold text-lg mr-auto">Shop info</h2>
-                  <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
+        <form
+          onSubmit={handleSubmit(submitHandler)}
+          className="bg-custome p-5 flex justify-center "
+        >
+          <div className="max-w-4xl w-full space-y-5 p-5 bg-white rounded-xl shadow-lg z-10 mx-auto mr-0 ">
+            <div className="grid gap-8 grid-cols-1">
+              <div className="flex flex-col ">
+                <div className="flex flex-col sm:flex-row items-center">
+                  <h2 className="font-semibold text-lg mr-auto">Shop info</h2>
+                  <div className="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
                 </div>
-                <div class="mt-5">
-                  <div class="form">
-                    <div class="md:space-y-2 mb-3">
-                      <label class="text-xs font-semibold text-gray-600 py-2">
-                        Company Logo
-                        <abbr class="hidden" title="required">
-                          *
-                        </abbr>
-                      </label>
-                      <div class="flex items-center py-6">
-                        <div class="w-12 h-12 mr-4 flex-none rounded-xl border overflow-hidden">
-                          <img
-                            class="w-12 h-12 mr-4 object-cover"
-                            src="https://images.unsplash.com/photo-1611867967135-0faab97d1530?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1352&amp;q=80"
-                            alt="Avatar Upload"
-                          />
-                        </div>
-                        <label class="cursor-pointer ">
-                          <span class="focus:outline-none text-white text-sm py-2 px-4 rounded-full bg-green-400 hover:bg-green-500 hover:shadow-lg">
-                            Browse
-                          </span>
-                          <input
-                            type="file"
-                            class="hidden"
-                            multiple="multiple"
-                            accept="accept"
-                          />
-                        </label>
-                      </div>
-                    </div>
-                    <div class="md:flex flex-row md:space-x-4 w-full text-xs">
-                      <div class="mb-3 space-y-2 w-full text-xs">
-                        <label class="font-semibold text-gray-600 py-2">
+                <div className="mt-5">
+                  <div className="form">
+                    <div className="md:flex flex-row md:space-x-4 w-full text-md ">
+                      <div className="mb-3 space-y-2 w-full text-md ">
+                        <label className="font-semibold text-gray-600 py-2">
                           Tên shop <abbr title="required">*</abbr>
                         </label>
                         <input
-                          placeholder="Company Name"
-                          class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
-                          required="required"
+                          {...register("shopNameInput", {
+                            required: "Tên shop không được để trống",
+                            minLength: 5,
+                            maxLength: 20,
+                          })}
+                          placeholder="Tên shop"
+                          className="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
                           type="text"
-                          name="integration[shop_name]"
-                          id="integration_shop_name"
+                          name="shopNameInput"
+                          id="shopNameInput"
                         />
-                        <p class="text-red text-xs hidden">
-                          Please fill out this field.
-                        </p>
+                        {errors?.shopNameInput?.type === "required" && (
+                          <span className="text-red-500 text-sm">
+                            {errors?.shopNameInput?.message}
+                          </span>
+                        )}
+                        {errors?.shopNameInput?.type === "minLength" && (
+                          <span className="text-red-500 text-sm">
+                            Tên shop phải có ít nhất 5 ký tự
+                          </span>
+                        )}
+                        {errors?.shopNameInput?.type === "minLength" && (
+                          <span className="text-red-500 text-sm">
+                            Tên shop không được quá 20 ký tự
+                          </span>
+                        )}
                       </div>
                     </div>
 
-                    <div class="md:flex md:flex-col md:space-x-4 w-full text-xs mb-6">
+                    <div class="md:flex md:flex-col md:space-x-4 w-full text-md mb-6">
                       <label class="font-semibold text-gray-600 py-2">
                         Địa chỉ
                       </label>
-                      <span className="text-base font-normal">
+                      <span className="text-base font-normal text-gray-600">
                         {addressList?.address1 == null
                           ? "Bạn chưa có thông tin địa chỉ"
                           : addressList?.address1}
@@ -104,34 +165,44 @@ const CreateShopPage = ({
                         />
                       </div>
                     </div>
-                    <div class="md:flex flex-row md:space-x-4 w-full text-xs">
-                      <div class="mb-3 space-y-2 w-full text-xs">
+                    <div class="md:flex flex-row md:space-x-4 w-full text-md">
+                      <div class="mb-3 space-y-2 w-full text-md">
                         <label class="font-semibold text-gray-600 py-2">
                           Email <abbr title="required">*</abbr>
                         </label>
                         <input
+                          {...register("emailInput", {
+                            required: email === null ? true : false,
+                          })}
                           placeholder={email}
                           class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
                           required="required"
                           type="text"
-                          name="integration[shop_name]"
-                          id="integration_shop_name"
+                          name="emailInput"
+                          id="emailInput"
                           disabled
                         />
                       </div>
-                      <div class="mb-3 space-y-2 w-full text-xs">
+                      <div class="mb-3 space-y-2 w-full text-md">
                         <label class="font-semibold text-gray-600 py-2">
                           Số điện thoại <abbr title="required">*</abbr>
                         </label>
                         <input
+                          {...register("telephoneInput", {
+                            required: telephone === null ? true : false,
+                          })}
                           placeholder={telephone}
                           class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
-                          required="required"
                           type="text"
-                          name="integration[shop_name]"
-                          id="integration_shop_name"
+                          name="telephoneInput"
+                          id="telephoneInput"
                           disabled
                         />
+                        {errors?.telephone?.type === "required" && (
+                          <span className="text-red-500 text-sm">
+                            {errors?.telephone?.message}
+                          </span>
+                        )}
                       </div>
                     </div>
                     <p className="text-xs mb-2 text-gray-400">
@@ -143,32 +214,41 @@ const CreateShopPage = ({
                         </span>
                       </Link>
                     </p>
-                    <div class="flex-auto w-full mb-1 text-xs space-y-2">
+                    <div class="flex-auto w-full mb-1 text-md space-y-2">
                       <label class="font-semibold text-gray-600 py-2">
-                        Description
+                        Mô tả
                       </label>
                       <textarea
-                        required=""
-                        name="message"
-                        id=""
-                        class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4"
-                        placeholder="Enter your comapny info"
-                        spellcheck="false"
+                        {...register("descriptionInput", {
+                          required: "Mô tả không được để trống",
+                          minLength: 5,
+                          maxLength: 200,
+                        })}
+                        name="descriptionInput"
+                        id="descriptionInput"
+                        className=" min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4"
+                        placeholder="Ghi chú về shop của bạn"
+                        spellCheck="false"
                       ></textarea>
-                      <p class="text-xs text-gray-400 text-left my-3">
-                        You inserted 0 characters
-                      </p>
+                      {errors?.messageInput?.type === "required" && (
+                        <span className="text-red-500 text-sm">
+                          {errors?.messageInput?.message}
+                        </span>
+                      )}
+                      {errors?.messageInput?.type === "minLength" && (
+                        <span className="text-red-500 text-sm">
+                          Mô tả phải có ít nhất 5 ký tự
+                        </span>
+                      )}
+                      {errors?.messageInput?.type === "maxLength" && (
+                        <span className="text-red-500 text-sm">
+                          Mô tả không được quá 200 ký tự
+                        </span>
+                      )}
                     </div>
-                    <p class="text-xs text-red-500 text-right my-3">
-                      Required fields are marked with an asterisk{" "}
-                      <abbr title="Required field">*</abbr>
-                    </p>
-                    <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-                      <button class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
-                        {" "}
-                        Cancel{" "}
-                      </button>
-                      <button class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">
+
+                    <div className="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
+                      <button className="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500">
                         Save
                       </button>
                     </div>
@@ -177,7 +257,39 @@ const CreateShopPage = ({
               </div>
             </div>
           </div>
-        </div>
+          <div className="w-1/5 h-full space-y-5 p-6 bg-white rounded-xl shadow-lg z-10 mx-auto ml-3 ">
+            <label className="text-md font-semibold text-gray-600 py-2">
+              Ảnh đại diện
+              <abbr className="hidden" title="required">
+                *
+              </abbr>
+            </label>
+            <div className="flex items-center flex-col">
+              <div className="w-40 h-40 mr-4 flex-none rounded-xl border overflow-hidden">
+                <img
+                  className="w-40 h-40 mr-4 object-cover"
+                  src={
+                    selectedFile
+                      ? URL.createObjectURL(selectedFile)
+                      : "https://firebasestorage.googleapis.com/v0/b/storageimageweb.appspot.com/o/common%2FcommonAnvatar.png?alt=media&token=ed5c9b52-4338-40ad-bd40-75359e99d379"
+                  }
+                  alt="Avatar Upload"
+                />
+              </div>
+            </div>
+            <div className="text-sm">
+              <div style={{ margin: "5px 0" }}>
+                <progress
+                  value={value}
+                  max="100"
+                  style={{ width: "100%" }}
+                ></progress>
+                <br />
+                <input type="file" onChange={uploadFile} ref={inputEl} />
+              </div>
+            </div>
+          </div>
+        </form>
       </Layout>
     </>
   );
