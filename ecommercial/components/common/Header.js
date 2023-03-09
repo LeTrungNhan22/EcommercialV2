@@ -16,6 +16,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
   const router = useRouter();
   const { isLogin, user, logoutContext } = useContext(AuthContext);
   const [isShowed, setIsShowed] = useState(false);
+  const sellerUrl = process.env.NEXT_PUBLIC_SELLER_URL;
 
   const exitPopUpHandler = () => {
     setIsShowed(false);
@@ -251,89 +252,66 @@ const Header = ({ totalQuantity, itemToShops }) => {
                         </button>
                       )}
                     </Menu.Item>
+
+                    <div className="px-1 py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={() => {
+                              isLogin
+                                ? router.push(`/user/account/profile`)
+                                : router.push(
+                                    `/user/auth/login?redirect=/user/account/profiler`
+                                  );
+                            }}
+                            className={`${
+                              active ? "hover-active" : "text-gray-900"
+                            } group flex w-full items-center rounded-md px-2 py-2 text-md`}
+                          >
+                            {active ? (
+                              <div
+                                className=" h-5 w-5 text-violet-400"
+                                aria-hidden="true"
+                              />
+                            ) : (
+                              <div
+                                className=" h-5 w-5 text-violet-400"
+                                aria-hidden="true"
+                              />
+                            )}
+                            Tài khoản
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
+                    <div className="px-1 py-1">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            onClick={() => {
+                              isLogin && user.shop === null
+                                ? router.push(`/shop/create`)
+                                : isLogin && user.shop !== null
+                                ? router.push(`${sellerUrl}/login`)
+                                : router.push(`/user/auth/login`);
+                            }}
+                            className={`${
+                              active ? "hover-active" : "text-gray-900"
+                            } group flex w-full items-center rounded-md px-2 py-2 text-md`}
+                          >
+                            {active ? (
+                              <div className=" h-5 w-5" aria-hidden="true" />
+                            ) : (
+                              <div className=" h-5 w-5" aria-hidden="true" />
+                            )}
+                            Kênh người bán
+                          </button>
+                        )}
+                      </Menu.Item>
+                    </div>
                   </div>
                 </div>
               )}
-
-              <div className="px-1 py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        active ? "hover-active" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      {active ? (
-                        <div
-                          className=" h-5 w-5 text-violet-400"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <div
-                          className=" h-5 w-5 text-violet-400"
-                          aria-hidden="true"
-                        />
-                      )}
-                      Hỗ trợ
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
-
-              <div className="px-1 py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      onClick={() => {
-                        isLogin
-                          ? router.push(`/user/account/profile`)
-                          : router.push(
-                              `/user/auth/login?redirect=/user/account/profiler`
-                            );
-                      }}
-                      className={`${
-                        active ? "hover-active" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      {active ? (
-                        <div
-                          className=" h-5 w-5 text-violet-400"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <div
-                          className=" h-5 w-5 text-violet-400"
-                          aria-hidden="true"
-                        />
-                      )}
-                      Tài khoản
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="px-1 py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      onClick={() => {
-                        isLogin
-                          ? router.push(`/shop/create`)
-                          : router.push(`/user/auth/login`);
-                      }}
-                      className={`${
-                        active ? "hover-active" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-md`}
-                    >
-                      {active ? (
-                        <div className=" h-5 w-5" aria-hidden="true" />
-                      ) : (
-                        <div className=" h-5 w-5" aria-hidden="true" />
-                      )}
-                      Kênh người bán
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
             </Menu.Items>
           </Transition>
         </Menu>

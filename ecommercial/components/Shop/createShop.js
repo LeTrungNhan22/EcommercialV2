@@ -6,6 +6,9 @@ import { useDispatch } from "react-redux";
 import { storage } from "../../firebase/initFirebase";
 import Layout from "../common/Layout";
 import AddressPopUp from "../UserProfile/AddressPopUp";
+import { createShop } from "../../redux/auth/authSlice";
+import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 const CreateShopPage = ({
   username,
@@ -40,6 +43,8 @@ const CreateShopPage = ({
   const inputEl = useRef(null);
   let [value, setValue] = useState(0);
   const [selectedFile, setSelectedFile] = useState();
+  const sellerUrl = process.env.NEXT_PUBLIC_SELLER_URL;
+  const router = useRouter();
 
   const [checkFile, setCheckFile] = useState(false);
   function uploadFile() {
@@ -73,24 +78,41 @@ const CreateShopPage = ({
     );
   }
   // handle image
+
   const submitHandler = async ({
     shopNameInput,
-    emailInput,
     telephoneInput,
     descriptionInput,
   }) => {
     const data = {
-      shopName: shopNameInput,
-      email: emailInput === undefined ? email : emailInput,
-      telephone: telephoneInput === undefined ? telephone : telephoneInput,
+      address: addressList.address1,
+      addressShop: addressList,
       description: descriptionInput,
-      address: addressList,
+      district_id: addressList.districtCode,
       imageUrl:
         downloadURL === ""
           ? "https://firebasestorage.googleapis.com/v0/b/storageimageweb.appspot.com/o/common%2FcommonAnvatar.png?alt=media&token=ed5c9b52-4338-40ad-bd40-75359e99d379"
           : downloadURL,
+      name: shopNameInput,
+      phone: telephoneInput === undefined ? telephone : telephoneInput,
+      status: "ACTIVE",
+      wardCode: addressList.wardCode,
     };
-    console.log(data);
+    const params = {
+      "user-id": id,
+    };
+    console.log(params);
+
+    try {
+      const shopAction = await dispatch(createShop({ params, data }));
+      if (shopAction.type === "auth/createShop/fulfilled") {
+        router.push(`${sellerUrl}/login`);
+      }else{
+        toast.error("Đăng ký shop thất bại vui lòng thử lại");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>

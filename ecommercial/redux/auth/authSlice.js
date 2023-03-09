@@ -85,9 +85,9 @@ export const getUserInfoById = createAsyncThunk(
 // create shop
 export const createShop = createAsyncThunk(
   "auth/createShop",
-  async ({ userId, data }, payload, thunkAPI) => {
+  async ({ params, data }, payload, thunkAPI) => {
     try {
-      const response = await authApi.createShop(userId, data, payload);
+      const response = await authApi.createShop(params, data, payload);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

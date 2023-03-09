@@ -30,7 +30,7 @@ const authApi = {
   // create shop with params: userId, data
   createShop: (params, data) => {
     const url = `/user/1.0.0/shop/create`;
-    return axiosClient.post(url, data, params);
+    return axiosClient.post(url, data, {params});
   },
 };
 
