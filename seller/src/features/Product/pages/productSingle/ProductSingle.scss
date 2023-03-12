@@ -7,6 +7,11 @@
   align-items: center;
   justify-content: space-between;
 }
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .productAddButton {
   width: 100px;
   border: none;
@@ -17,15 +22,21 @@
   font-weight: 600;
   border-radius: 10px;
   outline: none;
+  margin-left: 10px;
 }
 .productTop {
   display: flex;
 }
-.productTopLeft,
-.productTopRight {
+.productTopLeft {
   flex: 1;
+  padding: 20px;
+  margin: 20px;
+  -webkit-box-shadow: 0px 0px 12px -4px #000000;
+  box-shadow: 0px 0px 12px -4px #000000;
+  border-radius: 10px;
 }
 .productTopRight {
+  flex: 1;
   padding: 20px;
   margin: 20px;
   -webkit-box-shadow: 0px 0px 12px -4px #000000;
@@ -71,28 +82,25 @@
 .productFormLeft {
   display: flex;
   flex-direction: column;
-
   margin-right: 20px;
-}
-.productFormLeft > label {
-  margin-bottom: 10px;
-  color: gray;
-}
-.productFormLeft > input {
-  margin-bottom: 10px;
-  border: none;
-  padding: 10px;
-
-  outline: none;
-  border-bottom: 1px solid gray;
-}
-.productFormLeft > select {
-  margin-bottom: 10px;
-  border: none;
-  padding: 10px;
-
-  outline: none;
-  border-bottom: 1px solid gray;
+  > label {
+    margin-bottom: 10px;
+    color: gray;
+  }
+  > input {
+    margin-bottom: 10px;
+    border: none;
+    padding: 10px;
+    outline: none;
+    border-bottom: 1px solid gray;
+  }
+  > select {
+    margin-bottom: 10px;
+    border: none;
+    padding: 10px;
+    outline: none;
+    border-bottom: 1px solid gray;
+  }
 }
 .productFormRight {
   display: flex;

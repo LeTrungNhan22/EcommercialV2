@@ -20,7 +20,18 @@
         font-family: "Source Sans Pro", sans-serif;
       }
     </style>
-
+    <script>
+      // Client-side routing
+      if (typeof window !== "undefined") {
+        window.document.addEventListener("DOMContentLoaded", () => {
+          const { pathname } = window.location;
+          if (pathname !== "/") {
+            window.history.replaceState(null, null, `/`);
+            window.history.pushState(null, null, pathname);
+          }
+        });
+      }
+    </script>
     <title>Seller Admin</title>
   </head>
   <body>

@@ -6,10 +6,12 @@ import {
   NotificationsOutlined,
   SettingsOutlined,
 } from "@mui/icons-material";
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../../context/authContext";
 import "./Topbar.scss";
 
 export default function Topbar() {
+  const { user } = useContext(AuthContext);
   return (
     <div className="topbar">
       <div className="topbarWrapper">
@@ -28,7 +30,7 @@ export default function Topbar() {
             <SettingsOutlined />
           </div>
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/instagram-rn-aa052.appspot.com/o/user.png?alt=media&token=f0f5c13b-ee34-4d16-9972-6c59e4f60f3e"
+            src={user?.shop?.imageUrl}
             alt=""
             className="topAvatar"
           />

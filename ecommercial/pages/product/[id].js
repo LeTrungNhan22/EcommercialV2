@@ -14,11 +14,11 @@ import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
 import ProductVariants from "../../components/product/ProductVariants";
 import { getProductDetailById } from "../../redux/product/productDetailSlice";
 import { getError } from "../../utils/error";
+import ProductsRelated from "../../components/Product/ProductsRelated";
 
 export default function ProductScreen() {
   const router = useRouter();
   const { id } = router.query;
-
   const dispatch = useDispatch();
   const product = useSelector((state) => state.productDetail.product);
   const shop = useSelector((state) => state.productDetail.shop);
@@ -27,7 +27,7 @@ export default function ProductScreen() {
   useEffect(() => {
     const getProductDetail = async () => {
       try {
-        const res = await dispatch(getProductDetailById(id));
+        await dispatch(getProductDetailById(id));
       } catch (error) {
         console.log(getError(error));
       }
@@ -143,8 +143,8 @@ export default function ProductScreen() {
                   Chi tiết sản phẩm
                 </h3>
                 <div className="w-full pt-6">
-                  <div className="text-gray-600 space-y-3">
-                    <p>{product?.description}</p>
+                  <div className="text-gray-600 space-y-3 ">
+                    <pre className="font-sans">{product?.description}</pre>
                   </div>
                   <div>
                     <table className="table-auto border-collapse w-full text-left my-2">
@@ -177,6 +177,9 @@ export default function ProductScreen() {
                 <h3 className="border-b border-rose-600  text-gray-800 pb-3 font-medium text-3xl">
                   Liên quan
                 </h3>
+                <div className=" w-[1200px]  mx-auto mt-5  bg-gray-200 ">
+                  <ProductsRelated industrialId={product?.industrialId} />
+                </div>
               </div>
             </div>
           </section>

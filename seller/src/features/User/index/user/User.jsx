@@ -11,7 +11,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { getUserById } from "../../../../redux/user/userSlice";
+
 import "./User.css";
 
 User.propTypes = {};
@@ -24,8 +24,8 @@ export default function User() {
 
   useEffect(() => {
     const fetchUserById = async () => {
-      const actionResult = await dispatch(getUserById(userId));
-      const user = unwrapResult(actionResult);
+      // const actionResult = await dispatch(getUserById(userId));
+      // const user = unwrapResult(actionResult);
       setUser(user);
     };
     fetchUserById();

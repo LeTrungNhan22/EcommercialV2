@@ -2,16 +2,17 @@
   flex: 4;
 }
 .productListItem {
-    display: flex;
-    align-items: center;
-  }
-  .productListImg {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
+  display: flex;
+  align-items: center;
+}
+
+.productListImg {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 50%;
+}
 .productListEdit {
   border: none;
   background-color: #3bb077;

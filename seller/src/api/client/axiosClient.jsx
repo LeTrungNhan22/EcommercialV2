@@ -1,5 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
+import { getError } from "../../utils/error";
 
 // Set up default config for http requests here
 // Please have a look at here `https://github.com/axios/axios#request- config` for the full list of configs
@@ -10,11 +11,17 @@ const axiosClient = axios.create({
     charset: "utf-8",
   },
   paramsSerializer: {
-    paramsSerializer: (params) => queryString.stringify(params),
+    serialize: (serialize) => queryString.stringify(serialize),
   },
 });
 
 axiosClient.interceptors.request.use(async (config) => {
+  // Handle token here ...
+  if (localStorage.getItem("accessToken")) {
+    config.headers.Authorization = `${localStorage.getItem("accessToken")}`;
+  } else {
+    config.headers.Authorization = `${null}`;
+  }
   return config;
 });
 
@@ -27,6 +34,7 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     // Handle errors
+    console.log(getError(error));
     throw error;
   }
 );

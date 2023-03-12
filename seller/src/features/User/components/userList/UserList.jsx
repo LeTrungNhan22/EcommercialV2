@@ -4,22 +4,29 @@ import React, { useState } from "react";
 import "./UserList.scss";
 
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getError } from "../../../../utils/error";
-import { getUserFilter } from "../../../../redux/user/userSlice";
+
 import { useDispatch } from "react-redux";
-import { unwrapResult } from "@reduxjs/toolkit";
+
 
 export default function UserList() {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+
+    console.log("Dashboard rendered or state updated");
+    history.replace("/users");
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const actionResult = await dispatch(getUserFilter());
-        const userList = unwrapResult(actionResult);
-        setData(userList);
+        // const actionResult = await dispatch(getUserFilter());
+        // const userList = unwrapResult(actionResult);
+        // setData(userList);
       } catch (error) {
         console.log("Failed to fetch user list: ", getError(error));
       }

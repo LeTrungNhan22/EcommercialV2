@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "../../../components/chart/Chart";
 import FeaturedInfor from "../../../components/featuredInfor/FeaturedInfor";
 import "./Home.scss";
@@ -7,7 +7,9 @@ import WidgetSm from "../../../components/widgetSmall/WidgetSm";
 import WidgetLg from "../../../components/widgetLarge/WidgetLg";
 
 export default function Home() {
+
   return (
+    
     <div className="home">
       <FeaturedInfor />
       <Chart

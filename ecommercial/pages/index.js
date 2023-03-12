@@ -32,9 +32,9 @@ export default function Home() {
     className: "slider variable-width",
     dots: false,
     infinite: true,
-    centerMode: true,
+    speed: 200,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
     variableWidth: true,
   };
   // slideShow
@@ -76,6 +76,7 @@ export default function Home() {
     getIndustrialList();
   }, []);
 
+
   return (
     <>
       <Layout title={`Home`}>
@@ -89,8 +90,8 @@ export default function Home() {
               <div className="flex-1 w-full mx-auto">
                 <div className="mt-2">
                   <Slider {...settings}>
-                    {industrialList?.map(({ name, iconUrl }) => (
-                      <CategoryList name={name} key={name} iconUrl={iconUrl} />
+                    {industrialList?.map(({ name, iconUrl,id }) => (
+                      <CategoryList name={name} key={name} iconUrl={iconUrl} id={id} />
                     ))}
                   </Slider>
                 </div>

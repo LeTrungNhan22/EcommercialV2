@@ -1,23 +1,81 @@
 import { Publish } from "@mui/icons-material";
-import React from "react";
-import { Link } from "react-router-dom";
-import Chart from "../../../../components/chart/Chart";
-import { productData } from "../../../../dummyData";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { getProductSingle } from "../../productSingleSlice";
 
-import "./Product.css";
+import "./ProductSingle.scss";
 
-export default function Product() {
+export default function ProductSingle() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  // getProductId from url
+  const productId = history.location.pathname.split("/")[2];
+  console.log(productId);
+
+  const product = useSelector((state) => state.productSingle.productSingle.product);
+  const shop = useSelector((state) => state.productSingle.productSingle.shop);
+  const variants = useSelector((state) => state.productSingle.productSingle.variants);
+
+  useEffect(() => {
+    // get product from api
+    const getProductDetail = async () => {
+      try {
+        const detailAction = await dispatch(getProductSingle(productId));
+        console.log(detailAction);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (productId) getProductDetail();
+
+  }, [dispatch, productId]);
+
+
+
+
   return (
     <div className="product">
       <div className="productTitleContainer">
         <h1 className="productTitle">Product</h1>
-        <Link to="/newProduct">
-          <button className="productAddButton">Create</button>
-        </Link>
+        <div className="buttonContainer">
+          <button
+            onClick={() => history.goBack()}
+            className="backButton">Back</button>
+          <Link to="/newProduct">
+            <button className="productAddButton">Create</button>
+          </Link>
+        </div>
       </div>
       <div className="productTop">
         <div className="productTopLeft">
-          <Chart data={productData} dataKey="Sales" title="Sale Performance" />
+          <div className="ProductInfoTop">
+            <img
+              src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1026&q=80"
+              className="productInfoImg"
+              alt=""
+            />
+            <span className="productName">Apple AirPods</span>
+          </div>
+          <div className="ProductInfoBottom">
+            <div className="productInfoItem">
+              <span className="productInfoKey">id:</span>
+              <span className="productInfoValue">123</span>
+            </div>
+            <div className="productInfoItem">
+              <span className="productInfoKey">sales:</span>
+              <span className="productInfoValue">5123</span>
+            </div>
+            <div className="productInfoItem">
+              <span className="productInfoKey">active:</span>
+              <span className="productInfoValue">yes</span>
+            </div>
+            <div className="productInfoItem">
+              <span className="productInfoKey">in stock:</span>
+              <span className="productInfoValue">no</span>
+            </div>
+          </div>
         </div>
         <div className="productTopRight">
           <div className="ProductInfoTop">

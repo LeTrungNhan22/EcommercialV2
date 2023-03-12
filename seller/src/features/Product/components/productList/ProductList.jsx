@@ -1,38 +1,89 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ProductList.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
-
 import { Link } from "react-router-dom";
-import { productRows } from "../../../../dummyData";
+import { useDispatch } from "react-redux";
+import { getProductsFilter } from "../../productSlice";
+import AuthContext from "../../../../context/authContext";
+
 
 export default function ProductList() {
-  const [data, setData] = useState(productRows);
+  const { user } = useContext(AuthContext);
+  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const getProductsFilterByShopId = async () => {
+      const filter = {
+        shopId: user?.shop?.shopId,
+      }
+      try {
+        const filterProductsAction = await dispatch(getProductsFilter(filter))
+        const unwrapResult = filterProductsAction.payload
+        setProducts(unwrapResult?.resultList);
+
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getProductsFilterByShopId();
+  }, []);
+  console.log(products);
+
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
-      field: "product",
-      headerName: "Product",
-      width: 200,
+      field: "id",
+      headerName: "ID",
+      width: 90,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.image} alt="" />
-            {params.row.name}
+            {params.row.id}
           </div>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
     {
-      field: "status",
-      headerName: "Status",
-      width: 210,
+      field: "product",
+      headerName: "Product",
+      width: 270,
+      renderCell: (params) => {
+        return (
+          <div className="productListItem">
+            <img className="productListImg" src={params.row.featuredImageUrl} alt="" />
+            <span className="productListName" style={{ whiteSpace: "pre-wrap" }}>
+              {params.row.name}
+            </span>
+          </div>
+        );
+      },
     },
     {
       field: "price",
       headerName: "Price",
       width: 160,
+      renderCell: (params) => {
+        return (
+          <div className="productListItem">
+            {params.row.mediumPrice?.amount}{" "}
+            {params.row.mediumPrice?.currencyCode}
+          </div>
+        );
+      }
+    },
+    {
+      field: "TypeName",
+      headerName: "TypeName",
+      width: 160,
+      renderCell: (params) => {
+        return (
+          <div className="productListItem">
+            {params.row.industrialTypeName}
+          </div>
+        );
+      }
     },
     {
       field: "action",
@@ -41,7 +92,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row.id}>
+            <Link to={"/product/" + params.row.id + "/detail"}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline
@@ -56,10 +107,13 @@ export default function ProductList() {
   return (
     <div className="productList">
       <DataGrid
-        rows={data}
+        rowHeight={
+          100
+        }
+        rows={products}
         columns={columns}
-        pageSize={8}
-        rowsPerPageOptions={[8]}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick
       />

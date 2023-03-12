@@ -292,7 +292,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                               isLogin && user.shop === null
                                 ? router.push(`/shop/create`)
                                 : isLogin && user.shop !== null
-                                ? router.push(`${sellerUrl}/login`)
+                                ? window.open(`${sellerUrl}/login`, "_blank")
                                 : router.push(`/user/auth/login`);
                             }}
                             className={`${

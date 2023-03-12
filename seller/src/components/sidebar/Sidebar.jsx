@@ -22,7 +22,6 @@ export default function Sidebar() {
   const handleActive = (e) => {
     setActive(e.target.innerText.toLowerCase());
   };
-  console.log(active);
 
   return (
     <div className="sidebar">
@@ -36,9 +35,8 @@ export default function Sidebar() {
               onClick={handleActive}
             >
               <li
-                className={`sidebarListItem ${
-                  active === "home" ? "active" : null
-                } `}
+                className={`sidebarListItem ${active === "home" ? "active" : null
+                  } `}
               >
                 <LineStyle className="sidebarIcon" />
                 Home
@@ -59,9 +57,8 @@ export default function Sidebar() {
           <ul className="sidebarList">
             <Link to="/users" className="link" onClick={handleActive}>
               <li
-                className={`sidebarListItem ${
-                  active === "users" ? "active" : null
-                } `}
+                className={`sidebarListItem ${active === "users" ? "active" : null
+                  } `}
               >
                 <PermIdentity className="sidebarIcon" />
                 Users
@@ -69,9 +66,8 @@ export default function Sidebar() {
             </Link>
             <Link to="/products" className="link" onClick={handleActive}>
               <li
-                className={`sidebarListItem ${
-                  active === "products" ? "active" : null
-                } `}
+                className={`sidebarListItem ${active === "products" ? "active" : null
+                  } `}
               >
                 <Storefront className="sidebarIcon" />
                 Products
