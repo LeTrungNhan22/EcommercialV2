@@ -12,7 +12,7 @@ export default function ProductSingle() {
 
   // getProductId from url
   const productId = history.location.pathname.split("/")[2];
-  console.log(productId);
+  // console.log(productId);
 
   const product = useSelector((state) => state.productSingle.productSingle.product);
   const shop = useSelector((state) => state.productSingle.productSingle.shop);
@@ -22,14 +22,12 @@ export default function ProductSingle() {
     // get product from api
     const getProductDetail = async () => {
       try {
-        const detailAction = await dispatch(getProductSingle(productId));
-        console.log(detailAction);
+        await dispatch(getProductSingle(productId));
       } catch (err) {
         console.log(err);
       }
     };
     if (productId) getProductDetail();
-
   }, [dispatch, productId]);
 
 

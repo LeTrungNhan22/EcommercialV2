@@ -1,5 +1,5 @@
 import React from "react";
-import "./NewProduct.css";
+import "./NewProduct.scss";
 export default function NewProduct() {
   return (
     <div className="newProduct">

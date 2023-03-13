@@ -15,7 +15,6 @@ const ShopViewScreen = () => {
         };
         const getShopProducts = async () => {
             const res = await dispatch(getProductByFilter(params))
-
             setShopProducts(res.payload);
         }
         if (id) {
@@ -28,8 +27,7 @@ const ShopViewScreen = () => {
         <Layout title={`Shop view`}>
             {/* shop detail section */}
             <section>
-                <main className=" bg-white h-52 mx-auto">
-
+                <main className=" bg-white h-52 mx-auto ">
 
                 </main>
             </section>
