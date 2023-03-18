@@ -37,6 +37,7 @@ export default function ProductScreen() {
     }
   }, [id]);
   console.log(shop);
+  console.log(variants);
 
   return (
     <>
@@ -52,7 +53,6 @@ export default function ProductScreen() {
           {/* product detail */}
           <ShopDetail
             shop={shop}
-
           />
 
           <section>
@@ -79,9 +79,11 @@ export default function ProductScreen() {
 
                         <tr>
                           <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                            Vị trí
+                            Loại công nghiệp
                           </th>
-                          <th className="py-2 px-2 border border-gray-200 w-40 font-medium"></th>
+                          <th className="py-2 px-2 border border-gray-200 w-40 font-medium text-blue-600">
+                            {product?.industrialTypeName}
+                          </th>
                         </tr>
                       </tbody>
                     </table>
@@ -91,12 +93,12 @@ export default function ProductScreen() {
             </div>
           </section>
           <section>
-            <div className=" w-[1400px]  mx-auto mt-5  bg-gray-200 p-4 pb-16 rounded shadow">
+            <div className=" w-[1400px]  mx-auto mt-5  bg-gray-200 p-4 rounded shadow">
               <div className="container pb-6 px-6">
                 <h3 className="border-b border-rose-600  text-gray-800 pb-3 font-medium text-3xl">
                   Liên quan
                 </h3>
-                <div className=" w-[1200px]  mx-auto mt-5  bg-gray-200 ">
+                <div className="   mx-auto mt-5  bg-gray-200 ">
                   <ProductsRelated industrialId={product?.industrialId} />
                 </div>
               </div>

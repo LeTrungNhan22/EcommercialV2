@@ -1,25 +1,56 @@
 import Image from "next/image";
-import { default as React } from 'react';
+import { default as React, useEffect } from 'react';
 import { FaShopify } from "react-icons/fa";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-
-
 import { AiFillMessage } from "react-icons/ai";
-
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductByFilter } from "../../redux/product/productsSlice";
+import moment from "moment";
 
 
 const ShopDetail = ({ shop }) => {
+    const dispatch = useDispatch();
+    const [shopProducts, setShopProducts] = React.useState([]);
+    const [durationDays, setDurationDays] = React.useState(0);
+    useEffect(() => {
+        const params = {
+            shopId: shop?.shopId,
+        };
+        const getShopProducts = async () => {
+            const res = await dispatch(getProductByFilter(params))
+            setShopProducts(res.payload);
+        }
+        if (shop?.shopId) {
+            getShopProducts();
+        }
+        // getShopProducts();
+    }, [shop?.shopId]);
+
+
+    useEffect(() => {
+        const firstItem = shopProducts?.resultList?.[0];
+        if (firstItem) {
+            const startDate = moment(firstItem.createdAt);
+            const endDate = moment();
+            const durationInDays = endDate.diff(startDate, 'days');
+            setDurationDays(durationInDays);
+        }
+    }, [shopProducts?.resultList]);
+
+
+
 
     if (!shop) return <div>Loading...</div>;
 
     return (
         <div>
-
             <section>
                 <div className=" w-[1400px] mb-3 grid grid-cols-3 gap-6  mx-auto bg-white p-4 rounded shadow">
-                    <div className="container flex col-span-1 py-2 px-4 border-2 space-x-3 border-r border-gray-200">
+                    <div className="container flex col-span-1 py-2 px-4 border-2 space-x-3 border-r border-gray-200 bg-cover bg-center"
+                        style={{ "background-image": "url(https://images.unsplash.com/photo-1672699303821-34b69a75f49a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" }}
+                    >
                         <div>
                             {shop?.imageUrl && (
                                 <Image
@@ -80,7 +111,7 @@ const ShopDetail = ({ shop }) => {
 
                                 <div className="space-x-3">
                                     <span className="text-gray-500">Sản phẩm</span>
-                                    <span className="text-rose-600">302</span>
+                                    <span className="text-rose-600">{shopProducts?.total}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-around">
@@ -97,7 +128,7 @@ const ShopDetail = ({ shop }) => {
                             <div className="flex flex-col justify-around">
                                 <div className="space-x-3">
                                     <span className="text-gray-500">Tham gia:</span>
-                                    <span className="text-rose-600">3 năm trước</span>
+                                    <span className="text-rose-600">{durationDays} ngày trước</span>
                                 </div>
 
                                 <div className="space-x-3">

@@ -22,7 +22,6 @@ const SearchBar = () => {
       try {
         const res = await dispatch(getProductByFilter(params));
         const unwrapRes = unwrapResult(res);
-        console.log(unwrapRes);
         const { total } = unwrapRes;
         setTotal(total);
       } catch (error) {

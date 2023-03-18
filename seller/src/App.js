@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -31,6 +32,7 @@ function App() {
     }, 2000);
     return () => clearTimeout(timeout);
   }, []);
+
   return (
     <div className="App">
       {isLogin ? <Topbar /> : null}

@@ -1,19 +1,32 @@
 import {
-  LanguageOutlined,
-  NotificationAddRounded,
-  NotificationImportantOutlined,
-  Notifications,
-  NotificationsOutlined,
-  SettingsOutlined,
+  LanguageOutlined, NotificationsOutlined,
+  SettingsOutlined
 } from "@mui/icons-material";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AuthContext from "../../context/authContext";
+import AccountMenu from "./AccountMenu";
 import "./Topbar.scss";
 
 export default function Topbar() {
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        document.getElementById("topbar").classList.add("floatingNav");
+      } else {
+        document.getElementById("topbar").classList.remove("floatingNav");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="topbar">
+    <div  id="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
           <span className="logo">Seller Admin</span>
@@ -26,14 +39,7 @@ export default function Topbar() {
           <div className="topbarIconContainer">
             <LanguageOutlined />
           </div>
-          <div className="topbarIconContainer">
-            <SettingsOutlined />
-          </div>
-          <img
-            src={user?.shop?.imageUrl}
-            alt=""
-            className="topAvatar"
-          />
+          <AccountMenu accountImage={user?.shop?.imageUrl} />
         </div>
       </div>
     </div>

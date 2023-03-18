@@ -1,6 +1,7 @@
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
+import ScrollToTopButton from "../components/Common/ScrollToTopButton";
 import { AuthContextProvider } from "../context/authContext";
 import store from "../redux/store/store";
 import "../styles/globals.css";
@@ -20,11 +21,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       />
 
       <Provider store={store}>
-        <StoreProvider>
-          <AuthContextProvider>
-            <Component {...pageProps} />
-          </AuthContextProvider>
-        </StoreProvider>
+
+        <AuthContextProvider>
+          <Component {...pageProps} />
+        </AuthContextProvider>
+        <ScrollToTopButton />
       </Provider>
     </>
   );

@@ -9,7 +9,7 @@ import ProductList from "../../components/Product/ProductList";
 import AuthContext from "../../context/authContext";
 import {
   getCartDetailByUserId,
-  updateQuantityCartItem,
+  updateQuantityCartItem
 } from "../../redux/cart/cartSlice";
 
 const CartScreen = () => {

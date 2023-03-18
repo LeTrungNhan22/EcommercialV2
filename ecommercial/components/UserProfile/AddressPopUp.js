@@ -1,8 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BsPlusLg } from "react-icons/Bs";
+
 import { useDispatch } from "react-redux";
 import { getUserInfoById, updateAddress } from "../../redux/auth/authSlice";
 import { getError } from "../../utils/error";
@@ -129,7 +130,7 @@ const AddressPopUp = ({
         onClick={openModal}
         className="flex items-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-rose-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       >
-        <BsPlusLg className="mr-1" />
+        <PlusCircleIcon className="mr-1" />
         Thêm địa chỉ mới
       </button>
 

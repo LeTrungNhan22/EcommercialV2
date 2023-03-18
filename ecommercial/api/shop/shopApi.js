@@ -2,7 +2,9 @@ import axiosClient from "../axiosClient";
 
 const shopApi = {
     getShopDetailById: (shopId) => {
-        const url = "/shop/1.0.0/shop";W
-        return axiosClient.get(url, { params });
+        const url = `/user/1.0.0/shop/shop/${shopId}`;
+        return axiosClient.get(url);
     }
-};W
+};
+
+export default shopApi;

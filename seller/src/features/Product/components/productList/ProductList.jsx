@@ -6,7 +6,16 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getProductsFilter } from "../../productSlice";
 import AuthContext from "../../../../context/authContext";
+import { Tooltip, tooltipClasses } from "@mui/material";
+import styled from "@emotion/styled";
 
+const CustomWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 450,
+  },
+});
 
 export default function ProductList() {
   const { user } = useContext(AuthContext);
@@ -40,11 +49,12 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            {params.row.id}
+            {params?.row?.id}
           </div>
         );
       },
     },
+
     {
       field: "product",
       headerName: "Product",
@@ -52,9 +62,23 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.featuredImageUrl} alt="" />
+            <CustomWidthTooltip
+              title={
+                <React.Fragment>
+                  {params?.row?.imageUrls?.map((url) => (
+                    <img key={url} src={url} alt="" style={{ width: 100, height: 100, marginRight: 5 }} />
+                  ))}
+                </React.Fragment>
+              }
+              interactive
+              placement="top"
+              arrow
+
+            >
+              <img className="productListImg" src={params?.row?.featuredImageUrl} alt="" />
+            </CustomWidthTooltip>
             <span className="productListName" style={{ whiteSpace: "pre-wrap" }}>
-              {params.row.name}
+              {params?.row?.name}
             </span>
           </div>
         );

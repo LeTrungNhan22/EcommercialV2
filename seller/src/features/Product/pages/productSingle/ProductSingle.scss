@@ -61,7 +61,12 @@
   margin-top: 20px;
 }
 .productInfoItem {
-  width: 150px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+.productInfoLongItem {
+  width: 350px;
   display: flex;
   justify-content: space-between;
 }
@@ -80,6 +85,29 @@
   justify-content: space-between;
 }
 .productFormLeft {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  > label {
+    margin-bottom: 10px;
+    color: gray;
+  }
+  > input {
+    margin-bottom: 10px;
+    border: none;
+    padding: 10px;
+    outline: none;
+    border-bottom: 1px solid gray;
+  }
+  > select {
+    margin-bottom: 10px;
+    border: none;
+    padding: 10px;
+    outline: none;
+    border-bottom: 1px solid gray;
+  }
+}
+.productFormMiddle {
   display: flex;
   flex-direction: column;
   margin-right: 20px;

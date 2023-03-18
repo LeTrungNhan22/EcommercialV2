@@ -4,6 +4,7 @@
 .productListItem {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .productListImg {
@@ -12,6 +13,10 @@
   object-fit: cover;
   margin-right: 10px;
   border-radius: 50%;
+}
+.productListImgTooltip {
+  display: flex;
+  align-items: center;
 }
 .productListEdit {
   border: none;

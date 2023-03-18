@@ -15,6 +15,7 @@ import { initFirebase } from "../firebase/initFirebase";
 import { getError } from "../utils/error";
 import { getProductByFilter } from "../redux/product/productsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
+import ScrollToTopButton from "../components/Common/ScrollToTopButton";
 
 //init firebase
 initFirebase();
@@ -23,7 +24,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const resultList = useSelector((state) => state.products.products);
   const [industrialList, setIndustrialList] = useState([]);
-  const [maxResult, setMaxResult] = useState(24);
+  const [maxResult, setMaxResult] = useState(20);
   const [total, setTotal] = useState(0);
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
 
@@ -90,7 +91,7 @@ export default function Home() {
               <div className="flex-1 w-full mx-auto">
                 <div className="mt-2">
                   <Slider {...settings}>
-                    {industrialList?.map(({ name, iconUrl,id }) => (
+                    {industrialList?.map(({ name, iconUrl, id }) => (
                       <CategoryList name={name} key={name} iconUrl={iconUrl} id={id} />
                     ))}
                   </Slider>
@@ -113,9 +114,11 @@ export default function Home() {
         {/* recommend */}
         {/* category list */}
       </Layout>
+
       {/* advisement */}
       <Advisement />
       {/* advisement */}
+
     </>
   );
 }
