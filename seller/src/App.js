@@ -38,28 +38,42 @@ function App() {
       {isLogin ? <Topbar /> : null}
       <Router>
         <Switch>
-          <Route exact path="/" render={() => <Redirect to="/login" />} />
-          <Route exact path="/login" component={Login} />
-          <div className="container">
-            <Sidebar />
-            {loading ? (
-              <LoadingPage loading={loading} />
-            ) : (
-              <Switch>
-                <Route exact path="/dashboard-seller" component={Home}></Route>
-                <Route path="/users" component={UserList}></Route>
-                <Route path="/user/:userId" component={User}></Route>
-                <Route path="/newUser" component={newUser}></Route>
-                <Route path="/products" component={ProductHome}></Route>
-                <Route
-                  path="/product/:productId/detail"
-                  component={ProductSingle}
-                />
-                <Route path="/newProduct" component={NewProduct}></Route>
-                <Route component={PageNotFound} />
-              </Switch>
-            )}
-          </div>
+          <>
+            <Route exact path="/" render={() => <Redirect to="/login" />} />
+            <Route exact path="/login" component={Login} />
+            {isLogin ? (
+              <>
+                <div className="container">
+                  <Sidebar />
+                  {loading ? (
+                    <>
+                      <LoadingPage loading={loading} />
+                    </>
+
+                  ) : (
+                    <>
+                      <Switch>
+                        <Route exact path="/dashboard-seller" component={Home}></Route>
+                        <Route path="/users" component={UserList}></Route>
+                        <Route path="/user/:userId" component={User}></Route>
+                        <Route path="/newUser" component={newUser}></Route>
+                        <Route path="/products" component={ProductHome}></Route>
+                        <Route
+                          path="/product/:productId/detail"
+                          component={ProductSingle}
+                        />
+                        <Route path="/newProduct" component={NewProduct}></Route>
+                        <Route component={PageNotFound} />
+                      </Switch>
+
+                    </>
+
+
+                  )}
+                </div></>
+            ) : null}
+          </>
+
         </Switch>
       </Router>
     </div>

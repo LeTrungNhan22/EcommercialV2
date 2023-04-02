@@ -19,9 +19,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         showOnShallow={true}
         options={{ showSpinner: false, easing: "ease" }}
       />
-
       <Provider store={store}>
-
         <AuthContextProvider>
           <Component {...pageProps} />
         </AuthContextProvider>

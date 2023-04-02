@@ -3,7 +3,6 @@ import React from 'react'
 import "./ProductSingle.scss"
 
 const ProductVariant = ({ variant }) => {
-    console.log(variant);
     return (
         <div className="productBottom">
             <form action="" className="productForm">

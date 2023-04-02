@@ -1,5 +1,8 @@
 .home {
   flex: 4;
+  padding: 20px;
+  background-color: rgb(191, 216, 208);
+  border-radius: 5px;
   &__widgets {
     display: flex;
     margin: 20px;

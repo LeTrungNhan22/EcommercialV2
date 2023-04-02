@@ -70,7 +70,7 @@ export default function ProductList() {
                   ))}
                 </React.Fragment>
               }
-              interactive
+              interactive="true"
               placement="top"
               arrow
 

@@ -1,8 +1,12 @@
 import React from 'react'
 
+import './PageNotFound.scss'
+
 const PageNotFound = () => {
     return (
-        <div>PageNotFound</div>
+        <div
+            className="pageNotFound"
+        >404: Page Not Found</div>
     )
 }
 

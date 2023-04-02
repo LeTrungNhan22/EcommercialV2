@@ -32,11 +32,6 @@ export default function ProductSingle() {
     if (productId) getProductDetail();
   }, [dispatch, productId]);
 
-
-
-
-
-
   return (
     <div className="product">
       <div className="productTitleContainer">

@@ -5,6 +5,8 @@
   padding: 20px;
   margin-right: 20px;
   border-radius: 10px;
+  z-index: 99;
+  background-color: #fff;
 }
 .widgetSmallTitle {
   font-size: 22px;

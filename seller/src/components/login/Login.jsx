@@ -61,7 +61,6 @@ export default function Login() {
     if (location.pathname === '/login') {
       logoutContext();
       toast.success("Đăng xuất thành công");
-
     }
   }, []);
 
