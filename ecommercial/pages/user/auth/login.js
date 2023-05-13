@@ -18,7 +18,7 @@ import {
   loginUser,
 } from "../../../redux/auth/authSlice";
 import { getError } from "../../../utils/error";
-import Footer from "../../../components/Common/Footer";
+import Footer from "../../../components/common/Footer";
 
 const LoginScreen = () => {
   const router = useRouter();

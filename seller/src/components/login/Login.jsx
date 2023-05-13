@@ -15,7 +15,7 @@ import * as React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import bgImage from "../../assets/background/seller_image_background.png";
 import AuthContext from "../../context/authContext";
@@ -91,10 +91,10 @@ export default function Login() {
           }
 
         } catch (error) {
-          throw new Error(data.message);
+          throw new Error(data?.message);
         }
       } else {
-        throw new Error(data.message);
+        throw new Error(data?.message);
       }
     } catch (error) {
       setLoading(true);

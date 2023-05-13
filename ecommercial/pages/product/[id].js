@@ -18,6 +18,7 @@ export default function ProductScreen() {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
+  
   const product = useSelector((state) => state.productDetail.product);
   const shop = useSelector((state) => state.productDetail.shop);
   const variants = useSelector((state) => state.productDetail.variants);

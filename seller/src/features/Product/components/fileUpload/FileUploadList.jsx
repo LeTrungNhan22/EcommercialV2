@@ -23,6 +23,7 @@ const FileUpload = ({ productImage, handleUpload, handleDelete }) => {
           }} cols={3} gap={6}>
             {imageChange.map((item) => (
               <motion.div
+                key={item.preview}
                 className="box"
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -38,7 +39,7 @@ const FileUpload = ({ productImage, handleUpload, handleDelete }) => {
                     height: "100%",
                     position: "relative",
                   }}
-                  key={item.preview}
+
                 >
                   <img
                     style={{

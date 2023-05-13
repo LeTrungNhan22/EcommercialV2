@@ -62,7 +62,7 @@ export default function UserAddress({
           <div className="col-span-2">
             <p>
               {addressList?.address1 == null
-                ? "Bạn chưa có thông tin địa chỉ"
+                ? "Bạn chưa có  ông tin địa chỉ"
                 : addressList?.address1}
             </p>
           </div>

@@ -6,13 +6,13 @@ import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
 const clientCredentials = {
-  apiKey: "AIzaSyB8zQ8lA-LodYLgN2FdorAfXfsnEiCTXWc",
-  authDomain: "storageimageweb.firebaseapp.com",
-  projectId: "storageimageweb",
-  storageBucket: "storageimageweb.appspot.com",
-  messagingSenderId: "816436046329",
-  appId: "1:816436046329:web:f6b4d2d9c6df1b9386f528",
-  measurementId: "G-ER3DHD9G7H",
+  apiKey: "AIzaSyBZNXkaHOrAeOfgsWu4oJc8jTEiQy2zr6A",
+  authDomain: "tmdtnextjs.firebaseapp.com",
+  projectId: "tmdtnextjs",
+  storageBucket: "tmdtnextjs.appspot.com",
+  messagingSenderId: "827078015447",
+  appId: "1:827078015447:web:e976b4f4452a87970cf392",
+  measurementId: "G-ZR0G65N733"
 };
 
 function initFirebase() {
