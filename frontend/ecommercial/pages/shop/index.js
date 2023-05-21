@@ -1,7 +1,6 @@
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { unwrapResult } from "@reduxjs/toolkit";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AiOutlineFilter } from "react-icons/ai";
 import { FaList, FaTh } from "react-icons/fa";
@@ -96,9 +95,8 @@ const ShopScreen = () => {
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
                           <span>Theo loại sản phẩm</span>
                           <ChevronUpIcon
-                            className={`${
-                              open ? "rotate-180 transform" : ""
-                            } h-5 w-5 text-rose-500`}
+                            className={`${open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-rose-500`}
                           />
                         </Disclosure.Button>
                         <Transition
@@ -156,9 +154,8 @@ const ShopScreen = () => {
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
                           <span>Nơi bán</span>
                           <ChevronUpIcon
-                            className={`${
-                              open ? "rotate-180 transform" : ""
-                            } h-5 w-5 text-rose-500`}
+                            className={`${open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-rose-500`}
                           />
                         </Disclosure.Button>
                         <Transition
@@ -190,9 +187,8 @@ const ShopScreen = () => {
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
                           <span>Giá bán</span>
                           <ChevronUpIcon
-                            className={`${
-                              open ? "rotate-180 transform" : ""
-                            } h-5 w-5 text-rose-500`}
+                            className={`${open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-rose-500`}
                           />
                         </Disclosure.Button>
                         <Transition
@@ -240,9 +236,8 @@ const ShopScreen = () => {
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
                           <span>Kích thước</span>
                           <ChevronUpIcon
-                            className={`${
-                              open ? "rotate-180 transform" : ""
-                            } h-5 w-5 text-rose-500`}
+                            className={`${open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-rose-500`}
                           />
                         </Disclosure.Button>
                         <Transition
@@ -342,9 +337,8 @@ const ShopScreen = () => {
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
                           <span>Màu sắc</span>
                           <ChevronUpIcon
-                            className={`${
-                              open ? "rotate-180 transform" : ""
-                            } h-5 w-5 text-rose-500`}
+                            className={`${open ? "rotate-180 transform" : ""
+                              } h-5 w-5 text-rose-500`}
                           />
                         </Disclosure.Button>
                         <Transition

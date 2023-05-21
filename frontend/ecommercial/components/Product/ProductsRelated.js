@@ -60,12 +60,14 @@ const ProductsRelated = ({ industrialId }) => {
                 className="bg-white shadow-md rounded overflow-hidden group p-3 hover:shadow-xl transition"
                 key={id}
               >
-                <div className="relative h-[200px]  w-full">
+                <div className="relative">
                   <div>
                     <Image
                       src={featuredImageUrl}
                       alt={name}
-                      layout="fill"
+                      height={180}
+                      width={200}
+                      layout="responsive"
                       className="rounded object-fit object-center"
                     />
                   </div>
@@ -136,9 +138,10 @@ const ProductsRelated = ({ industrialId }) => {
         </div>
         <div className="flex items-center justify-center">
           <Link href="/shop">
-            <a href="#_" class="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-gray-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-gray-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700">
+            <a className="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-gray-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-gray-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700">
               Button Text
-              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
           </Link>
         </div>

@@ -7,13 +7,10 @@ import { FaHeart, FaShopify, FaStar } from "react-icons/fa";
 import Link from "next/link";
 
 const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
-
   const [productSingle, setProductSingle] = useState([]);
-
   const loadMore = () => {
     handleLoadMore();
   };
-
   useEffect(() => {
     setProductSingle(productFilter);
   }, [productFilter]);
@@ -35,12 +32,14 @@ const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
               className="bg-white shadow-md rounded overflow-hidden group p-3 hover:shadow-xl transition"
               key={id}
             >
-              <div className="relative h-[200px]  w-full">
+              <div className="relative">
                 <div>
                   <Image
                     src={featuredImageUrl}
                     alt={name}
-                    layout="fill"
+                    height={180}
+                    width={200}
+                    layout="responsive"
                     className="rounded object-fit object-center"
                   />
                 </div>

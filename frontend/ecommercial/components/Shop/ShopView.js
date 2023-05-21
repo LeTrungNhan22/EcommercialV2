@@ -1,13 +1,12 @@
+import moment from "moment";
 import Image from "next/image";
 import { default as React, useEffect } from 'react';
+import { AiFillMessage } from "react-icons/ai";
 import { FaShopify } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import { AiFillMessage } from "react-icons/ai";
-import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
 import { getProductByFilter } from "../../redux/product/productsSlice";
-import moment from "moment";
 
 
 const ShopView = ({ shop }) => {
@@ -49,7 +48,7 @@ const ShopView = ({ shop }) => {
       <section>
         <div className=" w-[1400px] mb-3 grid grid-cols-3 gap-6  mx-auto bg-white p-4 rounded shadow">
           <div className="container flex col-span-1 py-2 px-4 border-2 space-x-3 border-r border-gray-200 bg-cover bg-center"
-            style={{ "background-image": "url(https://images.unsplash.com/photo-1672699303821-34b69a75f49a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" }}
+            style={{ "backgroundImage": "url(https://images.unsplash.com/photo-1672699303821-34b69a75f49a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" }}
           >
             <div>
               {shop?.imageUrl && (

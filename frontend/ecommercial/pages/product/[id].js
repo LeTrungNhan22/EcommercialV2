@@ -4,11 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 import Layout from "../../components/common/Layout";
-
 import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
-
-import ProductsRelated from "../../components/Product/ProductsRelated";
+import ProductsRelated from "../../components/product/ProductsRelated";
 import ProductVariants from "../../components/product/ProductVariants";
 import ShopDetail from "../../components/Shop/ShopDetail";
 import { getProductDetailById } from "../../redux/product/productDetailSlice";
@@ -18,7 +16,7 @@ export default function ProductScreen() {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
-  
+
   const product = useSelector((state) => state.productDetail.product);
   const shop = useSelector((state) => state.productDetail.shop);
   const variants = useSelector((state) => state.productDetail.variants);
@@ -37,8 +35,8 @@ export default function ProductScreen() {
       return <div>Không tìm thấy thông tin sản phẩm</div>;
     }
   }, [id]);
-  console.log(shop);
-  console.log(variants);
+  // console.log(shop);
+  // console.log(variants);
 
   return (
     <>

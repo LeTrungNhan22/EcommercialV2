@@ -3,9 +3,9 @@ import Link from "next/link";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaDollarSign, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import BreadCrumb from "../../components/Breadcrumb/BreadCrumb";
-import Layout from "../../components/Common/Layout";
-import ProductList from "../../components/Product/ProductList";
+import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
+import Layout from "../../components/common/Layout";
+import ProductList from "../../components/product/ProductList";
 import AuthContext from "../../context/authContext";
 import {
   getCartDetailByUserId,
@@ -18,7 +18,7 @@ const CartScreen = () => {
   const { totalPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
   const [updateTotalPrice, setUpdateTotalPrice] = useState(totalPrice);
   const [updateTotalQuantity, setUpdateTotalQuantity] = useState(totalQuantity);
-  console.log(user);
+  // console.log(user);
 
   if (user === null || cartDetail === null) {
     return <div>Không tìm thấy thông tin giỏ hàng</div>;
@@ -70,10 +70,10 @@ const CartScreen = () => {
     }
   };
 
-  console.group("cartDetail");
-  console.log({ cartDetail: cartDetail });
-  console.log({ itemToShops: itemToShops });
-  console.groupEnd();
+  // console.group("cartDetail");
+  // console.log({ cartDetail: cartDetail });
+  // console.log({ itemToShops: itemToShops });
+  // console.groupEnd();
 
   return (
     <Layout title="Giỏ hàng">
@@ -149,20 +149,20 @@ const CartScreen = () => {
                   <div className="w-1/4 h-[200px] relative">
                     <Image
                       src={item.productVariant.imageUrl}
-                      alt
+                      alt={item.productVariant.productName}
                       layout="fill"
                       className="w-full h-full object-center object-cover"
                     />
                   </div>
                   <div className="md:pl-3 md:w-3/4">
-                    <p className="text-md leading-3 text-gray-800 md:pt-0 pt-4">
+                    <div className="text-md leading-3 text-gray-800 md:pt-0 pt-4">
                       <span className="">
                         ProductId: {item.productVariant.productId}
                       </span>{" "}
                       <span className="">
                         VariantId: {item.productVariant.id}
                       </span>
-                    </p>
+                    </div>
                     <div className="flex items-center justify-between w-full pt-2 border-b border-gray-600 py-2 mb-2">
                       <p className="text-2xl font-black leading-none text-gray-800">
                         {item.productVariant.productName}
@@ -173,7 +173,7 @@ const CartScreen = () => {
                         {item.productVariant.price.currencyCode}
                       </p>
                     </div>
-                    <p className="text-md leading-3 text-gray-600 pt-2">
+                    <div className="text-md leading-3 text-gray-600 pt-2">
                       <div className=" flex items-center text-gray-500">
                         <span>{item.productVariant.dimension.length}</span>x
                         <span>{item.productVariant.dimension.width}</span>x
@@ -182,7 +182,7 @@ const CartScreen = () => {
                           {item.productVariant.dimension.dimensionUnit}
                         </span>
                       </div>
-                    </p>
+                    </div>
                     <p className="text-md leading-3 text-gray-600 py-4">
                       Color: {item.productVariant.color}
                     </p>
@@ -234,7 +234,7 @@ const CartScreen = () => {
               </div>
             ))
           ) : (
-            <div>Không có sản phẩm nào trong giỏ hàng</div>
+            <p>Không có sản phẩm nào trong giỏ hàng</p>
           )}
         </div>
 

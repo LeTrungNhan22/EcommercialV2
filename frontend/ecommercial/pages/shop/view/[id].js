@@ -2,10 +2,8 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../../components/common/Layout";
-import ShopDetail from "../../../components/Shop/ShopDetail";
-import ShopProductItem from "../../../components/Shop/ShopProductItem";
-import ShopProductItems from "../../../components/Shop/ShopProductItem";
-import ShopView from "../../../components/Shop/ShopView";
+import ShopProductItem from "../../../components/shop/ShopProductItem";
+import ShopView from "../../../components/shop/ShopView";
 import { getProductByFilter } from "../../../redux/product/productsSlice";
 import { getShopDetailById } from "../../../redux/shop/shopSlice";
 
@@ -43,9 +41,9 @@ const ShopViewScreen = () => {
             getShopDetail();
         }
     }, [id]);
-    console.group("shop detail");
-    console.log({ shopDetail, shopProducts, maxResult, total });
-    console.groupEnd();
+    // console.group("shop detail");
+    // console.log({ shopDetail, shopProducts, maxResult, total });
+    // console.groupEnd();
 
 
 
