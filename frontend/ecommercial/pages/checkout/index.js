@@ -15,10 +15,8 @@ import { getError } from "../../utils/error";
 const CheckoutScreen = () => {
     const router = useRouter();
     const { user } = useContext(AuthContext);
-  
 
-
-
+    
 
 
     return (

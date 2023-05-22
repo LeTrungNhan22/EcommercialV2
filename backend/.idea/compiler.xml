@@ -7,14 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ecommerce-floor-api" />
+        <module name="ecommerce-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ecommerce-floor-api" target="1.8" />
+      <module name="ecomos-api" target="13" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ecommerce-floor-api" options="-parameters" />
-      <module name="ecomos-api" options="" />
+      <module name="ecommerce-api" options="-parameters" />
     </option>
   </component>
 </project>
