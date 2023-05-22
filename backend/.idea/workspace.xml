@@ -5,18 +5,163 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/BankAccount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/CartDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/CartDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/Layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/checkout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/checkout/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/verifyEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/verifyEmail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/redux/auth/authSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/redux/auth/authSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/redux/cart/cartSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/redux/cart/cartSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/EcommerceApiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/EcommerceApiApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/EcommerceManagerApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/EcommerceManagerApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/SpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/SpringConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/SpringFoxConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/SpringFoxConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/client/BaseClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/client/BaseClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/client/HttpsUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/client/HttpsUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/client/TrustSSLUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/client/TrustSSLUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/controller/BaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/controller/BaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/exception/ClientException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/exception/ClientException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/exception/ServiceException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/exception/ServiceException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/filter/BaseFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/filter/BaseFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/filter/ResultList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/filter/ResultList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/logs/ActivityLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/logs/ActivityLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/logs/ActivityUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/logs/ActivityUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/manager/BaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/manager/BaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/model/BaseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/model/BaseModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/model/MoneyV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/model/MoneyV2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/model/ResponseResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/model/ResponseResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/mongo/BaseMongoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseMongoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/mongo/BaseSpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseSpringConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/mongo/ClientConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/ClientConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/base/mongo/DefaultMongoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/DefaultMongoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/client/BankClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/client/BankClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/client/GHNClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/client/GHNClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/client/ProductClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/client/ProductClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/CartDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/CartDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/CreateCartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/CreateCartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/OrderCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderCreateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/OrderDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/UserCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserCreateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/ActiveStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/ActiveStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/ActivityLogType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/ActivityLogType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/BasicStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/BasicStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/CarrierType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/CarrierType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/ColorProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/ColorProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/CountryCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/CountryCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/CurrencyCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/CurrencyCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/GenderType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/GenderType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/GeoType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/GeoType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/IndustrialType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/IndustrialType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/OrderCancelReason.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/OrderCancelReason.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/OrderStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/OrderType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/OrderType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/PasswordStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/PasswordStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/RoleStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/RoleStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/RoleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/RoleType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/ScoreType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/ScoreType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/ServiceStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/ServiceStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/ServiceType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/ServiceType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/SizeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/SizeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/TrademarkTypeBeauty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/TrademarkTypeBeauty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/TrademarkTypeBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/TrademarkTypeBook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/TrademarkTypeCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/TrademarkTypeCar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/TrademarkTypeElectron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/TrademarkTypeElectron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/TrademarkTypeFashion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/TrademarkTypeFashion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/TrademarkTypeHealth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/TrademarkTypeHealth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/TrademarkTypeLife.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/TrademarkTypeLife.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/UserStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/UserStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/enums/utils/BaseEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/enums/utils/BaseEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/CartManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/CartManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/GeoManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/GeoManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/MessageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/MessageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/OrderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/ProductManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/ScoreManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/ScoreManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/ShipmentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/ShipmentManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/bank/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/Bank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/bank/BankAccount.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/bank/HistoryBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/HistoryBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/bank/ResultBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/ResultBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/bank/ResultHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/ResultHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/cart/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/cart/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/cart/CartDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/cart/CartDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/cart/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/cart/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/geo/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/geo/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/geo/Geo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/geo/Geo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/industrial/IndustrialProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/industrial/IndustrialProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/CancelOrderInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/CancelOrderInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/CreateCartInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/CreateCartInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/CreateOrderInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/CreateOrderInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/CreateProductInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/CreateProductInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/CreateShopInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/CreateShopInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/CreateUserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/CreateUserInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/FeeShippingGHNInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/FeeShippingGHNInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/KeyPasswordInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/KeyPasswordInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/ProductUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/ProductUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/RoleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/RoleInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/ShopGHNInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/ShopGHNInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/ShopUpdateInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/ShopUpdateInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/UpdateInfoUserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/UpdateInfoUserInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/UpdateStatusInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/UpdateStatusInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/UserInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/input/WeightUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/input/WeightUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/order/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/order/OrderDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/order/OrderDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/order/OrderFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/order/OrderFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/order/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/order/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/product/ProductDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/product/ProductDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/product/ProductFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/product/ProductFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/product/ProductVariant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/product/ProductVariant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/product/Trademark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/product/Trademark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/Carrier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/Carrier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/ShippingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/ShippingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/DistrictGHN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/DistrictGHN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/ProvinceGHN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/ProvinceGHN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/ResultFeeShipping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/ResultFeeShipping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/ResultGHN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/ResultGHN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/ResultObjectGHN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/ResultObjectGHN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/ServicePack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/ServicePack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/ShopGHN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/ShopGHN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shipment/convert/WardGHN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shipment/convert/WardGHN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/shop/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/shop/Shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/size/DimensionMeasurement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/size/DimensionMeasurement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/size/DimensionUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/size/DimensionUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/user/DataRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/DataRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/user/KeyPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/KeyPassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/user/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/user/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/Score.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/user/UserFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/UserFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/user/UserProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/UserProfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/websocket/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/websocket/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/model/websocket/MessageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/websocket/MessageFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/BankController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/BankController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/GHNController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/GHNController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/GeoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/GeoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/LanguageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/LanguageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/SenMailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/SenMailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/ShopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restcontroller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/service/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/service/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/FulltextIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/FulltextIndex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/GeneralIdUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/GeneralIdUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/GeoUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/GeoUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/KeyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/KeyUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/MoneyCalculateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/MoneyCalculateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/NumberUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/NumberUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/RemoveAccentUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/RemoveAccentUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/utils/SendMailUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/SendMailUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/websocket/ChatWSHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/websocket/ChatWSHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/websocket/config/WebsocketConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/websocket/config/WebsocketConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,13 +224,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EcommerceApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="ecommerce-api" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="vn.mellow.ecom.EcommerceApiApplication" />
+    <configuration name="EcommerceApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="ecomos-api" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="vn.ecomos.ecom.EcommerceApiApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="vn.ecomos.ecom.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.EcommerceApiApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -99,7 +255,7 @@
       <workItem from="1684669729705" duration="2480000" />
       <workItem from="1684713639138" duration="2843000" />
       <workItem from="1684718520651" duration="225000" />
-      <workItem from="1684739442731" duration="11161000" />
+      <workItem from="1684739442731" duration="12469000" />
     </task>
     <servers />
   </component>
