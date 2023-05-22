@@ -135,8 +135,8 @@ const authSlice = createSlice({
             state.errorMessage = errorMessage;
           } else {
             state.message = message;
-            state.user = data;
-            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("userId", JSON.stringify(data.userId));
+            localStorage.setItem("mailCode", data.code);
             localStorage.setItem("mailMessage", message);
           }
         }

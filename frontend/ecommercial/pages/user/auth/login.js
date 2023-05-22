@@ -48,18 +48,18 @@ const LoginScreen = () => {
       const response = await dispatch(loginUser(params));
       const data = unwrapResult(response);
 
-      if (data.status === "success") {
+      if (data.status === 1) {
         setLoading(false);
         const token = data.data;
-        console.log(token);
+        // console.log(token);
         const loginData = {
           "code-token": token,
           "service-type": "NORMALLY",
         };
         await dispatch(getCustomerInfoByToken(loginData));
         toast.success("Đăng nhập thành công");
+        router.push("/");
 
-        router.back();
       } else {
         throw new Error(data.message);
       }

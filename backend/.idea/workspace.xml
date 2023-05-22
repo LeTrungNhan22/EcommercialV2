@@ -6,178 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/artifacts/ecommerce_floor_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/artifacts/ecommerce_floor_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/runConfigurations/Tomcat_9_0_55.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/HELP.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/ecommerce-floor-api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/EcommerceFloorApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/SpringConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/SpringFoxConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/client/BaseClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/client/HttpsUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/client/TrustSSLUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/controller/BaseController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/exception/ClientException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/exception/ServiceException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/filter/BaseFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/filter/ResultList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/logs/ActivityLog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/logs/ActivityUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/manager/BaseManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/model/BaseModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/model/MoneyV2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/model/ResponseBody.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/mongo/BaseMongoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/mongo/BaseSpringConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/mongo/ClientConnector.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/mongo/DefaultMongoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/base/mongo/PropertyReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/client/BankClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/client/GHNClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/client/ProductClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/config/SecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/BankController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/CartController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/GHNController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/GeoController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/LoginController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/OrderController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/ProductController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/RegisterController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/SenMailController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/ShopController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/controller/CartDetailController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/controller/CreateCartController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/controller/OrderCreateController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/controller/OrderDetailController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/controller/UserCreateController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/controller/controller/UserProfileController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/ActiveStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/ActivityLogType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/BasicStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/CarrierType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/ColorProduct.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/CountryCode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/CurrencyCode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/GenderType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/GeoType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/IndustrialType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/OrderCancelReason.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/OrderStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/OrderType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/PasswordStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/RoleStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/RoleType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/ScoreType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/ServiceStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/ServiceType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/SizeType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/TrademarkTypeBeauty.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/TrademarkTypeBook.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/TrademarkTypeCar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/TrademarkTypeElectron.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/TrademarkTypeFashion.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/TrademarkTypeHealth.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/TrademarkTypeLife.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/UserStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/enums/utils/BaseEnum.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/manager/CartManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/manager/GeoManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/manager/OrderManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/manager/ProductManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/manager/ScoreManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/manager/ShipmentManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/manager/UserManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/bank/Bank.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/bank/BankAccount.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/bank/ResultBank.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/cart/Cart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/cart/CartDetail.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/cart/CartItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/geo/Address.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/geo/Geo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/industrial/IndustrialProduct.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/CancelOrderInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/CreateCartInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/CreateOrderInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/CreateProductInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/CreateShopInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/CreateUserInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/FeeShippingGHNInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/KeyPasswordInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/RoleInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/ShopGHNInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/UpdateInfoUserInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/UpdateStatusInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/UserInput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/input/WeightUnit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/order/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/order/OrderDetail.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/order/OrderFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/order/OrderItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/product/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/product/ProductDetail.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/product/ProductFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/product/ProductVariant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/product/Trademark.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/Carrier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/ShippingService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/DistrictGHN.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/ProvinceGHN.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/ResultFeeShipping.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/ResultGHN.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/ResultObjectGHN.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/ServicePack.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/ShopGHN.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shipment/convert/WardGHN.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/shop/Shop.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/size/DimensionMeasurement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/size/DimensionUnit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/user/KeyPassword.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/user/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/user/Score.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/user/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/user/UserFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/model/user/UserProfile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/service/UserServices.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/DateUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/FulltextIndex.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/GeneralIdUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/GeoUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/JwtFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/JwtUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/KeyUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/MoneyCalculateUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/NumberUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/RemoveAccentUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/java/vn/mellow/ecom/ecommercefloor/utils/SendMailUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/resources/application-local.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecommerce-floor-api/src/test/java/EcommerceFloorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/CartDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/controller/CartDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/manager/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/mellow/ecom/restcontroller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/Layout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/checkout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/checkout/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/verifyEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/verifyEmail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/redux/auth/authSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/redux/auth/authSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/redux/cart/cartSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/redux/cart/cartSlice.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +60,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "spring.configuration.checksum": "479852e2848fbb6d793d3af2f1822eb1",
     "vue.rearranger.settings.migration": "true"
   }
@@ -260,6 +99,7 @@
       <workItem from="1684669729705" duration="2480000" />
       <workItem from="1684713639138" duration="2843000" />
       <workItem from="1684718520651" duration="225000" />
+      <workItem from="1684739442731" duration="11161000" />
     </task>
     <servers />
   </component>

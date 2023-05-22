@@ -45,7 +45,7 @@ const RegisterScreen = () => {
       const actionResult = await dispatch(registerUser(registerData));
       const data = unwrapResult(actionResult);
 
-      if (data.status === "success") {
+      if (data.status === 1) {
         setLoading(false);
         toast.success("Vui lòng kiểm tra email để xác nhận tài khoản");
         router.push("/user/auth/verifyEmail");

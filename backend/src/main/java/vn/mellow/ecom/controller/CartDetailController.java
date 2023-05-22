@@ -86,4 +86,43 @@ public class CartDetailController {
 
     }
 
+    public CartDetail updateQuantityCartItem(String cartItemId, long quantity) throws ServiceException {
+        CartItem cartItem = cartManager.getCartItem(cartItemId);
+        if (null == cartItem) {
+            throw new ServiceException("not_found", "Không tìm thấy thông tin cart item :" + cartItemId, "Not found cart item :" + cartItemId);
+        }
+        Cart cart = cartManager.getCartById(cartItem.getCartId());
+
+        if (quantity == 0) {
+            return deleteCartItem(cartItemId, quantity);
+        }
+
+
+        long oldQuantity = cartItem.getQuantity();
+        long quantityDiff = quantity - oldQuantity; // Tính toán sự thay đổi của quantity
+
+        if (quantityDiff == 0) {
+            return getCartDetail(cart.getUserId()); // Không có sự thay đổi, trả về ngay
+        }
+
+
+        // Cập nhật giá trị mới của cartItem
+        cartItem.setQuantity(quantity);
+        cartItem.setTotalPrice(quantity * cartItem.getProductVariant().getSalePrice().getAmount());
+        cartManager.updateQuantityCartItem(cartItem.getId(), quantity, cartItem.getTotalPrice());
+
+        // Cập nhật lại các giá trị của cart
+        double totalDiscount = cart.getTotalDiscount() + (quantityDiff *
+                (cartItem.getProductVariant().getPrice().getAmount() - cartItem.getProductVariant().getSalePrice().getAmount()));
+        double totalCurrentPrice = cart.getTotalCurrentPrice() + (quantityDiff * cartItem.getProductVariant().getPrice().getAmount());
+        cartManager.updateCartQuantity(cartItem.getCartId(),
+                cart.getTotalQuantity() + quantityDiff,
+                totalDiscount,
+                totalCurrentPrice,
+                cart.getTotalPrice() + (quantityDiff * cartItem.getProductVariant().getSalePrice().getAmount()));
+
+        return getCartDetail(cart.getUserId());
+    }
+
+
 }

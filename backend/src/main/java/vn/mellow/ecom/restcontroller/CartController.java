@@ -49,6 +49,11 @@ public class CartController extends BaseController {
         return cartDetailController.deleteCartItem(cartItemId, quantity);
     }
 
+    @ApiOperation(value = "update quantity cart item by cart item id")
+    @PutMapping("/cart-item/{cartItemId}/update-quantity")
+    public CartDetail updateQuantityCartItem(@PathVariable String cartItemId, @RequestParam("quantity") long quantity) throws ServiceException {
+        return cartDetailController.updateQuantityCartItem(cartItemId, quantity);
+    }
 
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

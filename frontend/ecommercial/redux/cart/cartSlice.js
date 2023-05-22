@@ -23,9 +23,9 @@ export const createCartItems = createAsyncThunk(
 );
 export const getCartDetailByUserId = createAsyncThunk(
   "cart/getCartDetailByUserId",
-  async ({userId}, payload, thunkAPI) => {
+  async ({ userId }, payload, thunkAPI) => {
     try {
-      const response = await cartApi.getCartDetailByUserId(userId,payload);
+      const response = await cartApi.getCartDetailByUserId(userId, payload);
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -92,7 +92,7 @@ const cartSlice = createSlice({
       state.loading = false;
       state.cartDetail = {
         ...action.payload.cart,
-        itemToShops: action.payload.itemToShops,
+        itemToShops: action.payload.cartItems,
       };
     });
     builder.addCase(getCartDetailByUserId.rejected, (state, action) => {
@@ -106,7 +106,7 @@ const cartSlice = createSlice({
       state.loading = false;
       state.cartDetail = {
         ...action.payload.cart,
-        itemToShops: action.payload.itemToShops,
+        itemToShops: action.payload.cartItems,
       };
     });
     builder.addCase(updateQuantityCartItem.rejected, (state, action) => {

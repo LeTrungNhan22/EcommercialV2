@@ -195,6 +195,7 @@ public class UserManager extends BaseManager {
 
     public Shop getInfoShop(int shopId) {
         User user = getUserCollection().find(Filters.eq("shop.shopId", shopId)).first();
+        assert user != null;
         return user.getShop();
     }
 

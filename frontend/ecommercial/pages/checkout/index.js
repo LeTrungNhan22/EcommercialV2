@@ -16,9 +16,6 @@ const CheckoutScreen = () => {
     const router = useRouter();
     const { user } = useContext(AuthContext);
 
-    
-
-
     return (
         <>
             <Head>

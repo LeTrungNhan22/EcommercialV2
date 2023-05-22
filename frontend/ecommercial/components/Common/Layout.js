@@ -30,6 +30,7 @@ const Layout = ({ title, children }) => {
       }
       try {
         const response = await dispatch(getCartDetailByUserId({ userId }));
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
