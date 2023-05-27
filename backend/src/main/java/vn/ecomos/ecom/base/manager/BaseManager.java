@@ -47,7 +47,8 @@ public class BaseManager {
     }
 
     protected <TDocument> MongoCollection<TDocument> getCollection(Class<TDocument> var2, String collectionName) {
-        MongoCollection<TDocument> collection = client.getDatabase(BaseSpringConfiguration.MONGO_DB_NAME).getCollection(collectionName, var2);
+        MongoCollection<TDocument> collection =
+                client.getDatabase(BaseSpringConfiguration.MONGO_DB_NAME).getCollection(collectionName, var2);
         // check index
         try {
             Field[] fields = var2.getDeclaredFields();

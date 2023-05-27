@@ -69,19 +69,21 @@ public class OrderCreateController {
                 orderItem.setShopId(cartItem.getShopId());
                 orderItem.setShopName(shop.getName());
                 orderItem.setOrderStatus(OrderStatus.READY);
+
                 //Tổng số tiền giảm giá
                 orderItem.setDiscountedTotalPrice(MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount() -
                         cartItem.getProductVariant().getSalePrice().getAmount()));
                 totalPrice += cartItem.getTotalPrice();
                 totalDiscount += orderItem.getDiscountedTotalPrice().getAmount();
                 orderItem.setQuantity(cartItem.getQuantity());
-                //Tổng số tiền chưa giảm giá(giá gốc)
+
+
                 orderItem.setOriginalTotalPrice(MoneyCalculateUtils.getMoney(
                         cartItem.getProductVariant().getPrice().getAmount()
-                ));
+                ));   //Tổng số tiền chưa giảm giá(giá gốc)
                 orderItems.add(orderItem);
-                //remove cart item
-                cartManager.deleteCartItem(cartItem.getId());
+
+                cartManager.deleteCartItem(cartItem.getId());   //remove cart item
 
             }
             Order order = new Order();

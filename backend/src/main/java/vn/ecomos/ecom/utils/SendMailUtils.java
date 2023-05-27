@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 public class SendMailUtils {
-    public static String pwdMail ="qiswwsjutmgbraru";
+//    public static String pwdMail ="qiswwsjutmgbraru";
 
     public static Session loginMail(String email, String pwd) {
         Properties prop = new Properties();

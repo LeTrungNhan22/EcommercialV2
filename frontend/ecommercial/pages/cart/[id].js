@@ -15,7 +15,7 @@ import {
 const CartScreen = () => {
   const { isLogin, user } = useContext(AuthContext);
   const cartDetail = useSelector((state) => state.cart.cartDetail);
-  const { totalPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
+  const { totalPrice, totalCurrentPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
   const [updateTotalPrice, setUpdateTotalPrice] = useState(totalPrice);
   const [updateTotalQuantity, setUpdateTotalQuantity] = useState(totalQuantity);
   // console.log(user);
@@ -164,12 +164,15 @@ const CartScreen = () => {
                       </span>
                     </div>
                     <div className="flex items-center justify-between w-full pt-2 border-b border-gray-600 py-2 mb-2">
-                      <p className="text-2xl font-black leading-none text-gray-800">
-                        {item.productVariant.productName}
-                      </p>
+                      <Link href={`/product/${item.productVariant.productId}`}>
+                        <a className="text-2xl font-black leading-none text-gray-800
+                        hover:text-red-500">
+                          {item.productVariant.productName}
+                        </a>
+                      </Link>
                       <p className="text-base font-black leading-none text-gray-700">
                         Giá:
-                        {item.productVariant.price.amount}
+                        {Number(item.productVariant.price.amount).toLocaleString("vi-VN")}
                         {item.productVariant.price.currencyCode}
                       </p>
                     </div>
@@ -222,8 +225,9 @@ const CartScreen = () => {
                           <div className="flex flex-col my-2">
                             <p className="text-xl font-bold leading-none text-rose-700">
                               Tổng:
-                              {item.totalPrice}
+                              {Number(totalCurrentPrice).toLocaleString("vi-VN")}
                               {item.productVariant.price.currencyCode}
+
                             </p>
                           </div>
                         </div>
@@ -245,6 +249,13 @@ const CartScreen = () => {
             <div className="grid grid-cols-4">
               {/* voucher */}
               <div className="w-full border-b mb-3 py-3 flex items-end justify-end col-span-4 space-x-52">
+                <div>
+                  Giảm giá cho {totalQuantity} sản phẩm : {" "}
+                  <span className="text-rose-600 text-2xl">
+                    {Number(totalDiscount).toLocaleString("vi-VN")}
+                    VND
+                  </span>
+                </div>
                 <>
                   <button
                     type="button"
@@ -253,6 +264,7 @@ const CartScreen = () => {
                     Cập nhật
                   </button>
                 </>
+
               </div>
 
               {/* voucher */}
@@ -261,7 +273,8 @@ const CartScreen = () => {
                 <span>
                   Tổng thanh toán sản phẩm ({totalQuantity} sản phẩm){" "}
                   <span className="text-rose-600 text-4xl">
-                    {totalPrice}VND{" "}
+                    {Number(totalPrice).toLocaleString("vi-VN")}
+                    VND
                   </span>
                 </span>
                 <Link href="/checkout">

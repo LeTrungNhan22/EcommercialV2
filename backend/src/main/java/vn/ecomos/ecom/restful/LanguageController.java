@@ -12,11 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-/**
- * @author : Vũ Văn Minh
- * @mailto : duanemellow19@gmail.com
- * @created : 03/05/2023, Thứ Tư
- **/
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/language/1.0.0/language")
@@ -33,6 +28,10 @@ public class LanguageController extends BaseController {
         }
         return result;
     }
+
+
+
+
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public final Object handleAllServiceException(ServiceException e) {

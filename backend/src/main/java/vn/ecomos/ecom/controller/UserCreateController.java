@@ -114,48 +114,55 @@ public class UserCreateController {
 
     private void validateCreateUserInput(CreateUserInput createUserInput) throws ServiceException {
         if (null == createUserInput) {
-            throw new ServiceException("invalid_data", "createUserInput is null", "createUserInput is null");
+            throw new ServiceException("invalid_data", "Chưa điền thông tin cho user", "user is null");
         }
         if (null == createUserInput.getUser()) {
             throw new ServiceException("invalid_data", "Chưa điền thông tin cho user", "user is null");
         }
         if (null == createUserInput.getUser().getEmail()) {
-            throw new ServiceException("invalid_data", "Chưa điền thông tin email", "email is null");
+            throw new ServiceException("invalid_data", "Chưa điền thông tin cho email", "email is null");
         }
 
         if (null != createUserInput.getUser().getUserStatus() &&
                 !UserStatus.isExist(createUserInput.getUser().getUserStatus().toString())) {
-            throw new ServiceException("exists_status", "Trạng thái của user không tồn tại.( " + UserStatus.getListName() + " )", "Status user is not exists");
+            throw new ServiceException(
+                    "exists_status", "Trạng thái của user không tồn tại.( " +
+                    UserStatus.getListName() + " )", "Status user is not exists");
         }
         if (null != createUserInput.getUser().getGender() &&
                 !GenderType.isExist(createUserInput.getUser().getGender().toString())) {
-            throw new ServiceException("exists_type", "Loại giới tính không tồn tại.( " + GenderType.getListName() + " )", "gender type is not exists");
+            throw new ServiceException("exists_type", "Loại giới tính không tồn tại.( " +
+                    GenderType.getListName() + " )", "gender type is not exists");
         }
         if (!ServiceType.isExist(createUserInput.getUser().getServiceType().toString())) {
-            throw new ServiceException("exists_type", "Loại dịch vụ không tồn tại. ( " + ServiceType.getListName() + " )", "service type is not exists");
+            throw new ServiceException("exists_type", "Loại dịch vụ không tồn tại. ( " +
+                    ServiceType.getListName() + " )", "service type is not exists");
         }
 
 
         if (null == createUserInput.getPassword() || null == createUserInput.getPassword().getPassword()
                 || createUserInput.getPassword().getPassword().length() == 0
                 || "null".equalsIgnoreCase(createUserInput.getPassword().getPassword())) {
-            throw new ServiceException("invalid_data", "Chưa tạo mật khẩu cho user", "password is null");
+            throw new ServiceException("invalid_data", "Chưa điền thông tin cho password", "password is null");
         }
         if (null == createUserInput.getPassword().getPasswordStatus() &&
                 !PasswordStatus.isExist(createUserInput.getPassword().getPasswordStatus().toString())) {
-            throw new ServiceException("exists_status", "Trạng thái của password không tồn tại.( " + PasswordStatus.getListName() + " )", "Status password is not exists");
+            throw new ServiceException("exists_status", "Trạng thái của password không tồn tại.( " +
+                    PasswordStatus.getListName() + " )", "Status password is not exists");
 
         }
         if (null == createUserInput.getRole() || null == createUserInput.getRole().getRoleType()) {
-            throw new ServiceException("invalid_data", "Chưa phân quyền cho user", "role is null");
+            throw new ServiceException("invalid_data", "Chưa tạo phân quyền cho user", "role is null");
         }
         if (null != createUserInput.getRole().getRoleStatus()
                 && !RoleStatus.isExist(createUserInput.getRole().getRoleStatus())) {
-            throw new ServiceException("exists_status", "Trạng thái của role không tồn tại.( " + RoleStatus.getListName() + " )", "Status role is not exists");
+            throw new ServiceException("exists_status", "Trạng thái của role không tồn tại.( " +
+                    RoleStatus.getListName() + " )", "Status role is not exists");
 
         }
         if (!RoleType.isExist(createUserInput.getRole().getRoleType().toString())) {
-            throw new ServiceException("exists_type", "Loại phân quyền không tồn tại. ( " + RoleType.getListName() + " )", "Role type is not exists");
+            throw new ServiceException("exists_type", "Loại phân quyền không tồn tại. ( " +
+                    RoleType.getListName() + " )", "Role type is not exists");
 
         }
     }

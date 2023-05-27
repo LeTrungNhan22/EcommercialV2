@@ -4,17 +4,50 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 
 
 import AuthContext from "../../context/authContext";
 import { getError } from "../../utils/error";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
 
 const CheckoutScreen = () => {
-    const router = useRouter();
-    const { user } = useContext(AuthContext);
+    const { isLogin, user } = useContext(AuthContext);
+    const cartDetail = useSelector((state) => state.cart.cartDetail);
+    const { totalPrice, totalCurrentPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
+
+    if (user === null || cartDetail === null) {
+        return <div>Không tìm thấy thông tin giỏ hàng</div>;
+    }
+
+    const dispatch = useDispatch();
+    const prevCartDetailRef = useRef();
+
+    useEffect(() => {
+        if (
+            !prevCartDetailRef.current ||
+            prevCartDetailRef.current !== cartDetail
+        ) {
+            prevCartDetailRef.current = cartDetail;
+        } else {
+            return;
+        }
+        const getCartDetail = async () => {
+            const userId = user?.id;
+            if (userId === undefined) {
+                return;
+            }
+            try {
+                const response = await dispatch(getCartDetailByUserId({ userId }));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getCartDetail();
+    }, []);
 
     return (
         <>
@@ -70,40 +103,42 @@ const CheckoutScreen = () => {
                 <section className="bg-white w-[1200px] mx-auto shadow-md px-2 py-4">
                     <div className="grid grid-cols-2 items-center px-4 mb-2">
                         <h3 className="text-2xl text-amber-600">Sản phẩm</h3>
-                        <div className="flex justify-between text-gray-400">
+                        <div className="flex justify-between items-center text-gray-400">
                             <span>Đơn giá </span>
                             <span>Số lượng </span>
                             <span>Thành tiền</span>
                         </div>
                     </div>
 
-                    {/* {cartDetailByUserId.map(
-                        ({ totalPrice, quantity, productVariant, id }) => (
-                            <div className="grid grid-cols-4" key={id}>
+                    {itemToShops?.length > 0 ? (
+                        itemToShops?.map((item, index) => (
+                            <div className="grid grid-cols-4" key={index}>
                                 <div className=" flex items-center space-x-3 px-2">
                                     <div className="w-32 h-32 relative">
                                         <Image
-                                            src={productVariant.imageUrl}
-                                            alt=""
+                                            src={item.productVariant.imageUrl}
+                                            alt={item.productVariant.productName}
                                             layout="fill"
                                             className="object-center object-contain "
                                         ></Image>
                                     </div>
-                                    <span>{productVariant.productName}</span>
+                                    <span>         {item.productVariant.productName}</span>
                                 </div>
                                 <div className="items-center flex">
                                     <span className="text-gray-400">
-                                        {productVariant.industrial}
+                                        {/* {productVariant.industrial} */}
                                     </span>
                                 </div>
-                                <div className="flex col-span-2 justify-between items-center p-4">
-                                    <span>{totalPrice}</span>
-                                    <span>{quantity}</span>
-                                    <span>{totalPrice}</span>
+                                <div className="flex col-span-2 justify-between items-center pr-4">
+                                    <span>{Number(item.productVariant.price.amount).toLocaleString("vi-VN")}VND</span>
+                                    <span>{totalQuantity}</span>
+                                    <span>{Number(item.productVariant.price.amount).toLocaleString("vi-VN")}VND</span>
                                 </div>
                             </div>
                         )
-                    )} */}
+                        )) : (
+                        <div>Không có sản phẩm nào trong giỏ hàng</div>
+                    )}
 
                     <div className="bg-cyan-50 w-full  px-2 py-4 border border-cyan-200">
                         <div className="grid grid-cols-3">
@@ -140,16 +175,13 @@ const CheckoutScreen = () => {
                     </div>
                     <div className="bg-rose-50 w-full  px-2 py-4 border border-rose-50">
                         <div className="flex items-end justify-end space-x-4">
-                            {/* <span>
-                                Tổng số tiền (${cartDetailByUserId.length} sản phẩm ):{" "}
-                            </span> */}
-                            {/* <span className="text-2xl text-red-500">
+                            <span>
+                                Tổng số tiền ( {totalQuantity} sản phẩm):{" "}
+                            </span>
+                            <span className="text-2xl text-red-500">
                                 {" "}
-                                {cartTotalPrice.toLocaleString("en-US", {
-                                    style: "currency",
-                                    currency: "VND",
-                                })}
-                            </span> */}
+                                {Number(totalPrice).toLocaleString("vi-VN")}VND
+                            </span>
                         </div>
                     </div>
                 </section>

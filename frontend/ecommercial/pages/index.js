@@ -116,7 +116,7 @@ export default function Home() {
       </Layout>
 
       {/* advisement */}
-      <Advisement />
+      {/* <Advisement /> */}
       {/* advisement */}
 
     </>

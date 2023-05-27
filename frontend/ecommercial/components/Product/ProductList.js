@@ -27,7 +27,7 @@ const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
     <>
       <div className="container pb-16 my-7">
         <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-5">
-          {productSingle?.map(({ featuredImageUrl, mediumPrice, name, id }) => (
+          {productSingle?.map(({ featuredImageUrl, salePrice, mediumPrice, name, id }) => (
             <div
               className="bg-white shadow-md rounded overflow-hidden group p-3 hover:shadow-xl transition"
               key={id}
@@ -64,7 +64,7 @@ const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
 
                 <div className="flex items-baseline space-x-2">
                   <p className="text-xl text-rose-600 font-semibold">
-                    {mediumPrice.amount} {mediumPrice.currencyCode}
+                    {Number(salePrice.amount).toLocaleString("vi-VN")}{mediumPrice.currencyCode}
                   </p>
                   <p className="text-gray-500 line-through">
                     {" "}

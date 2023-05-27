@@ -7,11 +7,7 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
-/**
- * @author : Vũ Văn Minh
- * @mailto : duanemellow19@gmail.com
- * @created : 06/05/2023, Thứ Bảy
- **/
+
 @Data
 public class Message {
     @Id

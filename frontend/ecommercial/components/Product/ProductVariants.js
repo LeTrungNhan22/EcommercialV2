@@ -18,6 +18,7 @@ import { getProductVariantById } from "../../redux/product/productDetailSlice";
 
 export default function ProductVariants({ product, variants }) {
   const [originalPrice, setOriginalPrice] = useState(0);
+  const [salePrice, setSalePrice] = useState(0);
   const [productSingle, setProductSingle] = useState({});
   const [dimension, setDimension] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
@@ -30,6 +31,7 @@ export default function ProductVariants({ product, variants }) {
   useEffect(() => {
     setProductSingle(product);
     setOriginalPrice(productSingle?.mediumPrice?.amount);
+    setSalePrice(productSingle?.salePrice?.amount);
   }, [product]);
 
   if (variants.length === 0) {
@@ -52,8 +54,10 @@ export default function ProductVariants({ product, variants }) {
     price,
     imageUrl,
     dimension,
-    { productId, variantId }
+    { productId, variantId },
+    salePrice
   ) => {
+
     setProductSingle({
       ...productSingle,
       featuredImageUrl: imageUrl,
@@ -62,6 +66,8 @@ export default function ProductVariants({ product, variants }) {
     setOriginalPrice(price);
     setDimension(dimension);
     getVariantDetail(variantId);
+    setSalePrice(salePrice);
+
   };
 
   // console.group("productVariants");
@@ -183,26 +189,27 @@ export default function ProductVariants({ product, variants }) {
               <div className="flex gap-3  mt-5 items-center justify-center">
                 {variants.length
                   ? variants.map((variant, index) => (
-                      <picture key={index}>
-                        <img
-                          alt={variant.productName}
-                          src={getImageUrl(variant.imageUrl)}
-                          className="w-[70px] h-[70px] bg-[#ebebeb] cursor-pointer"
-                          onClick={() =>
-                            updateImage(
-                              variant?.price.amount,
-                              getImageUrl(variant?.imageUrl),
+                    <picture key={index}>
+                      <img
+                        alt={variant.productName}
+                        src={getImageUrl(variant.imageUrl)}
+                        className="w-[70px] h-[70px] bg-[#ebebeb] cursor-pointer"
+                        onClick={() =>
+                          updateImage(
+                            variant?.price.amount,
+                            getImageUrl(variant?.imageUrl),
+                            variant?.dimension,
+                            {
+                              variantId: variant.id,
+                              productId: variant.productId,
+                            },
+                            variant?.salePrice?.amount,
+                          )
 
-                              variant?.dimension,
-                              {
-                                variantId: variant.id,
-                                productId: variant.productId,
-                              }
-                            )
-                          }
-                        />
-                      </picture>
-                    ))
+                        }
+                      />
+                    </picture>
+                  ))
                   : null}
               </div>
             </div>
@@ -233,16 +240,16 @@ export default function ProductVariants({ product, variants }) {
                 className=""
               ></Image>
             </div>
-            <div className="flex items-baseline mb-1 space-x-2 font-bold mt-4 flex-col">
+            <div className="flex items-baseline mb-1 space-x-2 font-bold mt-4 flex-row">
               <p className="text-4xl text-rose-600 font-semibold">
                 <span className="text-gray-500 text-xl">Giá: </span>
-                {originalPrice}
+                {Number(salePrice).toLocaleString("vi-VN")}
                 {productSingle?.mediumPrice?.currencyCode}
               </p>
-
-              {/* <p className="text-base text-gray-400 font-semibold line-through">
-          $50.00
-        </p> */}
+              <p className="text-2xl text-gray-400 font-semibold line-through">
+                {Number(originalPrice).toLocaleString("vi-VN")}
+                {productSingle?.mediumPrice?.currencyCode}
+              </p>
             </div>
             <p className="mt-4 text-gray-400 line-clamp-4">
               {productSingle?.description}
@@ -287,7 +294,8 @@ export default function ProductVariants({ product, variants }) {
                             {
                               variantId: variant.id,
                               productId: variant.productId,
-                            }
+                            },
+                            variant?.salePrice?.amount,
                           )
                         }
                       />
