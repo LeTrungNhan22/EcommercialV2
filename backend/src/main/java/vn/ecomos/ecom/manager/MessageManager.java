@@ -12,11 +12,6 @@ import vn.ecomos.ecom.model.websocket.MessageFilter;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author : Vũ Văn Minh
- * @mailto : duanemellow19@gmail.com
- * @created : 06/05/2023, Thứ Bảy
- **/
 public class MessageManager extends BaseManager {
     public MessageManager(MongoClient mongoClient) {
         super(mongoClient);
