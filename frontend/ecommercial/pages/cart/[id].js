@@ -71,7 +71,7 @@ const CartScreen = () => {
   };
 
   // console.group("cartDetail");
-  // console.log({ cartDetail: cartDetail });
+  console.log({ cartDetail: cartDetail });
   // console.log({ itemToShops: itemToShops });
   // console.groupEnd();
 
@@ -253,7 +253,10 @@ const CartScreen = () => {
                   Giảm giá cho {totalQuantity} sản phẩm : {" "}
                   <span className="text-rose-600 text-2xl">
                     {Number(totalDiscount).toLocaleString("vi-VN")}
-                    VND
+                    VND {" "}
+                  </span>
+                  <span className="text-md font-sans text-gray-500">
+                    ( {Number(totalDiscount / totalCurrentPrice * 100).toFixed(2)}%)
                   </span>
                 </div>
                 <>
@@ -277,7 +280,7 @@ const CartScreen = () => {
                     VND
                   </span>
                 </span>
-                <Link href="/checkout">
+                <Link href={`/checkout/${cartDetail.userId}`}>
                   <a className="cursor-pointer rounded px-5 py-2.5 overflow-hidden group bg-rose-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
                     <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                     <div className="flex items-center space-x-2">

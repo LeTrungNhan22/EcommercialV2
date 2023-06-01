@@ -4,10 +4,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { unwrapResult } from "@reduxjs/toolkit";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch } from "react-redux";
 import { getProductByFilter } from "../../redux/product/productsSlice";
 import { getError } from "../../utils/error";
+import LanguageContext from "../../context/languageContext";
+
 
 const SearchBar = () => {
   const [products, setProducts] = useState([]);
@@ -15,6 +17,7 @@ const SearchBar = () => {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const { languageData } = useContext(LanguageContext);
 
   useEffect(() => {
     const params = {};
@@ -62,6 +65,7 @@ const SearchBar = () => {
     setProductMatches(matches);
   };
 
+
   return (
     <>
       <div className="flex flex-col justify-between items-center h-full w-full">
@@ -71,7 +75,7 @@ const SearchBar = () => {
             onChange={(e) => handleSearchProductByName(e.target.value)}
             type="text"
             className="outline-none pl-5 bg-transparent flex-grow h-12 md:h-10 focus:ring-0 border-none"
-            placeholder="Tìm kiếm"
+            placeholder={languageData?.search_product}
           />
           <MagnifyingGlassIcon className="text-white h-8  bg-red-500 p-2  rounded-full hidden md:inline-flex md:mx-2 md:cursor-pointer cursor-pointer hover:bg-red-600 transition duration-200" />
           <AdjustmentsHorizontalIcon className="text-black h-10  bg-white p-2 rounded-full  md:hidden mx-1 cursor-pointer border-2 hover:bg-gray-200 transition duration-200" />

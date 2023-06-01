@@ -6,6 +6,7 @@ import { AuthContextProvider } from "../context/authContext";
 import store from "../redux/store/store";
 import "../styles/globals.css";
 import { StoreProvider } from "../utils/Store";
+import { LanguageContextProvider } from "../context/languageContext";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
@@ -19,12 +20,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         showOnShallow={true}
         options={{ showSpinner: false, easing: "ease" }}
       />
-      <Provider store={store}>
-        <AuthContextProvider>
-          <Component {...pageProps} />
-        </AuthContextProvider>
-        <ScrollToTopButton />
-      </Provider>
+      <LanguageContextProvider>
+        <Provider store={store}>
+          <AuthContextProvider>
+            <Component {...pageProps} />
+          </AuthContextProvider>
+          <ScrollToTopButton />
+        </Provider>
+      </LanguageContextProvider>
     </>
   );
 }

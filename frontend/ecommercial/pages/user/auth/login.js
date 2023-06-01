@@ -19,6 +19,8 @@ import {
 } from "../../../redux/auth/authSlice";
 import { getError } from "../../../utils/error";
 import Footer from "../../../components/common/Footer";
+import LanguageContext from "../../../context/languageContext";
+import { useContext } from "react";
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -26,6 +28,7 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const base64 = require("base-64");
   const [loading, setLoading] = useState(false);
+  const { languageData } = useContext(LanguageContext);
 
   const {
     handleSubmit,
@@ -57,7 +60,7 @@ const LoginScreen = () => {
           "service-type": "NORMALLY",
         };
         await dispatch(getCustomerInfoByToken(loginData));
-        toast.success("Đăng nhập thành công");
+        toast.success("Login successfully");
         router.push("/");
 
       } else {
@@ -66,7 +69,7 @@ const LoginScreen = () => {
     } catch (error) {
       setLoading(false);
       if (getError(error) == "Bad credentials") {
-        toast.error("Email hoặc mật khẩu không đúng");
+        toast.error(languageData?.login_error);
       }
       if (
         getError(error) ==
@@ -80,27 +83,27 @@ const LoginScreen = () => {
   return (
     <>
       <Head>
-        <title>Đăng nhập</title>
+        <title>{languageData?.header_login}</title>
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon " href="/favicon.ico" />
       </Head>
       <header className="py-3 sticky z-50 top-0 bg-white md:px-5 shadow-md grid grid-cols-1">
         <div className="flex items-center justify-between w-full">
           <div>
-            <h3 className="text-3xl font-semibold">Đăng nhập</h3>
+            <h3 className="text-3xl font-semibold">{languageData?.header_login}</h3>
             <Link href="/">
-              <a className="text-red-700 italic">Trang chủ</a>
+              <a className="text-red-700 italic">{languageData?.order_dialog_button}</a>
             </Link>
           </div>
 
-          <p>Bạn cần hỗ trợ?</p>
+          <p>{languageData?.button_help}</p>
         </div>
       </header>
       <main className="min-h-screen overflow-hidden bg-gradient-to-r bg-custome ">
         <section className="bg-white  w-[370px] md:w-[500px]  mx-auto my-10  rounded-md drop-shadow-lg">
           <div className="p-5">
             <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center">
-              Đăng nhập
+              {languageData?.header_login}
             </h3>
             <form
               className="flex items-center flex-col"
@@ -111,16 +114,16 @@ const LoginScreen = () => {
                 <FaRegEnvelope className="text-gray-400 mr-2" />
                 <input
                   {...register("email", {
-                    required: "Vui lòng nhập email",
+                    required: `${languageData?.valid_email}`,
                     pattern: {
                       value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/i,
-                      message: "Vui lòng nhập đúng định dạng email",
+                      message: "Invalid email address",
                     },
                   })}
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Email/Tên đăng nhập"
+                  placeholder={languageData?.info_email}
                   autoFocus
                   className="bg-gray-200 text-sm flex-1 rounded border-none outline-none "
                 ></input>
@@ -137,16 +140,16 @@ const LoginScreen = () => {
                 <label htmlFor="password"></label>
                 <input
                   {...register("password", {
-                    required: "Vui lòng nhập mật khẩu",
+                    required: `${languageData?.valid_password}`,
                     minLength: {
                       value: 6,
-                      message: "Mật khẩu phải có ít nhất 6 ký tự",
+                      message: "Password must be at least 6 characters",
                     },
                   })}
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="Password"
+                  placeholder={languageData?.placeholder_pwd}
                   className="bg-gray-200 text-sm flex-1 rounded border-none outline-none "
                 />
               </div>
@@ -165,34 +168,34 @@ const LoginScreen = () => {
                     name="remember"
                     className="mr-1 border-none outline-none cursor-pointer bg-gray-300 "
                   />
-                  Nhớ tài khoản
+                  Remember me
                 </label>
 
                 <a
                   href=""
                   className=" font-bold  text-xs outline-none cursor-pointer text-red-600"
                 >
-                  Quên mật khẩu?
+                  {languageData?.login_forgot}
                 </a>
               </div>
 
               {loading ? (
                 <button disabled>
                   <div className="font-semibold w-80 bg-gray-600 text-white duration-300 transition shadow-md border-2  rounded px-12 py-2 inline-block">
-                    Đang xác thực tài khoản
+                    {languageData?.status_order_wating_process}
                   </div>
                 </button>
               ) : (
                 <button>
                   <div className="font-semibold w-80 hover:scale-105 hover:bg-red-500 hover:text-white duration-300 transition shadow-md border-2 border-red-500 rounded px-12 py-2 inline-block">
-                    Đăng nhập
+                    {languageData?.button_login}
                   </div>
                 </button>
               )}
             </form>
             <div className="mt-8 mb-5 flex items-center space-x-2">
               <hr className="w-1/2" />
-              <span className="text-sm">Hoặc</span>
+              <span className="text-sm">{languageData?.header_or}</span>
               <hr className="w-1/2" />
             </div>
             <div className="flex   justify-center items-center">
@@ -215,9 +218,9 @@ const LoginScreen = () => {
             </div>
             <div className="w-full flex items-center justify-center mt-5">
               <span className="text-sm">
-                Bạn chưa có tài khoản?
+                {languageData?.signup_have}
                 <Link href="register">
-                  <a className="text-red-700 underline pb-2">Đăng ký</a>
+                  <a className="text-red-700 underline pb-2">{languageData?.header_signup}</a>
                 </Link>
               </span>
             </div>

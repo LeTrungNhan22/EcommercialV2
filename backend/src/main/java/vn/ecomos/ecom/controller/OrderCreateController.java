@@ -83,7 +83,10 @@ public class OrderCreateController {
                 ));   //Tổng số tiền chưa giảm giá(giá gốc)
                 orderItems.add(orderItem);
 
-                cartManager.deleteCartItem(cartItem.getId());   //remove cart item
+                cartManager.deleteCartItem(cartItem.getId());
+                cartManager.updateCartQuantity(cartItem.getCartId(), 0, 0, 0, 0);
+
+                //remove cart item
 
             }
             Order order = new Order();

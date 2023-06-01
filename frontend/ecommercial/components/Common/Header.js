@@ -2,6 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BellAlertIcon,
+  GlobeAltIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -11,12 +12,19 @@ import { Fragment, useContext, useState } from "react";
 import logo from "../../assets/logo/mainLogo.png";
 import AuthContext from "../../context/authContext";
 import Searchbar from "./Searchbar";
+import { FaLanguage } from "react-icons/fa";
+import Language from "./Language";
+import LanguageContext from "../../context/languageContext";
+
 
 const Header = ({ totalQuantity, itemToShops }) => {
   const router = useRouter();
   const { isLogin, user, logoutContext } = useContext(AuthContext);
   const [isShowed, setIsShowed] = useState(false);
   const sellerUrl = process.env.NEXT_PUBLIC_SELLER_URL;
+  const { language, setLanguage, languageData, setLanguageData, languageTypes } = useContext(LanguageContext);
+
+
 
   const exitPopUpHandler = () => {
     setIsShowed(false);
@@ -25,6 +33,8 @@ const Header = ({ totalQuantity, itemToShops }) => {
   const logoutHandler = () => {
     logoutContext();
   };
+  console.log(languageData);
+
   return (
     <header className="p-5 sticky z-50 top-0 bg-white md:px-10 shadow-md grid grid-cols-1 md:grid-cols-3">
       <div className="relative hidden md:flex items-center h-10 ">
@@ -58,9 +68,8 @@ const Header = ({ totalQuantity, itemToShops }) => {
         </div>
 
         <div
-          className={`absolute top-12 right-56 z-50 flex ${
-            isShowed == false ? "hidden" : ""
-          }`}
+          className={`absolute top-12 right-56 z-50 flex ${isShowed == false ? "hidden" : ""
+            }`}
         >
           <div
             className="w-screen max-w-sm border border-gray-200 rounded bg-gray-100 shadow-md  sm:p-4 lg:p-8"
@@ -135,7 +144,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                     href=""
                     className="block rounded border border-gray-600 px-5 py-3 text-sm text-gray-600 transition hover:ring-1 hover:ring-gray-400"
                   >
-                    Xem giỏ hàng ({totalQuantity})
+                    {languageData?.header_cart_view} ({totalQuantity})
                   </a>
                 </Link>
 
@@ -143,7 +152,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                   href="#"
                   className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
                 >
-                  Thanh toán
+                  {languageData?.order_title}
                 </a>
 
                 <a
@@ -156,11 +165,14 @@ const Header = ({ totalQuantity, itemToShops }) => {
             </div>
           </div>
         </div>
+        <Language
+          language={language}
+          setLanguage={setLanguage}
+          languageData={languageData}
+          setLanguageData={setLanguageData}
+          languageTypes={languageTypes}
 
-        <div className="text-gray-700 lg:text-lg md:text-sm flex items-center hover:bg-gray-100 p-1  rounded-full transition duration-200 cursor-pointer">
-          <BellAlertIcon className="h-10 p-1 hover:bg-gray-100 rounded-full transition duration-200 cursor-pointer" />
-        </div>
-
+        />
         <Menu as="div">
           <div>
             <Menu.Button className="flex px-1 h-12 items-center space-x-1 border-2 rounded-full cursor-pointer hover:shadow-md duration-200 transition">
@@ -196,9 +208,8 @@ const Header = ({ totalQuantity, itemToShops }) => {
                       <Menu.Item>
                         {({ active }) => (
                           <button
-                            className={`${
-                              active ? "hover-active" : "text-gray-900"
-                            } group flex w-full items-center rounded-md px-2 py-2 text-md`}
+                            className={`${active ? "hover-active" : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-md`}
                           >
                             {active ? (
                               <div className=" h-5 w-5" aria-hidden="true" />
@@ -206,7 +217,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                               <div className=" h-5 w-5" aria-hidden="true" />
                             )}
 
-                            <p className="font-semibold">Đăng ký</p>
+                            <p className="font-semibold">{languageData?.header_signup}</p>
                           </button>
                         )}
                       </Menu.Item>
@@ -216,16 +227,15 @@ const Header = ({ totalQuantity, itemToShops }) => {
                       <Menu.Item>
                         {({ active }) => (
                           <button
-                            className={`${
-                              active ? "hover-active" : "text-gray-900"
-                            } group flex w-full items-center rounded-md px-2 py-2 text-md`}
+                            className={`${active ? "hover-active" : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-md`}
                           >
                             {active ? (
                               <div className=" h-5 w-5" aria-hidden="true" />
                             ) : (
                               <div className=" h-5 w-5" aria-hidden="true" />
                             )}
-                            Đăng nhập
+                            {languageData?.header_login}
                           </button>
                         )}
                       </Menu.Item>
@@ -239,9 +249,8 @@ const Header = ({ totalQuantity, itemToShops }) => {
                       {({ active }) => (
                         <button
                           onClick={logoutHandler}
-                          className={`${
-                            active ? "hover-active" : "text-gray-900"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-md`}
+                          className={`${active ? "hover-active" : "text-gray-900"
+                            } group flex w-full items-center rounded-md px-2 py-2 text-md`}
                         >
                           {active ? (
                             <div className=" h-5 w-5" aria-hidden="true" />
@@ -261,12 +270,11 @@ const Header = ({ totalQuantity, itemToShops }) => {
                               isLogin
                                 ? router.push(`/user/account/profile`)
                                 : router.push(
-                                    `/user/auth/login?redirect=/user/account/profiler`
-                                  );
+                                  `/user/auth/login?redirect=/user/account/profiler`
+                                );
                             }}
-                            className={`${
-                              active ? "hover-active" : "text-gray-900"
-                            } group flex w-full items-center rounded-md px-2 py-2 text-md`}
+                            className={`${active ? "hover-active" : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-md`}
                           >
                             {active ? (
                               <div
@@ -292,12 +300,11 @@ const Header = ({ totalQuantity, itemToShops }) => {
                               isLogin && user.shop === null
                                 ? router.push(`/shop/create`)
                                 : isLogin && user.shop !== null
-                                ? window.open(`${sellerUrl}/login`, "_blank")
-                                : router.push(`/user/auth/login`);
+                                  ? window.open(`${sellerUrl}/login`, "_blank")
+                                  : router.push(`/user/auth/login`);
                             }}
-                            className={`${
-                              active ? "hover-active" : "text-gray-900"
-                            } group flex w-full items-center rounded-md px-2 py-2 text-md`}
+                            className={`${active ? "hover-active" : "text-gray-900"
+                              } group flex w-full items-center rounded-md px-2 py-2 text-md`}
                           >
                             {active ? (
                               <div className=" h-5 w-5" aria-hidden="true" />

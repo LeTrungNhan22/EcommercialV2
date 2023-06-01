@@ -18,7 +18,6 @@ const AddressPopUp = ({
   telephone,
 }) => {
   const basUrl = process.env.NEXT_PUBLIC_API_URL;
-
   const [provinceList, setProvinceList] = useState([]);
   const [provinceId, setProvinceId] = useState("");
   const [districtId, setDistrictId] = useState("");
@@ -68,7 +67,11 @@ const AddressPopUp = ({
         console.log("provinceId is null");
       }
     };
-    getListDistrictByProvinceId();
+
+    if (provinceId != null && provinceId != "") {
+      getListDistrictByProvinceId();
+    }
+
   }, [provinceId]);
 
   const handleDistrict = (e) => {
@@ -91,7 +94,10 @@ const AddressPopUp = ({
         console.log("districtId is null");
       }
     };
-    getListWardByProvinceId();
+    if (districtId != null && districtId != "" && provinceId != null && provinceId != "") {
+      getListWardByProvinceId();
+    }
+
   }, [districtId]);
 
   const submitHandler = async ({ district, province, ward, subAddress }) => {
@@ -125,7 +131,7 @@ const AddressPopUp = ({
   };
   return (
     <>
-      <button
+      {/* <button
         type="button"
         onClick={openModal}
         className="flex items-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-rose-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
@@ -136,7 +142,7 @@ const AddressPopUp = ({
 
           className="mr-1" />
         Thêm địa chỉ mới
-      </button>
+      </button> */}
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -183,7 +189,7 @@ const AddressPopUp = ({
                           type="text"
                           placeholder="Họ và Tên"
                           defaultValue={fullName}
-                          disabled
+
                         />
                         <input
                           id="telephone"
@@ -192,7 +198,7 @@ const AddressPopUp = ({
                           placeholder="Số điện thoại"
                           className="px-4 py-2 w-80 rounded"
                           defaultValue={telephone}
-                          disabled
+
                         />
                       </div>
 

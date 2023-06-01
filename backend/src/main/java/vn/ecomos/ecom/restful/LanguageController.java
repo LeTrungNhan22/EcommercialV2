@@ -20,7 +20,7 @@ public class LanguageController extends BaseController {
 
     @ApiOperation(value = "change language")
     @GetMapping("/change")
-    public static LinkedHashMap<String, Object> changeLocale(@RequestParam("locale") String locale) {
+    public  LinkedHashMap<String, Object> changeLocale(@RequestParam("locale") String locale) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         ResourceBundle resB = ResourceBundle.getBundle("language" ,new Locale(locale));
         for (String rb : resB.keySet()) {

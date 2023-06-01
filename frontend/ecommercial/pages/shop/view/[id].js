@@ -6,6 +6,7 @@ import ShopProductItem from "../../../components/shop/ShopProductItem";
 import ShopView from "../../../components/shop/ShopView";
 import { getProductByFilter } from "../../../redux/product/productsSlice";
 import { getShopDetailById } from "../../../redux/shop/shopSlice";
+import ShopFilter from "../../../components/shop/ShopFilter";
 
 const ShopViewScreen = () => {
     const router = useRouter();
@@ -47,6 +48,8 @@ const ShopViewScreen = () => {
 
 
 
+
+
     return <>
         <Layout title={`Shop view`}>
             {/* shop detail section */}
@@ -60,11 +63,15 @@ const ShopViewScreen = () => {
                         <div className="grid grid-cols-6  gap-10">
                             <div className="col-span-1">
                                 <h2 className="text-2xl font-medium mb-6">Danh mục</h2>
+                                <div className="grid grid-cols-1 gap-5">
+                                    {/* xếp theo giá */}
+                                    <ShopFilter shopProducts={shopProducts} setShopProducts={setShopProducts} />
+                                </div>
                             </div>
                             <div className="col-span-5">
                                 <h2 className="text-2xl font-medium mb-6">Tất cả sản phẩm</h2>
                                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
-                                    {shopProducts.map((product) => (
+                                    {shopProducts && shopProducts.map((product) => (
                                         <ShopProductItem key={product.id} product={product} />
                                     ))}
                                 </div>

@@ -1,5 +1,3 @@
-import axios from "axios";
-import Cookies from "js-cookie";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,15 +7,20 @@ import { FaDollarSign } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
 
 
-import AuthContext from "../../context/authContext";
-import { getError } from "../../utils/error";
 import { useDispatch, useSelector } from "react-redux";
+import AddressPopUp from "../../components/UserProfile/AddressPopUp";
+import AuthContext from "../../context/authContext";
 import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
+import { createOrder } from "../../redux/order/orderSlice";
+import { toast } from "react-hot-toast";
 
 const CheckoutScreen = () => {
-    const { isLogin, user } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+    const { fullName, telephone, id, address, } = user;
+    const [addressList, setAddressList] = useState({});
     const cartDetail = useSelector((state) => state.cart.cartDetail);
-    const { totalPrice, totalCurrentPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
+    const { totalPrice, totalCurrentPrice,
+        totalDiscount, totalQuantity, itemToShops } = cartDetail;
 
     if (user === null || cartDetail === null) {
         return <div>Không tìm thấy thông tin giỏ hàng</div>;
@@ -46,11 +49,58 @@ const CheckoutScreen = () => {
                 console.log(error);
             }
         };
-        getCartDetail();
-    }, []);
+
+        if (user.id !== undefined) {
+            getCartDetail();
+        }
+    }, [dispatch, user.id]);
+
+    useEffect(() => {
+        setAddressList(address);
+    }, [address]);
+    const [isOpen, setIsOpen] = useState(false);
+    function closeModal() {
+        setIsOpen(false);
+    }
+    function openModal() {
+        setIsOpen(true);
+    }
+
+    const router = useRouter();
+
+    const handleCheckout = async () => {
+        const data = {
+            cartItemInputs: itemToShops,
+            payment: true,
+            userId: id,
+        };
+        try {
+            const response = await dispatch(createOrder(data));
+            if (response.error) {
+                toast.error(response.error.message);
+            }
+            if (response.payload) {
+                toast.success("Đặt hàng thành công");
+                router.push("/user/account/order");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     return (
         <>
+            <AddressPopUp
+                openModal={openModal}
+                closeModal={closeModal}
+                isOpen={isOpen}
+                addressList={addressList}
+                setAddressList={setAddressList}
+                id={id}
+                fullName={fullName}
+                telephone={telephone}
+            />
             <Head>
                 <title>Thanh toán</title>
             </Head>
@@ -74,13 +124,18 @@ const CheckoutScreen = () => {
 
                     <div className="grid grid-cols-4 mx-auto items-center justify-center px-4 pb-6">
                         <div className=" flex flex-col">
-                            <span>Lê Trung Nhân</span>
-                            <span className="font-bold">0353357781</span>
+                            <span>{fullName}</span>
+                            <span className="font-bold">
+                                {telephone == null ? "Chưa có số điện thoại" : telephone}
+                            </span>
                         </div>
                         <div className="col-span-2">
                             <p>
-                                Cổng Sau Trường Đh Thể Dục Thể Thao Khu Phố 6, Phường Linh
-                                Trung, Thành Phố Thủ Đức, TP. Hồ Chí Minh
+                                <p>
+                                    {addressList?.address1 == null
+                                        ? "Bạn chưa có  ông tin địa chỉ"
+                                        : addressList?.address1}
+                                </p>
                             </p>
                         </div>
                         <div className="space-x-10">
@@ -90,6 +145,7 @@ const CheckoutScreen = () => {
                             <>
                                 <button
                                     type="button"
+                                    onClick={() => openModal()}
                                     className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-rose-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                                 >
                                     Thay đổi địa chỉ
@@ -116,13 +172,13 @@ const CheckoutScreen = () => {
                                 <div className=" flex items-center space-x-3 px-2">
                                     <div className="w-32 h-32 relative">
                                         <Image
-                                            src={item.productVariant.imageUrl}
-                                            alt={item.productVariant.productName}
+                                            src={item.productVariant?.imageUrl}
+                                            alt={item.productVariant?.productName}
                                             layout="fill"
                                             className="object-center object-contain "
                                         ></Image>
                                     </div>
-                                    <span>         {item.productVariant.productName}</span>
+                                    <span>         {item.productVariant?.productName}</span>
                                 </div>
                                 <div className="items-center flex">
                                     <span className="text-gray-400">
@@ -130,9 +186,9 @@ const CheckoutScreen = () => {
                                     </span>
                                 </div>
                                 <div className="flex col-span-2 justify-between items-center pr-4">
-                                    <span>{Number(item.productVariant.price.amount).toLocaleString("vi-VN")}VND</span>
+                                    <span>{Number(item.productVariant?.price.amount).toLocaleString("vi-VN")}VND</span>
                                     <span>{totalQuantity}</span>
-                                    <span>{Number(item.productVariant.price.amount).toLocaleString("vi-VN")}VND</span>
+                                    <span>{Number(item.productVariant?.price.amount).toLocaleString("vi-VN")}VND</span>
                                 </div>
                             </div>
                         )
@@ -155,7 +211,9 @@ const CheckoutScreen = () => {
                                 <div className="flex flex-col">
                                     <span>Nhanh</span>
                                     <span className="text-gray-500 text-sm">
-                                        Nhận hàng vào ngày 16 Th12 - 19 Th12
+                                        Nhận hàng vào ngày {new Date().getDate() + 1} tháng{" "}
+                                        {new Date().getMonth() + 1} năm {new Date().getFullYear()}
+
                                     </span>
                                 </div>
                                 <a className="cursor-pointer rounded px-5 py-2.5 overflow-hidden group bg-rose-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300">
@@ -163,7 +221,7 @@ const CheckoutScreen = () => {
                                     <div className="flex items-center space-x-2">
                                         <FaDollarSign />
                                         <button
-                                            onClick={() => handlerPayment()}
+                                            onClick={handleCheckout}
                                             className="relative"
                                         >
                                             Thanh toán
@@ -177,8 +235,10 @@ const CheckoutScreen = () => {
                         <div className="flex items-end justify-end space-x-4">
                             <span>
                                 Tổng số tiền ( {totalQuantity} sản phẩm):{" "}
+                                giảm giá
                             </span>
                             <span className="text-2xl text-red-500">
+
                                 {" "}
                                 {Number(totalPrice).toLocaleString("vi-VN")}VND
                             </span>
@@ -187,7 +247,9 @@ const CheckoutScreen = () => {
                 </section>
                 {/* product checkout */}
             </main>
+
         </>
+
     );
 };
 export default CheckoutScreen;

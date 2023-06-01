@@ -5,8 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaHeart, FaShopify, FaStar } from "react-icons/fa";
 
 const ShopProductItem = ({ product }) => {
-    const { id, name, featuredImageUrl, mediumPrice } = product;
-
+    const { id, name, featuredImageUrl, mediumPrice, salePrice } = product;
     return (
         <div
             className="bg-white shadow-md rounded overflow-hidden group p-3 hover:shadow-xl transition"
@@ -42,7 +41,7 @@ const ShopProductItem = ({ product }) => {
 
                 <div className="flex items-baseline space-x-2">
                     <p className="text-xl text-rose-600 font-semibold">
-                        {mediumPrice.amount} {mediumPrice.currencyCode}
+                        {Number(salePrice.amount).toLocaleString("vi-VN")}{mediumPrice.currencyCode}
                     </p>
                     <p className="text-gray-500 line-through">
                         {" "}

@@ -65,33 +65,18 @@ const SideBar = () => {
         </div>
 
         <div className="space-y-1 pl-8 pt-4">
-          <a
-            href="#"
-            className="relative medium capitalize text-gray-800 font-sans hover:text-primary transition block"
-          >
-            Lịch sử đặt hàng
-            <span className="absolute -left-8 top-1 text-base">
-              <FaGift />
-            </span>
-          </a>
-          <a
-            href="#"
-            className="hover:text-primary transition block capitalize"
-          >
-            Lợi nhuận
-          </a>
-          <a
-            href="#"
-            className="hover:text-primary transition block capitalize"
-          >
-            Đã hủy
-          </a>
-          <a
-            href="#"
-            className="hover:text-primary transition block capitalize"
-          >
-            Nhận xét
-          </a>
+
+          <Link href="/user/account/order">
+            <a
+              className="relative medium capitalize text-gray-800 font-sans hover:text-primary transition block"
+            >
+              Lịch sử đặt hàng
+              <span className="absolute -left-8 top-1 text-base">
+                <FaGift />
+              </span>
+            </a>
+          </Link>
+
         </div>
 
         <div className="space-y-1 pl-8 pt-4">

@@ -5,11 +5,13 @@ import AuthContext from "../../context/authContext";
 import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
 import Footer from "./Footer";
 import Header from "./Header";
+import LanguageContext from "../../context/languageContext";
 
 const Layout = ({ title, children }) => {
   const cartDetail = useSelector((state) => state.cart.cartDetail);
   const { itemToShops, totalQuantity } = cartDetail;
   const { isLogin, user, logoutContext } = useContext(AuthContext);
+  const { languageData } = useContext(LanguageContext);
 
   if (user === null || cartDetail === null) {
     return <div>Không tìm thấy thông tin giỏ hàng</div>;
@@ -30,7 +32,7 @@ const Layout = ({ title, children }) => {
       }
       try {
         const response = await dispatch(getCartDetailByUserId({ userId }));
-        console.log(response);
+        // console.log(response);
       } catch (error) {
         console.log(error);
       }

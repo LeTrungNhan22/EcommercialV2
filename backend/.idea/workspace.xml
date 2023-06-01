@@ -5,23 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/manager/BaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/manager/BaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderCreateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserCreateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/HistoryBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/HistoryBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/ResultHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/bank/ResultHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/DataRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/DataRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/websocket/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/websocket/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/websocket/MessageFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/websocket/MessageFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/CartManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/CartManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/SendMailUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/SendMailUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Product/ProductList.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Product/ProductList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Product/ProductVariants.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Product/ProductVariants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/language_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/Layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Shop/ShopProductItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Shop/ShopProductItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/AddressPopUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/AddressPopUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/UserAddress.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/UserAddress.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/cart/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/cart/[id].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/checkout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/checkout/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/checkout/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/shop/view/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/shop/view/[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/redux/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/redux/store/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +121,12 @@
       <workItem from="1684843993121" duration="2582000" />
       <workItem from="1684907303820" duration="2352000" />
       <workItem from="1685063832475" duration="3000" />
-      <workItem from="1685139491945" duration="14411000" />
+      <workItem from="1685139491945" duration="14671000" />
+      <workItem from="1685179364650" duration="114000" />
+      <workItem from="1685429540747" duration="2000" />
+      <workItem from="1685435989444" duration="15000" />
+      <workItem from="1685598893708" duration="5364000" />
+      <workItem from="1685636507397" duration="5738000" />
     </task>
     <servers />
   </component>
