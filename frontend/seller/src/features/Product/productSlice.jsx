@@ -18,6 +18,9 @@ export const getProductsFilter = createAsyncThunk(
   }
 );
 
+
+
+
 export const productSlice = createSlice({
   name: "product",
   initialState,
@@ -34,8 +37,12 @@ export const productSlice = createSlice({
       state.loading = false;
       toast.error("Không tìm thấy thông tin sản phẩm");
     });
+
+
+
   },
 });
+
 
 const { reducer: productsReducer } = productSlice;
 export default productsReducer;

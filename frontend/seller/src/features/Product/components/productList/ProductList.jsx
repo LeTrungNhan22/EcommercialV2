@@ -39,7 +39,7 @@ export default function ProductList() {
     }
     getProductsFilterByShopId();
   }, []);
-  console.log(products);
+  // console.log(products);
 
   const columns = [
     {

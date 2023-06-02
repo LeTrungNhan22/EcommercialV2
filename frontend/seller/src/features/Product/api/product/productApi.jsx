@@ -1,3 +1,4 @@
+
 import axiosClient from "../../../../api/client/axiosClient";
 
 
@@ -9,7 +10,22 @@ const productApi = {
     getProductDetailByPid: (productId) => {
         const url = `product/1.0.0/product/${productId}/detail`
         return axiosClient.get(url)
+    },
+    createProduct: (product) => {
+        const url = "/product/1.0.0/product/create";
+        return axiosClient.post(url, product);
+    },
+
+    getIndustrials: () => {
+        const url = "/product/1.0.0/product/industrials";
+        return axiosClient.get(url);
+    },
+    getTradeMarks: () => {
+        const url = "/product/1.0.0/product/trademarks";
+        return axiosClient.get(url);
     }
+
+
 };
 
 export default productApi;

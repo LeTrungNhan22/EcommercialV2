@@ -9,10 +9,12 @@ import "./NewProduct.scss";
 import VariantProductDialog from "../../components/dialog/VariantProductDialog";
 import MUIRichTextEditor from "mui-rte";
 import VariantItemAdd from "../../components/variant/VariantItemAdd";
-import productApi from "../../../../api/product/productApi";
+import productApi from "../../api/product/productApi";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import AuthContext from "../../../../context/authContext";
+import uploadImages, { uploadImageVariants, uploadSingleImage } from "../../../../utils/uploadImage";
+import { color } from "framer-motion";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -41,6 +43,7 @@ export default function NewProduct() {
   const [description, setDescription] = useState("");
   const [open, setOpen] = React.useState(false);
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
 
 
 
@@ -111,54 +114,71 @@ export default function NewProduct() {
     getTradeMarksList();
   }, [])
 
-  const handleAddVariant = (data, e) => {
+  const handleAddVariant = async (data, e) => {
     e.preventDefault();
 
-
-
     if (productImage.length === 0) {
-      toast.error("Vui lòng thêm ảnh sản phẩm")
+      toast.error("Vui lòng thêm ảnh sản phẩm");
     } else if (productImage.length < 3) {
-      toast.error("Vui lòng thêm ít nhất 3 ảnh sản phẩm")
+      toast.error("Vui lòng thêm ít nhất 3 ảnh sản phẩm");
     }
 
     if (variantsProduct.length === 0) {
-      toast.error("Vui lòng thêm biến thể sản phẩm")
-    } else if (variantsProduct.length < 2) {
-      toast.error("Vui lòng thêm ít nhất 2 biến thể sản phẩm")
+      toast.error("Vui lòng thêm biến thể sản phẩm");
     }
 
-    const mediumPrice = variantsProduct.reduce((a, b) => a + Number.parseInt(b.price.amount), 0) / variantsProduct.length;
+    const mediumPrice =
+      variantsProduct.reduce((a, b) => a + Number.parseInt(b.price.amount), 0) /
+      variantsProduct.length;
+
+    const imageUrls = await uploadImages(productImage.map((item) => item.file));
+
+    const productVariants = await Promise.all(
+      variantsProduct.map(async (item) => {
+        const imageUrl = await uploadImageVariants(item?.imageUrl.variantFile);
+
+        return {
+          ...item,
+          productName: data.productName,
+          imageUrl: imageUrl,
+        };
+      })
+    );
+
     setProductInput({
       ...productInput,
       product: {
         name: data.productName,
         description: description,
-        featuredImageUrl: productImage[0].preview,
-        imageUrls: productImage.map((item) => item.preview),
+        imageUrls: imageUrls,
+        featuredImageUrl: imageUrls[0],
+        tradeMarkId: data.tradeMarkName,
         industrialId: data.industrialTypeName,
-        industrialTypeName: getValues("industrialTypeName"),
+        industrialTypeName: industrials.filter((item) => item.id === data.industrialTypeName)[0].name,
         mediumPrice: {
-          "amount": mediumPrice.toFixed(),
-          "currencyCode": "VND",
+          amount: Number.parseInt(mediumPrice),
+          currencyCode: "VND",
         },
         shopId: user?.shop?.shopId,
       },
-      productVariants: variantsProduct.map((item) => {
-        return {
-          ...item,
-          productName: data.productName,
+      productVariants: productVariants,
+    });
+    if (productInput && productInput.product && productInput.productVariants && productInput !== {}) {
+      try {
+        setLoading(false);
+        const res = await productApi.createProduct(productInput);
+        if (res) {
+          toast.success("Thêm sản phẩm thành công");
+          setProductImage([]);
+          setVariantsProduct([]);
+          setDescription("");
+          setLoading(true);
+
         }
-      }),
-
-    })
-    if (productInput) {
-      console.log(productInput);  
-      toast.success("Thêm sản phẩm thành công")
-    } else {
-      toast.error("Vui lòng nhập đầy đủ thông tin")
-    }
-
+      } catch (error) {
+        toast.error("Thêm sản phẩm thất bại");
+      }
+    };
   }
 
 
@@ -448,7 +468,6 @@ export default function NewProduct() {
                     </Grid>
                   </Grid>
                 </Item>
-
                 <Button
                   onClick={handleSubmit(handleAddVariant)}
                   type="submit"
@@ -460,7 +479,6 @@ export default function NewProduct() {
                   }}
                   variant="contained"
                 >Tạo sản phẩm</Button>
-
               </Box>
             </Box>
           </Box>

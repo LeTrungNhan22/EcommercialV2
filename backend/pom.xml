@@ -21,6 +21,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
         <mongodb.version>4.1.1</mongodb.version>
         <junit-engine.version>5.7.0</junit-engine.version>
         <assertj-core.version>3.18.1</assertj-core.version>

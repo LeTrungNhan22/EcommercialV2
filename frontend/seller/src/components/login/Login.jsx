@@ -76,7 +76,7 @@ export default function Login() {
       };
       const getTokenAction = await dispatch(loginCustomer(params));
       const data = unwrapResult(getTokenAction);
-      if (data.status === "success") {
+      if (data.status === 1) {
         const token = data.data;
         try {
           const params = {
@@ -93,8 +93,6 @@ export default function Login() {
         } catch (error) {
           throw new Error(data?.message);
         }
-      } else {
-        throw new Error(data?.message);
       }
     } catch (error) {
       setLoading(true);

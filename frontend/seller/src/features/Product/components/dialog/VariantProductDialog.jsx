@@ -26,6 +26,7 @@ const VariantProductDialog = ({ open, handleClickOpen, handleClose, variantsProd
         const file = e.target.files[0];
         setImageVariant({
             variantPreview: URL.createObjectURL(file),
+            variantFile: file,
         })
     }
 
@@ -52,13 +53,10 @@ const VariantProductDialog = ({ open, handleClickOpen, handleClose, variantsProd
                     "length": getValues("lengthInput"),
                     "width": getValues("widthInput")
                 },
-                "discount": {
-                    "amount": getValues("discountInput"),
-                    "currencyCode": "VND"
-                },
+                "discount": Number(getValues("discountInput")),
                 "imageUrl": imageVariant,
                 "price": {
-                    "amount": getValues("amountPriceInput"),
+                    "amount": Number(getValues("amountPriceInput")),
                     "currencyCode": getValues("currencyPriceCodeInput")
                 },
                 "productName": "",
