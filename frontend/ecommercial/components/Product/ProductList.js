@@ -5,9 +5,15 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { FaHeart, FaShopify, FaStar } from "react-icons/fa";
 import Link from "next/link";
+import LanguageContext from "../../context/languageContext";
+import { useContext } from "react";
 
 const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
   const [productSingle, setProductSingle] = useState([]);
+
+  const {languageData}=useContext(LanguageContext);
+  const { product_see_more, button_see_more_product } = languageData;
+
   const loadMore = () => {
     handleLoadMore();
   };
@@ -64,7 +70,7 @@ const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
 
                 <div className="flex items-baseline space-x-2">
                   <p className="text-xl text-rose-600 font-semibold">
-                    {Number(salePrice.amount).toLocaleString("vi-VN")}{mediumPrice.currencyCode}
+                    {Number(salePrice?.amount).toLocaleString("vi-VN")}{mediumPrice.currencyCode}
                   </p>
                   <p className="text-gray-500 line-through">
                     {" "}
@@ -100,7 +106,7 @@ const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
                   <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                   <div className="flex items-center justify-center space-x-2 text-white-600 hover:text-black">
                     <FaShopify />
-                    <span className="relative">Xem Thêm</span>
+                    <span className="relative">{product_see_more}</span>
                   </div>
                 </div>
               </Link>
@@ -117,7 +123,7 @@ const ProductList = ({ productFilter, handleLoadMore, loadMoreProduct }) => {
               <span className="h-full w-full inset-0 absolute mt-0.5 ml-0.5 bg-gradient-to-br filter group-active:opacity-0 rounded opacity-50 from-purple-600 to-blue-500"></span>
               <span className="absolute inset-0 w-full h-full transition-all duration-200 ease-out rounded shadow-xl bg-gradient-to-br filter group-active:opacity-0 group-hover:blur-sm from-purple-600 to-blue-500"></span>
               <span className="absolute inset-0 w-full h-full transition duration-200 ease-out rounded bg-gradient-to-br to-purple-600 from-blue-500"></span>
-              <span className="relative">Xem thêm sản phẩm</span>
+              <span className="relative">{button_see_more_product}</span>
             </button>
           </div>
         ) : (

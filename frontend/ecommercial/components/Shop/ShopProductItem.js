@@ -41,7 +41,7 @@ const ShopProductItem = ({ product }) => {
 
                 <div className="flex items-baseline space-x-2">
                     <p className="text-xl text-rose-600 font-semibold">
-                        {Number(salePrice.amount).toLocaleString("vi-VN")}{mediumPrice.currencyCode}
+                        {Number(salePrice?.amount).toLocaleString("vi-VN")}{mediumPrice.currencyCode}
                     </p>
                     <p className="text-gray-500 line-through">
                         {" "}

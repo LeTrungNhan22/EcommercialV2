@@ -15,6 +15,7 @@ import cartApi from "../../api/cart/cartApi";
 import AuthContext from "../../context/authContext";
 import { addToCart, createCartItems, getCartDetailByUserId } from "../../redux/cart/cartSlice";
 import { getProductVariantById } from "../../redux/product/productDetailSlice";
+import LanguageContext from "../../context/languageContext";
 
 export default function ProductVariants({ product, variants }) {
   const [originalPrice, setOriginalPrice] = useState(0);
@@ -27,6 +28,20 @@ export default function ProductVariants({ product, variants }) {
   const { isLogin, user } = useContext(AuthContext);
   const [variantDetail, setVariantDetail] = useState({});
   const [cartDetail, setCartDetail] = useState({});
+
+  const {languageData}=useContext(LanguageContext);
+  const { 
+    button_add_to_cart, 
+    button_buy_now,
+    header_category_name,
+    error_add_to_cart,
+    add_product_price,
+    product_size,
+    product_color,
+    product_quantity,
+    error_choose_color
+
+   } = languageData;
 
   useEffect(() => {
     setProductSingle(product);
@@ -225,7 +240,7 @@ export default function ProductVariants({ product, variants }) {
 
             <div className="space-y-3">
               <div className="text-gray-800 font-normal space-x-2 text-xl">
-                <span>Loại sản phẩn:</span>
+                <span>{header_category_name}</span>
                 <span className="text-rose-500">
                   {productSingle?.industrialTypeName}
                 </span>
@@ -242,7 +257,7 @@ export default function ProductVariants({ product, variants }) {
             </div>
             <div className="flex items-baseline mb-1 space-x-2 font-bold mt-4 flex-row">
               <p className="text-4xl text-rose-600 font-semibold">
-                <span className="text-gray-500 text-xl">Giá: </span>
+                <span className="text-gray-500 text-xl">{add_product_price}: </span>
                 {Number(salePrice).toLocaleString("vi-VN")}
                 {productSingle?.mediumPrice?.currencyCode}
               </p>
@@ -256,7 +271,7 @@ export default function ProductVariants({ product, variants }) {
             </p>
             <div className="mt-4 grid grid-cols-4 space-x-5">
               <h3 className="text-md text-gray-800 uppercase font-medium">
-                Kích cỡ
+                {product_size}
               </h3>
               {dimension != null ? (
                 <div>
@@ -268,12 +283,12 @@ export default function ProductVariants({ product, variants }) {
                   </div>
                 </div>
               ) : (
-                <span className="text-gray-500">Hãy chọn một màu</span>
+                <span className="text-gray-500">{error_choose_color}</span>
               )}
             </div>
             <div className="mt-4 grid grid-cols-4 space-x-5">
               <h3 className="text-md text-gray-800 uppercase font-medium">
-                Màu sắc
+                {product_color}
               </h3>
               <div>
                 <div className=" flex items-center gap-2">
@@ -315,7 +330,7 @@ export default function ProductVariants({ product, variants }) {
             </div>
             <div className="mt-4 grid grid-cols-4 space-x-5 items-center mb-3">
               <h3 className="text-md text-gray-800 uppercase font-medium">
-                Số lượng
+                {product_quantity}
               </h3>
               <div>
                 <div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
@@ -346,7 +361,7 @@ export default function ProductVariants({ product, variants }) {
               ""
             ) : selectedVariant == false ? (
               <span className="text-red-500">
-                Hãy chọn một loại sản phẩm để thêm vào giỏ hàng
+                {error_add_to_cart}
               </span>
             ) : null}
 
@@ -362,7 +377,7 @@ export default function ProductVariants({ product, variants }) {
                     onClick={() => handleAddToCart(productSingle)}
                     className="relative"
                   >
-                    Thêm vào giỏ hàng
+                    {button_add_to_cart}
                   </button>
                 </div>
               </div>
@@ -374,7 +389,7 @@ export default function ProductVariants({ product, variants }) {
                 <div className="flex items-center space-x-2">
                   <FaDollarSign />
 
-                  <a className="relative">Mua ngay</a>
+                  <a className="relative">{button_buy_now}</a>
                 </div>
               </div>
             </div>

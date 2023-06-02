@@ -27,7 +27,11 @@ const RegisterScreen = () => {
     signup_have,
     valid_email,
     valid_password,
-    order_dialog_button
+    order_dialog_button,
+    status_order_wating_process,
+    header_or,
+    header_login,
+    button_help
   } = languageData;
 
 
@@ -85,7 +89,7 @@ const RegisterScreen = () => {
             </Link>
           </div>
 
-          <p>Bạn cần hỗ trợ?</p>
+          <p>{button_help}</p>
         </div>
       </header>
       <main className="min-h-screen overflow-hidden bg-custome ">
@@ -152,20 +156,20 @@ const RegisterScreen = () => {
               {loading ? (
                 <button disabled>
                   <div className="font-semibold w-80 bg-gray-600 text-white duration-300 transition shadow-md border-2  rounded px-12 py-2 inline-block">
-                    Đang xử lý...
+                    {status_order_wating_process}
                   </div>
                 </button>
               ) : (
                 <button>
                   <div className="font-semibold w-80 hover:scale-105 hover:bg-red-500 hover:text-white duration-300 transition shadow-md border-2 border-red-500 rounded px-12 py-2 inline-block">
-                    Đăng ký
+                    {button_signup}
                   </div>
                 </button>
               )}
             </form>
             <div className="mt-8 mb-5 flex items-center space-x-2">
               <hr className="w-1/2" />
-              <span className="text-sm">Hoặc</span>
+              <span className="text-sm">{header_or}</span>
               <hr className="w-1/2" />
             </div>
             <div className="flex   justify-center items-center">
@@ -189,9 +193,9 @@ const RegisterScreen = () => {
             </div>
             <div className="w-full flex items-center justify-center mt-5">
               <span className="text-sm">
-                Bạn đã có tài khoản?
+                {signup_have}
                 <Link href="login">
-                  <a className="text-red-700 underline pb-2">Đăng nhập</a>
+                  <a className="text-red-700 underline pb-2">{header_login}</a>
                 </Link>
               </span>
             </div>

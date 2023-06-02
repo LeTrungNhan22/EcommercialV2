@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfoById, updateInfoBasic } from "../../redux/auth/authSlice";
 import { formatDate } from "../../utils/formatDate";
+import LanguageContext from "../../context/languageContext";
 
 const UserInforScreen = ({
   username,
@@ -50,6 +51,17 @@ const UserInforScreen = ({
   };
   const [genderCurrent, setGenderCurrent] = useState(gender || "");
 
+  const {languageData}=useContext(LanguageContext);
+  const {
+    info_personal_infor,
+    info_name,
+    info_birthday,
+    info_gender,
+    info_telephone,
+    info_update_information,
+    info_gender_option
+  } = languageData;
+
   useEffect(() => {
     if (gender !== undefined && gender !== "") {
       setGenderCurrent(gender);
@@ -64,7 +76,7 @@ const UserInforScreen = ({
       <div className="col-span-9 shadow rounded px-6 pt-5 pb-7 mt-6 lg:mt-0">
         <form onSubmit={handleSubmit(submitHandler)}>
           <h3 className="block text-gray-700 text-2xl font-bold mt-3 mb-2">
-            Thông tin tài khoản
+            {info_personal_infor}
           </h3>
           <div className="">
             <div className="grid sm:grid-cols-2 gap-4">
@@ -92,7 +104,7 @@ const UserInforScreen = ({
 
               <div>
                 <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-                  Họ và Tên
+                  {info_name}
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -115,7 +127,7 @@ const UserInforScreen = ({
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-                  Ngày sinh
+                  {info_birthday}
                 </label>
                 <input
                   className="shadow  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -133,7 +145,7 @@ const UserInforScreen = ({
               </div>
               <div>
                 <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-                  Giới tính
+                  {info_gender}
                 </label>
                 <select
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -143,7 +155,7 @@ const UserInforScreen = ({
                     required: "Hãy chọn giới tính",
                   })}
                 >
-                  <option value="">Chọn giới tính</option>
+                  <option value="">{info_gender_option}</option>
                   <option value="MAN">Nam</option>
                   <option value="WOMEN">Nữ</option>
                   <option value="OTHER">Khác</option>
@@ -178,7 +190,7 @@ const UserInforScreen = ({
               </div>
               <div>
                 <label className="block text-gray-700 text-sm font-bold mt-3 mb-2">
-                  Số điện thoại
+                  {info_telephone}
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -206,7 +218,7 @@ const UserInforScreen = ({
               type="submit"
               className="w-1/4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 cursor-pointer hover:bg-purple-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-3"
             >
-              Cập nhật thông tin
+              {info_update_information}
             </button>
           </div>
         </form>

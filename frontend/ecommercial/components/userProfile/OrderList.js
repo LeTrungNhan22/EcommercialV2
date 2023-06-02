@@ -5,6 +5,8 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { filterOrder, orderById, orderDetail, orderDetailById } from "../../redux/order/orderSlice";
 import { useState } from "react";
+import { useContext } from "react";
+import LanguageContext from "../../context/languageContext";
 
 const OrderList = ({ userId }) => {
     const members = [
@@ -81,6 +83,17 @@ const OrderList = ({ userId }) => {
     const orderDetail = useSelector(state => state.order.orderDetail);
     const { order, orderItems } = orderDetail;
 
+    const {languageData}=useContext(LanguageContext);
+    const {
+        info_title_order,
+        info_order_see_shop,
+        product_color,
+        product_quantity,
+        cart_discount,
+        total_price
+
+    }=languageData;
+
 
 
     useEffect(() => {
@@ -102,7 +115,7 @@ const OrderList = ({ userId }) => {
             <section className="bg-white rounded-md shadow-md">
                 <div className="max-w-screen-lg mx-auto px-4 py-4 md:px-8">
                     <div className="max-w-md">
-                        <h1 className="text-gray-800 text-2xl font-bold sm:text-3xl">Đơn đặt hàng</h1>
+                        <h1 className="text-gray-800 text-2xl font-bold sm:text-3xl">{info_title_order}</h1>
                     </div>
                     <ul className="mt-5 divide-y space-y-3">
                         <li className="px-4 py-5 duration-150 hover:border-white hover:rounded-xl hover:bg-gray-100">
@@ -136,7 +149,7 @@ const OrderList = ({ userId }) => {
             <section className="bg-white rounded-md shadow-md">
                 <div className="max-w-screen-lg mx-auto px-4 py-4 md:px-8">
                     <div className="max-w-md">
-                        <h1 className="text-gray-800 text-2xl font-bold sm:text-3xl">Đơn đặt hàng</h1>
+                        <h1 className="text-gray-800 text-2xl font-bold sm:text-3xl">{info_title_order}</h1>
                     </div>
                     <ul className="mt-5 divide-y space-y-3">
                         {
@@ -147,7 +160,7 @@ const OrderList = ({ userId }) => {
                                     <div className="flex items-center justify-between pb-3">
                                         <span className="font-bold text-ellipsis line-clamp-1 w-80">{item.variant.productName}</span>
                                         <a href={`/shop/view/${order.shopId}`} class="inline-flex items-center w-full px-2 py-2 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-rose-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-rose-700 hover:border-rose-700 hover:text-white focus-within:bg-rose-700 focus-within:border-blue-700">
-                                            Xem shop
+                                            {info_order_see_shop}
                                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                         </a>
                                     </div>
@@ -164,17 +177,17 @@ const OrderList = ({ userId }) => {
                                             </div>
                                         </div>
                                         <p className="text-gray-600 sm:text-sm font-bold">
-                                            Màu sắc:  {item.variant.color}
+                                            {product_color}:  {item.variant.color}
                                         </p>
                                         <div className="text-sm text-gray-600 flex items-center gap-6">
                                             <span className="flex items-center gap-2 text-rose-500 font-bold">
-                                                Tổng số lượng: {item.quantity}
+                                                {product_quantity}: {item.quantity}
                                             </span>
                                             <span className="flex items-center gap-2">
-                                                Giảm giá : {Number(order.discountTotalPrice.amount * item.quantity).toLocaleString()} ({item.variant.discount}%)
+                                                {cart_discount} : {Number(order.discountTotalPrice.amount * item.quantity).toLocaleString()} ({item.variant.discount}%)
                                             </span>
                                             <span className="flex items-center gap-2">
-                                                Tổng giá tiền: {Number(order.totalPrice.amount).toLocaleString()}
+                                                {total_price}: {Number(order.totalPrice.amount).toLocaleString()}
                                             </span>
                                         </div>
                                     </a>

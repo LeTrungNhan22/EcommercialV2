@@ -11,6 +11,8 @@ import {
   getCartDetailByUserId,
   updateQuantityCartItem
 } from "../../redux/cart/cartSlice";
+import LanguageContext from "../../context/languageContext";
+import ProductsRelated from "../../components/product/ProductsRelated";
 
 const CartScreen = () => {
   const { isLogin, user } = useContext(AuthContext);
@@ -18,6 +20,32 @@ const CartScreen = () => {
   const { totalPrice, totalCurrentPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
   const [updateTotalPrice, setUpdateTotalPrice] = useState(totalPrice);
   const [updateTotalQuantity, setUpdateTotalQuantity] = useState(totalQuantity);
+  const resultList = useSelector((state) => state.products.products);
+  const [loadMoreProduct, setLoadMoreProduct] = useState(true);
+
+  const {languageData}=useContext(LanguageContext);
+  const {
+    home_product_suggestions,
+    cart_describe,
+    add_product_price,
+    cart_remove_product,
+    td_order_total_price,
+    cart_button_update,
+    td_order_pay,
+    total_payment,
+    cart_discount,
+    cart_name_product
+
+  }=languageData;
+
+  const handleLoadMore = () => {
+    setMaxResult(maxResult + 20);
+    if (maxResult >= total) {
+      setLoadMoreProduct(false);
+    } else {
+      setLoadMoreProduct(true);
+    }
+  };
   // console.log(user);
 
   if (user === null || cartDetail === null) {
@@ -136,7 +164,7 @@ const CartScreen = () => {
               </g>
             </svg>
             <p>
-              Ở đây bạn có thể thấy tất cả sản phẩm bạn đã thêm vào giỏ hàng
+              {cart_describe}
             </p>
           </div>
         </div>
@@ -171,7 +199,7 @@ const CartScreen = () => {
                         </a>
                       </Link>
                       <p className="text-base font-black leading-none text-gray-700">
-                        Giá:
+                        {add_product_price}:
                         {Number(item.productVariant.price.amount).toLocaleString("vi-VN")}
                         {item.productVariant.price.currencyCode}
                       </p>
@@ -195,7 +223,7 @@ const CartScreen = () => {
                     <div className="flex  justify-between  ">
                       <div className="flex items-center text-red-500 cursor-pointer">
                         <p className="text-md leading-3 underline mr-3  ">
-                          Xóa khỏi giỏ hàng
+                          {cart_remove_product}
                         </p>
                         <FaTrashAlt />
                       </div>
@@ -224,7 +252,7 @@ const CartScreen = () => {
                           </div>
                           <div className="flex flex-col my-2">
                             <p className="text-xl font-bold leading-none text-rose-700">
-                              Tổng:
+                              {td_order_total_price}:
                               {Number(totalCurrentPrice).toLocaleString("vi-VN")}
                               {item.productVariant.price.currencyCode}
 
@@ -250,7 +278,7 @@ const CartScreen = () => {
               {/* voucher */}
               <div className="w-full border-b mb-3 py-3 flex items-end justify-end col-span-4 space-x-52">
                 <div>
-                  Giảm giá cho {totalQuantity} sản phẩm : {" "}
+                  {cart_discount} {totalQuantity} {cart_name_product} : {" "}
                   <span className="text-rose-600 text-2xl">
                     {Number(totalDiscount).toLocaleString("vi-VN")}
                     VND {" "}
@@ -264,7 +292,7 @@ const CartScreen = () => {
                     type="button"
                     className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-rose-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                   >
-                    Cập nhật
+                    {cart_button_update}
                   </button>
                 </>
 
@@ -274,7 +302,7 @@ const CartScreen = () => {
 
               <div className="w-full border-b mb-3 py-1 flex items-end justify-end col-span-4 space-x-10">
                 <span>
-                  Tổng thanh toán sản phẩm ({totalQuantity} sản phẩm){" "}
+                  {total_payment} ({totalQuantity} {cart_name_product}){" "}
                   <span className="text-rose-600 text-4xl">
                     {Number(totalPrice).toLocaleString("vi-VN")}
                     VND
@@ -285,7 +313,7 @@ const CartScreen = () => {
                     <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                     <div className="flex items-center space-x-2">
                       <FaDollarSign />
-                      <span className="relative">Thanh toán</span>
+                      <span className="relative">{td_order_pay}</span>
                     </div>
                   </a>
                 </Link>
@@ -296,8 +324,9 @@ const CartScreen = () => {
         {/* product details */}
         <main className="max-w-[1200px] my-2 mx-auto px-16  ">
           <section className="pt-10 mb-5">
-            <h2 className="section-title">Gợi ý sản phẩm</h2>
-            <ProductList />
+            <h2 className="section-title">{home_product_suggestions}</h2>
+            <ProductsRelated 
+            />
           </section>
         </main>
       </div>

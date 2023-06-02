@@ -13,6 +13,7 @@ import AuthContext from "../../context/authContext";
 import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
 import { createOrder } from "../../redux/order/orderSlice";
 import { toast } from "react-hot-toast";
+import LanguageContext from "../../context/languageContext";
 
 const CheckoutScreen = () => {
     const { user } = useContext(AuthContext);
@@ -21,6 +22,25 @@ const CheckoutScreen = () => {
     const cartDetail = useSelector((state) => state.cart.cartDetail);
     const { totalPrice, totalCurrentPrice,
         totalDiscount, totalQuantity, itemToShops } = cartDetail;
+
+    const {languageData}=useContext(LanguageContext);
+    const {
+         order_title,
+         order_address,
+         order_button_change_address,
+         cart_product_table_title,
+         cart_product_table_price,
+         product_quantity,
+         label_money,
+         order_shipping_unit,
+         order_message,
+         order_message_placeholder,
+         td_order_pay,
+         total_price,
+         cart_discount,
+
+     } = languageData;
+        
 
     if (user === null || cartDetail === null) {
         return <div>Không tìm thấy thông tin giỏ hàng</div>;
@@ -102,14 +122,14 @@ const CheckoutScreen = () => {
                 telephone={telephone}
             />
             <Head>
-                <title>Thanh toán</title>
+                <title>Payment</title>
             </Head>
             <header className="sticky top-0 z-20 shadow-md  py-2 bg-white ">
                 <div className="w-[1200px] mx-auto border-l px-6 my-5 border-red-600">
                     <Link href="/">
                         <a className="text-red-700">HOME</a>
                     </Link>
-                    <h2 className="text-3xl text-rose-500">Thanh toán</h2>
+                    <h2 className="text-3xl text-rose-500">{order_title}</h2>
                 </div>
             </header>
             {/* checkout page */}
@@ -119,28 +139,28 @@ const CheckoutScreen = () => {
                     <div className="address-checkout"></div>
                     <div className="p-3 flex items-center space-x-3 text-amber-500 text-xl mb-3">
                         <GrLocation className="text-amber-500" />
-                        <h3>Địa chỉ nhận hàng</h3>
+                        <h3>{order_address}</h3>
                     </div>
 
                     <div className="grid grid-cols-4 mx-auto items-center justify-center px-4 pb-6">
                         <div className=" flex flex-col">
                             <span>{fullName}</span>
                             <span className="font-bold">
-                                {telephone == null ? "Chưa có số điện thoại" : telephone}
+                                {telephone == null ? "No phone number yet" : telephone}
                             </span>
                         </div>
                         <div className="col-span-2">
                             <p>
                                 <p>
                                     {addressList?.address1 == null
-                                        ? "Bạn chưa có  ông tin địa chỉ"
+                                        ? "No address information yet"
                                         : addressList?.address1}
                                 </p>
                             </p>
                         </div>
                         <div className="space-x-10">
                             <span className=" text-xs border p-1 border-rose-500 text-red-600 ">
-                                Mặc định
+                            Default
                             </span>
                             <>
                                 <button
@@ -148,7 +168,7 @@ const CheckoutScreen = () => {
                                     onClick={() => openModal()}
                                     className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-rose-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
                                 >
-                                    Thay đổi địa chỉ
+                                    {order_button_change_address}
                                 </button>
                             </>
                         </div>
@@ -158,11 +178,11 @@ const CheckoutScreen = () => {
                 {/* product checkout */}
                 <section className="bg-white w-[1200px] mx-auto shadow-md px-2 py-4">
                     <div className="grid grid-cols-2 items-center px-4 mb-2">
-                        <h3 className="text-2xl text-amber-600">Sản phẩm</h3>
+                        <h3 className="text-2xl text-amber-600">{cart_product_table_title}</h3>
                         <div className="flex justify-between items-center text-gray-400">
-                            <span>Đơn giá </span>
-                            <span>Số lượng </span>
-                            <span>Thành tiền</span>
+                            <span>{cart_product_table_price} </span>
+                            <span>{product_quantity} </span>
+                            <span>{label_money}</span>
                         </div>
                     </div>
 
@@ -199,15 +219,15 @@ const CheckoutScreen = () => {
                     <div className="bg-cyan-50 w-full  px-2 py-4 border border-cyan-200">
                         <div className="grid grid-cols-3">
                             <div className="space-x-3">
-                                <span className="text-sm">Lời nhắn: </span>
+                                <span className="text-sm">{order_message}: </span>
                                 <input
                                     type="text"
-                                    placeholder="Lưu ý cho người bán"
+                                    placeholder={order_message_placeholder}
                                     className="rounded shadow"
                                 />
                             </div>
                             <div className="col-span-2 flex justify-between">
-                                <span className="text-green-500">Đơn vị vận chuyển:</span>
+                                <span className="text-green-500">{order_shipping_unit}:</span>
                                 <div className="flex flex-col">
                                     <span>Nhanh</span>
                                     <span className="text-gray-500 text-sm">
@@ -224,7 +244,7 @@ const CheckoutScreen = () => {
                                             onClick={handleCheckout}
                                             className="relative"
                                         >
-                                            Thanh toán
+                                            {td_order_pay}
                                         </button>
                                     </div>
                                 </a>
@@ -234,8 +254,8 @@ const CheckoutScreen = () => {
                     <div className="bg-rose-50 w-full  px-2 py-4 border border-rose-50">
                         <div className="flex items-end justify-end space-x-4">
                             <span>
-                                Tổng số tiền ( {totalQuantity} sản phẩm):{" "}
-                                giảm giá
+                                {total_price} ( {totalQuantity} {cart_product_table_title}):{" "}
+                                {cart_discount}
                             </span>
                             <span className="text-2xl text-red-500">
 

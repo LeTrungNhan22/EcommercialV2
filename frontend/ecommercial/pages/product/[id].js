@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
@@ -7,10 +7,11 @@ import Layout from "../../components/common/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
 import ProductsRelated from "../../components/product/ProductsRelated";
-import ProductVariants from "../../components/product/ProductVariants";
+import ProductVariants from "../../components/Product/ProductVariants";
 import ShopDetail from "../../components/Shop/ShopDetail";
 import { getProductDetailById } from "../../redux/product/productDetailSlice";
 import { getError } from "../../utils/error";
+import LanguageContext from "../../context/languageContext";
 
 export default function ProductScreen() {
   const router = useRouter();
@@ -20,6 +21,14 @@ export default function ProductScreen() {
   const product = useSelector((state) => state.productDetail.product);
   const shop = useSelector((state) => state.productDetail.shop);
   const variants = useSelector((state) => state.productDetail.variants);
+
+  const {languageData}=useContext(LanguageContext);
+  const { 
+    product_details,
+    add_product_industry,
+    add_product_name,
+    from_the_same_shop
+  } = languageData;
 
   useEffect(() => {
     const getProductDetail = async () => {
@@ -58,7 +67,7 @@ export default function ProductScreen() {
             <div className=" w-[1400px]   mx-auto   bg-white p-4 pb-16 rounded shadow">
               <div className="container pb-6 px-6">
                 <h3 className="border-b border-gray-200  text-gray-800 pb-3 font-medium text-3xl">
-                  Chi tiết sản phẩm
+                  {product_details}
                 </h3>
                 <div className=" pt-6">
                   <div className="text-gray-600 space-y-3 overflow-hidden text-ellipsis">
@@ -69,7 +78,7 @@ export default function ProductScreen() {
                       <tbody>
                         <tr>
                           <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                            Loại sản phẩm
+                            {add_product_name}
                           </th>
                           <th className="py-2 px-2 border border-gray-200 w-40 font-medium text-blue-600">
                             {product?.name}
@@ -78,7 +87,7 @@ export default function ProductScreen() {
 
                         <tr>
                           <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                            Loại công nghiệp
+                           {add_product_industry}
                           </th>
                           <th className="py-2 px-2 border border-gray-200 w-40 font-medium text-blue-600">
                             {product?.industrialTypeName}
@@ -95,7 +104,7 @@ export default function ProductScreen() {
             <div className=" w-[1400px]  mx-auto mt-5  bg-gray-200 p-4 rounded shadow">
               <div className="container pb-6 px-6">
                 <h3 className="border-b border-rose-600  text-gray-800 pb-3 font-medium text-3xl">
-                  Liên quan
+                  {from_the_same_shop}
                 </h3>
                 <div className="   mx-auto mt-5  bg-gray-200 ">
                   <ProductsRelated industrialId={product?.industrialId} />

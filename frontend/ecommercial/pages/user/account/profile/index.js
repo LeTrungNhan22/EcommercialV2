@@ -5,9 +5,22 @@ import Layout from "../../../../components/common/Layout";
 import SideBar from "../../../../components/UserProfile/SideBar";
 import UserLayout from "../../../../components/UserProfile/UserLayout";
 import AuthContext from "../../../../context/authContext";
+import LanguageContext from "../../../../context/languageContext";
 
 const UserProfileScreen = () => {
   const { user } = useContext(AuthContext);
+
+  const {languageData}=useContext(LanguageContext);
+  const {
+    order_address,
+    info_personal_infor,
+    info_edit,
+    info_name,
+    info_email,
+    info_telephone,
+    info_address,
+    info_delivery_address
+  }=languageData;
 
   if (user === null || user === undefined || user === "") {
     return <div>loading</div>;
@@ -19,23 +32,23 @@ const UserProfileScreen = () => {
         <div className="shadow-md rounded bg-white px-4 pt-6 pb-8">
           <div className="flex justify-between items center mb-4">
             <h3 className="font-bold capitalize text-gray-800 text-lg">
-              Thông tin cá nhân
+              {info_personal_infor}
             </h3>
-            <Link href="/">
-              <a className="text-rose-500">Chỉnh sửa</a>
+            <Link href="/user/account/infor">
+              <a className="text-rose-500">{info_edit}</a>
             </Link>
           </div>
           <div className="space-y-1">
             <h4 className="text-gray-800 font-medium">
-              <span className="text-base font-bold">Họ và tên: </span>
+              <span className="text-base font-bold">{info_name}: </span>
               {user.fullName}
             </h4>
             <p className="text-gray-800">
-              <span className="text-base font-bold">Địa chỉ email: </span>
+              <span className="text-base font-bold">{info_email}: </span>
               {user.email}
             </p>
             <p className="text-gray-800">
-              <span className="text-base font-bold">Số điện thoại: </span>
+              <span className="text-base font-bold">{info_telephone}: </span>
               {user.telephone}
             </p>
           </div>
@@ -44,24 +57,24 @@ const UserProfileScreen = () => {
         <div className="shadow-md rounded bg-white  px-4 pt-6 pb-8">
           <div className="flex justify-between items center mb-4">
             <h3 className="font-bold capitalize text-gray-800 text-lg">
-              Địa chỉ giao hàng
+              {info_delivery_address}
             </h3>
             <Link href="/user/account/address">
-              <a className="text-rose-500">Chỉnh sửa</a>
+              <a className="text-rose-500">{info_edit}</a>
             </Link>
           </div>
           <div className="space-y-1">
             <h4 className="text-gray-800 font-medium">
-              <span className="text-base font-bold">Họ và tên: </span>
+              <span className="text-base font-bold">{info_name}: </span>
               {user.fullName}
             </h4>
             <p className="text-gray-800">
-              <span className="text-base font-bold">Địa chỉ: </span>
+              <span className="text-base font-bold">{info_address}: </span>
               {user.address?.address1}
             </p>
 
             <p className="text-gray-800">
-              <span className="text-base font-bold">Số điện thoại: </span>
+              <span className="text-base font-bold">{info_telephone}: </span>
               {user.telephone}
             </p>
           </div>

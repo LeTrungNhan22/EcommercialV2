@@ -12,6 +12,10 @@ import React, {
 import { toast } from "react-hot-toast";
 import AuthContext from "../../../context/authContext";
 import { getError } from "../../../utils/error";
+import LanguageContext from "../../../context/languageContext";
+
+
+
 
 const VerifyEmailScreen = () => {
   const basUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -21,6 +25,18 @@ const VerifyEmailScreen = () => {
   const axios = require("axios");
   const router = useRouter();
   const [isSend, setIsSend] = useState(false);
+
+  const { languageData } = useContext(LanguageContext);
+  const {
+    header_signup,
+    order_dialog_button,
+    button_help,
+    mess_confirm,
+    change_email_address,
+    resend_code,
+    email_confirm_title
+  }=languageData;
+
 
 
   const handleOnChange = (index, e) => {
@@ -100,35 +116,34 @@ const VerifyEmailScreen = () => {
   return (
     <>
       <Head>
-        <title>Đăng ký</title>
+        <title>{header_signup}</title>
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon " href="/favicon.ico" />
       </Head>
       <header className="p-5 sticky z-50 top-0 bg-white md:px-10 shadow-md grid grid-cols-1">
         <div className="flex items-center justify-between w-full">
           <div>
-            <h3 className="text-3xl font-semibold">Đăng ký</h3>
+            <h3 className="text-3xl font-semibold">{header_signup}</h3>
             <Link href="/">
-              <a className="text-red-700 italic">Trang chủ</a>
+              <a className="text-red-700 italic">{order_dialog_button}</a>
             </Link>
           </div>
 
-          <p>Bạn cần hỗ trợ?</p>
+          <p>{button_help}</p>
         </div>
       </header>
 
       <div className="min-h-screen shadow-md bg-gray-300 flex-col max-w-full flex justify-center items-center space-x-2">
         <div className="space-x-5 flex w-[1000px] h-[300px] shadow-md rounded bg-white px-10 py-2 items-center text-left justify-center -mt-40">
           <div className="text-left flex flex-col items-start">
-            <span className="text-2xl">Xin chào đây là bước cùng</span>
-            <p> Vui lòng nhập 6 chữa số gửi tới email</p>
+            <span className="text-2xl">{email_confirm_title}</span>
             <span className="font-bold"></span>
             <Link href="/user/account/register">
-              <button className="text-red-500">Sửa địa chỉ email</button>
+              <button className="text-red-500">{change_email_address}</button>
             </Link>
 
             <button onClick={resendMailHandler} className="text-red-500">
-              Gửi lại mã
+              {resend_code}
               {isSend == false ? (
                 ""
               ) : (
@@ -163,9 +178,9 @@ const VerifyEmailScreen = () => {
             className="cursor-pointer rounded px-5 py-0.5 overflow-hidden group bg-rose-500 relative hover:bg-gradient-to-r hover:from-green-500 hover:to-green-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-400 transition-all ease-out duration-300"
           >
             <span className="absolute right-0 w-16 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-            <div className="flex items-center space-x-2">
+            <div className="flex justify-center items-center space-x-2">
               <CheckCircleIcon />
-              <span className="relative">Xác nhận</span>
+              <span className="relative uppercase">{mess_confirm}</span>
             </div>
           </button>
         </div>

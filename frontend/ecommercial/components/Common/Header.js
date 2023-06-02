@@ -22,7 +22,17 @@ const Header = ({ totalQuantity, itemToShops }) => {
   const { isLogin, user, logoutContext } = useContext(AuthContext);
   const [isShowed, setIsShowed] = useState(false);
   const sellerUrl = process.env.NEXT_PUBLIC_SELLER_URL;
-  const { language, setLanguage, languageData, setLanguageData, languageTypes } = useContext(LanguageContext);
+  const { language,
+     setLanguage, 
+     languageData, 
+     setLanguageData, 
+     languageTypes ,
+    } = useContext(LanguageContext);
+
+    const  { header_login,
+      header_user_down_logout,
+      header_user_down_account,
+      header_seller} = languageData;
 
 
 
@@ -235,7 +245,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                             ) : (
                               <div className=" h-5 w-5" aria-hidden="true" />
                             )}
-                            {languageData?.header_login}
+                            {header_login}
                           </button>
                         )}
                       </Menu.Item>
@@ -257,7 +267,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                           ) : (
                             <div className=" h-5 w-5" aria-hidden="true" />
                           )}
-                          Đăng xuất
+                          {header_user_down_logout}
                         </button>
                       )}
                     </Menu.Item>
@@ -287,7 +297,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                                 aria-hidden="true"
                               />
                             )}
-                            Tài khoản
+                            {header_user_down_account}
                           </button>
                         )}
                       </Menu.Item>
@@ -311,7 +321,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                             ) : (
                               <div className=" h-5 w-5" aria-hidden="true" />
                             )}
-                            Kênh người bán
+                            {header_seller}
                           </button>
                         )}
                       </Menu.Item>

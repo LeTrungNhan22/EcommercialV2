@@ -8,10 +8,24 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import AuthContext from "../../context/authContext";
+import LanguageContext from "../../context/languageContext";
 
 const SideBar = () => {
   const { user, isLogin, logoutContext } = useContext(AuthContext);
   const { fullName, imageUrl, username } = user;
+
+  const {languageData}=useContext(LanguageContext);
+  const {
+    td_order_pay,
+    header_user_down_logout,
+    info_profile,
+    info_address,
+    info_change_password,
+    sidebar_account_management,
+    sidebar_order_history,
+    sidebar_hello
+  }=languageData;
+  
   return (
     <>
       {/* account profile */}
@@ -29,7 +43,7 @@ const SideBar = () => {
           </div>
         </div>
         <div className="flex-grow">
-          <p className="text-gray-600"> Xin chào,</p>
+          <p className="text-gray-600"> {sidebar_hello},</p>
           <h4 className="text-gray-800 font-bold">
             {fullName == null ? username : fullName}
           </h4>
@@ -40,7 +54,7 @@ const SideBar = () => {
         <div className="space-y-1 pl-8">
           <Link href="/user/account/profile">
             <a className="relative text-base font-sans capitalize hover:text-primary transition block text-primary">
-              Quản lý tài khoản
+              {sidebar_account_management}
               <span className="absolute -left-8 top-1 text-base">
                 <FaAddressCard />
               </span>
@@ -48,18 +62,18 @@ const SideBar = () => {
           </Link>
           <Link href="/user/account/infor">
             <a className="hover:text-primary transition capitalize block">
-              Hồ sơ
+              {info_profile}
             </a>
           </Link>
 
           <Link href="/user/account/address">
             <a className="hover:text-primary transition capitalize block">
-              Địa chỉ
+              {info_address}
             </a>
           </Link>
           <Link href={`/user/account/change-password/${user.id}`}>
             <a className="hover:text-primary transition capitalize block">
-              Đổi mật khẩu
+              {info_change_password}
             </a>
           </Link>
         </div>
@@ -70,7 +84,7 @@ const SideBar = () => {
             <a
               className="relative medium capitalize text-gray-800 font-sans hover:text-primary transition block"
             >
-              Lịch sử đặt hàng
+              {sidebar_order_history}
               <span className="absolute -left-8 top-1 text-base">
                 <FaGift />
               </span>
@@ -84,7 +98,7 @@ const SideBar = () => {
             href="#"
             className="relative capitalize text-gray-800 font-sans hover:text-primary transition block"
           >
-            Thanh toán
+            {td_order_pay}
             <span className="absolute -left-8 top-1 text-base">
               <FaCreditCard />
             </span>
@@ -114,7 +128,7 @@ const SideBar = () => {
           >
             <div className="flex  items-center justify-center space-x-4">
               <FaSignOutAlt />
-              <span>Đăng xuất</span>
+              <span>{header_user_down_logout}</span>
             </div>
           </button>
         </div>

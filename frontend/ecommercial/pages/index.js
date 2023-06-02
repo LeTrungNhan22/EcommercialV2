@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -16,17 +16,21 @@ import { getError } from "../utils/error";
 import { getProductByFilter } from "../redux/product/productsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import ScrollToTopButton from "../components/Common/ScrollToTopButton";
+import LanguageContext from "../context/languageContext";
 
 //init firebase
 initFirebase();
 
 export default function Home() {
   const dispatch = useDispatch();
-  const resultList = useSelector((state) => state.products.products);
   const [industrialList, setIndustrialList] = useState([]);
   const [maxResult, setMaxResult] = useState(20);
   const [total, setTotal] = useState(0);
+  const resultList = useSelector((state) => state.products.products);
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
+
+  const {languageData}=useContext(LanguageContext);
+  const {home_product_suggestions, header_category_name}=languageData;
 
   // slideShow
   const settings = {
@@ -86,7 +90,7 @@ export default function Home() {
         {/* category list */}
         <main className="max-w-[1200px] my-2 mx-auto px-8 md:px-16  bg-gray-200 py-3">
           <section className="pt-10 mb-5">
-            <h2 className="section-title">Danh mục</h2>
+            <h2 className="section-title">{header_category_name}</h2>
             <div>
               <div className="flex-1 w-full mx-auto">
                 <div className="mt-2">
@@ -103,7 +107,7 @@ export default function Home() {
         {/* recommend */}
         <main className="max-w-[1200px] my-2 mx-auto px-16  bg-gray-200">
           <section className="py-10 mb-5 ">
-            <h2 className="section-title">Gợi ý sản phẩm</h2>
+            <h2 className="section-title">{home_product_suggestions}</h2>
             <ProductList
               productFilter={resultList}
               handleLoadMore={handleLoadMore}

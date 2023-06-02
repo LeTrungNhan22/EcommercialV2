@@ -8,12 +8,27 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductByFilter } from "../../redux/product/productsSlice";
 import moment from "moment";
+import { useContext } from "react";
+import LanguageContext from "../../context/languageContext";
 
 
 const ShopDetail = ({ shop }) => {
     const dispatch = useDispatch();
     const [shopProducts, setShopProducts] = React.useState([]);
     const [durationDays, setDurationDays] = React.useState(0);
+
+    const {languageData}=useContext(LanguageContext);
+    const { 
+        info_address,
+        cart_product_table_title,
+        shop_response_rate,
+        shop_response_time,
+        shop_joined,
+        shop_follower,
+        shop_joined_time
+
+     } = languageData;
+    
     useEffect(() => {
         const params = {
             shopId: shop?.shopId,
@@ -103,36 +118,36 @@ const ShopDetail = ({ shop }) => {
                         <div className="grid grid-cols-3 space-x-16">
                             <div className="flex flex-col justify-around">
                                 <div className="space-x-3">
-                                    <span className="text-gray-500">Địa chỉ:</span>
+                                    <span className="text-gray-500">{info_address}:</span>
                                     <span className="text-rose-600">
                                         {shop?.address?.address1}
                                     </span>
                                 </div>
 
                                 <div className="space-x-3">
-                                    <span className="text-gray-500">Sản phẩm</span>
+                                    <span className="text-gray-500">{cart_product_table_title}</span>
                                     <span className="text-rose-600">{shopProducts?.total}</span>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-around">
                                 <div className="space-x-3">
-                                    <span className="text-gray-500">Tỉ lệ phản hồi:</span>
+                                    <span className="text-gray-500">{shop_response_rate}:</span>
                                     <span className="text-rose-500">71.1k</span>
                                 </div>
 
                                 <div className="space-x-3">
-                                    <span className="text-gray-500">Thời gian phản hồi:</span>
+                                    <span className="text-gray-500">{shop_response_time}:</span>
                                     <span className="text-rose-500">71%</span>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-around">
                                 <div className="space-x-3">
-                                    <span className="text-gray-500">Tham gia:</span>
-                                    <span className="text-rose-600">{durationDays} ngày trước</span>
+                                    <span className="text-gray-500">{shop_joined}:</span>
+                                    <span className="text-rose-600">{durationDays} {shop_joined_time}</span>
                                 </div>
 
                                 <div className="space-x-3">
-                                    <span className="text-gray-500">Người theo dõi</span>
+                                    <span className="text-gray-500">{shop_follower}</span>
                                     <span className="text-rose-600">31.1k</span>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GrLocation } from "react-icons/gr";
 import AddressPopUp from "./AddressPopUp";
+import LanguageContext from "../../context/languageContext";
 
 
 export default function UserAddress({
@@ -19,6 +20,14 @@ export default function UserAddress({
   isOpen,
 }) {
   const [addressList, setAddressList] = useState({});
+
+  const {languageData}=useContext(LanguageContext);
+  const {
+    info_my_address,
+    info_delivery_address,
+    order_button_change_address
+  }=languageData;
+
   useEffect(() => {
     setAddressList(address);
   }, [address]);
@@ -26,7 +35,7 @@ export default function UserAddress({
     <div className="bg-white p-3 rounded-md">
       <div className="flex items-center m-4 ">
         <h3 className="text-gray-700 text-2xl font-bold  flex-1">
-          Địa chỉ của tôi
+          {info_my_address}
         </h3>
         <AddressPopUp
           openModal={openModal}
@@ -44,7 +53,7 @@ export default function UserAddress({
         <div className="address-checkout"></div>
         <div className="p-3 flex items-center space-x-3 text-amber-500 text-xl mb-3">
           <GrLocation className="text-amber-500" />
-          <h3>Địa chỉ nhận hàng</h3>
+          <h3>{info_delivery_address}</h3>
         </div>
 
         <div className="grid grid-cols-4 mx-auto items-center justify-center px-4 pb-6">
@@ -55,7 +64,7 @@ export default function UserAddress({
           <div className="col-span-2">
             <p>
               {addressList?.address1 == null
-                ? "Bạn chưa có  ông tin địa chỉ"
+                ? "No address information yet"
                 : addressList?.address1}
             </p>
           </div>
@@ -66,7 +75,7 @@ export default function UserAddress({
                 onClick={openModal}
                 className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-rose-600 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
               >
-                Thay đổi địa chỉ
+                {order_button_change_address}
               </button>
             </>
           </div>

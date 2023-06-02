@@ -8,10 +8,15 @@ import Link from "next/link";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { getProductByFilter } from "../../redux/product/productsSlice";
+import { useContext } from "react";
+import LanguageContext from "../../context/languageContext";
 
 const ProductsRelated = ({ industrialId }) => {
   const [productsRelated, setProductsRelated] = useState([]);
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
+
+  const {languageData}=useContext(LanguageContext);
+  const { product_see_more, button_see_more_product } = languageData;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -128,7 +133,7 @@ const ProductsRelated = ({ industrialId }) => {
                     <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                     <div className="flex items-center justify-center space-x-2 text-white-600 hover:text-black">
                       <FaShopify />
-                      <span className="relative">Xem Thêm</span>
+                      <span className="relative">{product_see_more}</span>
                     </div>
                   </div>
                 </Link>
@@ -139,7 +144,7 @@ const ProductsRelated = ({ industrialId }) => {
         <div className="flex items-center justify-center">
           <Link href="/shop">
             <a className="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-gray-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-gray-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700">
-              Button Text
+              {button_see_more_product}
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
