@@ -1,6 +1,6 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { storage } from "../../firebase/initFirebase";
@@ -9,6 +9,7 @@ import AddressPopUp from "../UserProfile/AddressPopUp";
 import { createShop } from "../../redux/auth/authSlice";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
+import {LanguageContext } from "../../../ecommercial/context/languageContext";
 
 const CreateShopPage = ({
   username,
@@ -47,6 +48,23 @@ const CreateShopPage = ({
   const router = useRouter();
 
   const [checkFile, setCheckFile] = useState(false);
+
+  const {languageData}=useContext(LanguageContext);
+  const {
+    shop_avatar,
+    shop_name,
+    info_address,
+    info_telephone,
+    add_product_description,
+    info_my_profile,
+    shop_require_profile,
+    shop_description_placeholder
+  }=languageData;
+  console.log('====================================');
+  console.log(languageData);
+  console.log('====================================');
+
+
   function uploadFile() {
     // get file
     var file = inputEl.current.files[0];
@@ -133,7 +151,7 @@ const CreateShopPage = ({
                     <div className="md:flex flex-row md:space-x-4 w-full text-md ">
                       <div className="mb-3 space-y-2 w-full text-md ">
                         <label className="font-semibold text-gray-600 py-2">
-                          Tên shop <abbr title="required">*</abbr>
+                          {shop_name} <abbr title="required">*</abbr>
                         </label>
                         <input
                           {...register("shopNameInput", {
@@ -167,7 +185,7 @@ const CreateShopPage = ({
 
                     <div class="md:flex md:flex-col md:space-x-4 w-full text-md mb-6">
                       <label class="font-semibold text-gray-600 py-2">
-                        Địa chỉ
+                        {info_address}
                       </label>
                       <span className="text-base font-normal text-gray-600">
                         {addressList?.address1 == null
@@ -207,7 +225,7 @@ const CreateShopPage = ({
                       </div>
                       <div class="mb-3 space-y-2 w-full text-md">
                         <label class="font-semibold text-gray-600 py-2">
-                          Số điện thoại <abbr title="required">*</abbr>
+                          {info_telephone} <abbr title="required">*</abbr>
                         </label>
                         <input
                           {...register("telephoneInput", {
@@ -228,17 +246,16 @@ const CreateShopPage = ({
                       </div>
                     </div>
                     <p className="text-xs mb-2 text-gray-400">
-                      Để thay đổi thông tin này vui lòng đến trang cá nhân của
-                      bạn{" "}
+                      {shop_require_profile}{" "}
                       <Link href={`/user/account/profile`}>
                         <span className="text-blue-500 cursor-pointer">
-                          Hồ sơ cá nhân
+                          {info_my_profile}
                         </span>
                       </Link>
                     </p>
                     <div class="flex-auto w-full mb-1 text-md space-y-2">
                       <label class="font-semibold text-gray-600 py-2">
-                        Mô tả
+                        {add_product_description}
                       </label>
                       <textarea
                         {...register("descriptionInput", {
@@ -249,7 +266,7 @@ const CreateShopPage = ({
                         name="descriptionInput"
                         id="descriptionInput"
                         className=" min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4"
-                        placeholder="Ghi chú về shop của bạn"
+                        placeholder={shop_description_placeholder}
                         spellCheck="false"
                       ></textarea>
                       {errors?.messageInput?.type === "required" && (
@@ -281,7 +298,7 @@ const CreateShopPage = ({
           </div>
           <div className="w-1/5 h-full space-y-5 p-6 bg-white rounded-xl shadow-lg z-10 mx-auto ml-3 ">
             <label className="text-md font-semibold text-gray-600 py-2">
-              Ảnh đại diện
+              {shop_avatar}
               <abbr className="hidden" title="required">
                 *
               </abbr>

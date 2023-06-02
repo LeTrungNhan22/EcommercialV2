@@ -43,7 +43,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
   const logoutHandler = () => {
     logoutContext();
   };
-  console.log(languageData);
+  // console.log(languageData);
 
   return (
     <header className="p-5 sticky z-50 top-0 bg-white md:px-10 shadow-md grid grid-cols-1 md:grid-cols-3">
