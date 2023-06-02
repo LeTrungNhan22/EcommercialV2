@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaRegEnvelope } from "react-icons/fa";
@@ -12,12 +12,24 @@ import { useDispatch } from "react-redux";
 import facebookLogo from "../../../assets/icon/facebook.png";
 import googleLogo from "../../../assets/icon/google.png";
 import { registerUser } from "../../../redux/auth/authSlice";
+import LanguageContext from "../../../context/languageContext";
+import { lang } from "moment/moment";
 
 const RegisterScreen = () => {
   var base64 = require("base-64");
   const router = useRouter();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const { languageData } = useContext(LanguageContext);
+  const {
+    header_signup,
+    button_signup,
+    signup_have,
+    valid_email,
+    valid_password,
+    order_dialog_button
+  } = languageData;
+
 
   const {
     handleSubmit,
@@ -60,16 +72,16 @@ const RegisterScreen = () => {
   return (
     <div className="bg-gray-300">
       <Head>
-        <title>Đăng ký</title>
+        <title>{header_signup}</title>
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon " href="/favicon.ico" />
       </Head>
       <header className="py-3 sticky z-50 top-0 bg-white md:px-5 shadow-md grid grid-cols-1">
         <div className="flex items-center justify-between w-full">
           <div>
-            <h3 className="text-3xl font-semibold">Đăng ký</h3>
+            <h3 className="text-3xl font-semibold">{header_signup}</h3>
             <Link href="/">
-              <a className="text-red-700 italic">Trang chủ</a>
+              <a className="text-red-700 italic">{order_dialog_button}</a>
             </Link>
           </div>
 
@@ -80,7 +92,7 @@ const RegisterScreen = () => {
         <section className="bg-white h-[450px] md:h-[500px]  w-[370px] md:w-[470px]  mx-auto my-10  rounded-md shadow-md">
           <div className="p-5">
             <h3 className="text-2xl font-semibold mb-2 flex items-center justify-center">
-              Đăng ký
+              {header_signup}
             </h3>
             <form
               className="flex items-center flex-col"
@@ -93,7 +105,7 @@ const RegisterScreen = () => {
 
                 <input
                   {...register("email", {
-                    required: "Vui lòng nhập email",
+                    required: `${valid_email}`,
                     pattern: {
                       value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/i,
                       message: "Email không khả dụng",
@@ -119,7 +131,7 @@ const RegisterScreen = () => {
                 <label htmlFor="password"></label>
                 <input
                   {...register("password", {
-                    required: "Vui lòng nhập mật khẩu",
+                    required: `${valid_password}`,
                     minLength: {
                       value: 6,
                       message: "Mật khẩu phải có 6 ký tự trở lên",
