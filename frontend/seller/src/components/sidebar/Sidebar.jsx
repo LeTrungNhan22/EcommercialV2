@@ -67,14 +67,15 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
-            <li className="sidebarListItem">
-              <TrendingUp className="sidebarIcon" />
-              Sales
-            </li>
-            <li className="sidebarListItem">
-              <Money className="sidebarIcon" />
-              Transaction
-            </li>
+            <Link to="/orders" className="link" onClick={handleActive}>
+              <li
+                className={`sidebarListItem ${active === "orders" ? "active" : null
+                  } `}
+              >
+                <Money className="sidebarIcon" />
+                Orders
+              </li>
+            </Link>
           </ul>
         </div>
         {/* <div className="sidebarMenu">

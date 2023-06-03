@@ -180,6 +180,7 @@ public class ProductController extends BaseController {
         return productManager.updateProduct(productId, productUpdate);
     }
 
+    //   delete product by product id
     @ApiOperation(value = "deleted product by product id")
     @PutMapping("/product/{productId}/deleted")
     public Product deletedProduct(@PathVariable String productId) throws ServiceException {

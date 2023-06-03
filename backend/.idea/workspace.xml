@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/api/product/productApi.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/components/login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/components/login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/manager/BaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/manager/BaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserCreateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/ProductManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/language_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/language_vi.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language_vi.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/api/product/productApi.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/api/product/productApi.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/dialog/VariantProductDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/dialog/VariantProductDialog.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/productList/ProductList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/productList/ProductList.jsx" afterDir="false" />
@@ -126,7 +126,10 @@
       <workItem from="1685636507397" duration="6130000" />
       <workItem from="1685677906217" duration="1625000" />
       <workItem from="1685679560708" duration="5769000" />
-      <workItem from="1685692065654" duration="5112000" />
+      <workItem from="1685692065654" duration="5789000" />
+      <workItem from="1685755190370" duration="2749000" />
+      <workItem from="1685772132195" duration="8204000" />
+      <workItem from="1685782290925" duration="12372000" />
     </task>
     <servers />
   </component>

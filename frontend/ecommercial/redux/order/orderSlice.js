@@ -5,7 +5,7 @@ import orderApi from "../../api/order/orderApi";
 const initialState = {
     orderItems: [],
     loading: false,
-    orderDetail: {},
+    ordersDetail: [],
     orderById: {},
     orderStatus: {},
     orderCancel: {},
@@ -124,7 +124,15 @@ export const orderSlice = createSlice({
             )
             .addCase(orderDetailById.fulfilled, (state, action) => {
                 state.loading = false;
-                state.orderDetail = action.payload;
+                // check if orderDetail is already exist
+                const index = state.ordersDetail.findIndex((item) => item.order.id === action.payload.order.id);
+                if (index >= 0) {
+                    state.ordersDetail[index] = action.payload;
+                }
+                else {
+                    state.ordersDetail.push(action.payload);
+                }
+
             }
             )
             .addCase(orderDetailById.rejected, (state, action) => {
@@ -154,7 +162,13 @@ export const orderSlice = createSlice({
             )
             .addCase(cancelOrder.fulfilled, (state, action) => {
                 state.loading = false;
+                // check cancel order id and ordersDetail id remove item in ordersDetail
+                const index = state.ordersDetail.findIndex((item) => item.order.id === action.payload.id);
+                if (index >= 0) {
+                    state.ordersDetail.splice(index, 1);
+                }
                 state.orderCancel = action.payload;
+                
             }
             )
             .addCase(cancelOrder.rejected, (state, action) => {
@@ -171,6 +185,7 @@ export const orderSlice = createSlice({
             .addCase(confirmOrder.fulfilled, (state, action) => {
                 state.loading = false;
                 state.orderConfirm = action.payload;
+
             }
             )
             .addCase(confirmOrder.rejected, (state, action) => {

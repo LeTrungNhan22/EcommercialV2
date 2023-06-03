@@ -13,6 +13,8 @@ import {
 } from "../../redux/cart/cartSlice";
 import LanguageContext from "../../context/languageContext";
 import ProductsRelated from "../../components/product/ProductsRelated";
+import { useRouter } from "next/router";
+import { getError } from "../../utils/error";
 
 const CartScreen = () => {
   const { isLogin, user } = useContext(AuthContext);
@@ -22,10 +24,12 @@ const CartScreen = () => {
   const [updateTotalQuantity, setUpdateTotalQuantity] = useState(totalQuantity);
   const resultList = useSelector((state) => state.products.products);
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
-  const {languageData}=useContext(LanguageContext);
+  const { languageData } = useContext(LanguageContext);
   const {
     home_product_suggestions,
+    from_the_same_shop,
     cart_describe,
     add_product_price,
     cart_remove_product,
@@ -36,7 +40,13 @@ const CartScreen = () => {
     cart_discount,
     cart_name_product
 
-  }=languageData;
+  } = languageData;
+  const router = useRouter();
+
+  const { id } = router.query;
+  const dispatch = useDispatch();
+
+  const product = useSelector((state) => state.productDetail.product);
 
   const handleLoadMore = () => {
     setMaxResult(maxResult + 20);
@@ -52,7 +62,7 @@ const CartScreen = () => {
     return <div>Không tìm thấy thông tin giỏ hàng</div>;
   }
 
-  const dispatch = useDispatch();
+
   const prevCartDetailRef = useRef();
 
   useEffect(() => {
@@ -81,22 +91,41 @@ const CartScreen = () => {
 
   const handleUpdateQuantity = async (cartItemId, newQuantity) => {
     try {
+      setButtonLoading(true);
       const response = await dispatch(
         updateQuantityCartItem({ cartItemId, quantity: newQuantity })
       );
+      setButtonLoading(false);
       const userId = user?.id;
       if (userId === undefined) {
         return;
       }
       try {
         const response = await dispatch(getCartDetailByUserId({ userId }));
+    
       } catch (error) {
+        setButtonLoading(false);
         console.log(error);
       }
     } catch (error) {
+      setButtonLoading(false);
       console.log(error);
     }
   };
+  useEffect(() => {
+    const getProductDetail = async () => {
+      try {
+        await dispatch(getProductDetailById(id));
+      } catch (error) {
+        console.log(getError(error));
+      }
+    };
+    if (id != null) {
+      getProductDetail();
+    } else {
+      return <div>Không tìm thấy thông tin sản phẩm</div>;
+    }
+  }, [id]);
 
   // console.group("cartDetail");
   console.log({ cartDetail: cartDetail });
@@ -229,7 +258,7 @@ const CartScreen = () => {
                       </div>
                       <div>
                         <div className="flex justify-around mx-3 w-full pt-2">
-                          <div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
+                          {buttonLoading === false ? (<div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
                             <div
                               onClick={() =>
                                 handleUpdateQuantity(item.id, item.quantity - 1)
@@ -249,7 +278,24 @@ const CartScreen = () => {
                             >
                               +
                             </div>
-                          </div>
+                          </div>) : (
+                            <div className=" flex border  border-gray-300 text-gray-300 w-max divide-x divide-gray-300">
+                              <div
+
+                                className="text-green-300 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                              >
+                                -
+                              </div>
+                              <div className="select-none font-semibold text-gray-300 h-8 w-8 text-base flex items-center justify-center">
+                                {item.quantity}
+                              </div>
+                              <div
+
+                                className=" text-red-300 select-none h-8 w-8 text-xl flex items-center justify-center cursor-pointer"
+                              >
+                                +
+                              </div>
+                            </div>)}
                           <div className="flex flex-col my-2">
                             <p className="text-xl font-bold leading-none text-rose-700">
                               {td_order_total_price}:
@@ -322,13 +368,18 @@ const CartScreen = () => {
           </div>
         </div>
         {/* product details */}
-        <main className="max-w-[1200px] my-2 mx-auto px-16  ">
-          <section className="pt-10 mb-5">
-            <h2 className="section-title">{home_product_suggestions}</h2>
-            <ProductsRelated 
-            />
-          </section>
-        </main>
+        <section>
+          <div className=" w-[1400px]  mx-auto mt-10  bg-gray-200 p-4 rounded shadow">
+            <div className="container pb-6 px-6">
+              <h3 className="border-b border-rose-600  text-gray-800 pb-3 font-medium text-3xl">
+                {from_the_same_shop}
+              </h3>
+              <div className="   mx-auto mt-5  bg-gray-200 ">
+                <ProductsRelated industrialId={product?.industrialId} />
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </Layout>
   );

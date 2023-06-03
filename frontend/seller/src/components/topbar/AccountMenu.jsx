@@ -13,9 +13,11 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
 import "./Topbar.scss"
+import AuthContext from "../../context/authContext";
 
 export default function AccountMenu({ accountImage }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const { logoutContext } = React.useContext(AuthContext);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -23,6 +25,12 @@ export default function AccountMenu({ accountImage }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleLogout = () => {
+        logoutContext();
+    };
+
+
+
     return (
         <React.Fragment>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -98,7 +106,7 @@ export default function AccountMenu({ accountImage }) {
                     </ListItemIcon>
                     Settings
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={()=> handleLogout()}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>

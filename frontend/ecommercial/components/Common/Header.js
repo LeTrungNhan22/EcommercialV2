@@ -23,16 +23,16 @@ const Header = ({ totalQuantity, itemToShops }) => {
   const [isShowed, setIsShowed] = useState(false);
   const sellerUrl = process.env.NEXT_PUBLIC_SELLER_URL;
   const { language,
-     setLanguage, 
-     languageData, 
-     setLanguageData, 
-     languageTypes ,
-    } = useContext(LanguageContext);
+    setLanguage,
+    languageData,
+    setLanguageData,
+    languageTypes,
+  } = useContext(LanguageContext);
 
-    const  { header_login,
-      header_user_down_logout,
-      header_user_down_account,
-      header_seller} = languageData;
+  const { header_login,
+    header_user_down_logout,
+    header_user_down_account,
+    header_seller } = languageData;
 
 
 
@@ -78,7 +78,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
         </div>
 
         <div
-          className={`absolute top-12 right-56 z-50 flex ${isShowed == false ? "hidden" : ""
+          className={`absolute top-12 right-96 z-50 flex ${isShowed == false ? "hidden" : ""
             }`}
         >
           <div

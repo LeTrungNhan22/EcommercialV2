@@ -114,9 +114,14 @@ public class BaseManager {
         }
     }
 
-    protected void betweenFilter(String fieldName, double from, double to, List<Bson> filter) {
-        filter.add(Filters.and(Filters.lte(fieldName, to),
-                Filters.gte(fieldName, from)));
+    protected void betweenFilter(double from, double to, List<Bson> filter) {
+        if (from > 0 && to > 0) {
+            filter.add(Filters.and(Filters.gte("mediumPrice.amount", from), Filters.lte("mediumPrice.amount", to)));
+        } else if (from > 0) {
+            filter.add(Filters.gte("mediumPrice.amount", from));
+        } else if (to > 0) {
+            filter.add(Filters.lte("mediumPrice.amount", to));
+        }
     }
 
     long idCounter = System.currentTimeMillis();

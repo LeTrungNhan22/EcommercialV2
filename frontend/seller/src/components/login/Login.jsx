@@ -93,6 +93,9 @@ export default function Login() {
         } catch (error) {
           throw new Error(data?.message);
         }
+      }else{
+        setLoading(true);
+        throw new Error(data?.message);
       }
     } catch (error) {
       setLoading(true);

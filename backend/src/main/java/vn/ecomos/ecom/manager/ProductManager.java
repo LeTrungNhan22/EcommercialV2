@@ -104,18 +104,6 @@ public class ProductManager extends BaseManager {
 
     }
 
-    public void deleteProduct(String productId) {
-        Document updateDocument = new Document();
-        updateDocument.put("updatedAt", new Date());
-        updateDocument.put("_id", productId + "_deleted");
-        Document newDocument = new Document();
-        newDocument.append("$set", updateDocument);
-        FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(AFTER);
-        List<Bson> filters = new ArrayList<>();
-        filters.add(Filters.eq("_id", productId));
-        getProductCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
-
-    }
 
     public Product updateProduct(String productId, ProductUpdate productUpdate) {
         getLogger().log(Level.INFO, "Cập nhật thông tin của sản phẩm :" + productId);
@@ -260,11 +248,8 @@ public class ProductManager extends BaseManager {
 
     public ResultList<Product> filterProduct(ProductFilter productFilter) {
         List<Bson> filter = getFilters(productFilter);
-        if (null != productFilter.getPriceFrom() &&
-                null != productFilter.getPriceTo()) {
-            betweenFilter("mediumPrice.amount",
-                    productFilter.getPriceFrom(),
-                    productFilter.getPriceTo(), filter);
+        if (null != productFilter.getPriceFrom() && null != productFilter.getPriceTo()) {
+            betweenFilter(productFilter.getPriceFrom(), productFilter.getPriceTo(), filter);
         }
         if (null != productFilter.getTradeMarkId())
             appendFilter(productFilter.getTradeMarkId(), "tradeMarkId", filter);
@@ -280,4 +265,16 @@ public class ProductManager extends BaseManager {
         return getResultList(getProductCollection(), filter, productFilter.getOffset(), productFilter.getMaxResult());
     }
 
+    public void deleteProduct(String productId) {
+        Document updateDocument = new Document();
+        updateDocument.put("updatedAt", new Date());
+        updateDocument.put("_id", productId + "_deleted");
+        Document newDocument = new Document();
+        newDocument.append("$set", updateDocument);
+        FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(AFTER);
+        List<Bson> filters = new ArrayList<>();
+        filters.add(Filters.eq("_id", productId));
+        getProductCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
+
+    }
 }

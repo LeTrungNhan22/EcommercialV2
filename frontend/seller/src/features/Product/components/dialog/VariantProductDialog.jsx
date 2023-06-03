@@ -43,6 +43,7 @@ const VariantProductDialog = ({ open, handleClickOpen, handleClose, variantsProd
     } = useForm();
 
     const handleAddVariantProduct = async () => {
+        const salePrice = Number(getValues("amountPriceInput")) - (Number(getValues("amountPriceInput")) * Number(getValues("discountInput")) / 100);
         // add variant product
         const productVariantsDetail = [
             {
@@ -54,9 +55,14 @@ const VariantProductDialog = ({ open, handleClickOpen, handleClose, variantsProd
                     "width": getValues("widthInput")
                 },
                 "discount": Number(getValues("discountInput")),
+                "requiresShipping": true,
                 "imageUrl": imageVariant,
                 "price": {
                     "amount": Number(getValues("amountPriceInput")),
+                    "currencyCode": getValues("currencyPriceCodeInput")
+                },
+                "salePrice": {
+                    "amount": salePrice,
                     "currencyCode": getValues("currencyPriceCodeInput")
                 },
                 "productName": "",

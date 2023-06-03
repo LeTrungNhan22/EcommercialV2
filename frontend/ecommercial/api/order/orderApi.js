@@ -17,7 +17,7 @@ const orderApi = {
 
     cancelOrder: (orderId) => {
         const url = `/order/1.0.0/order/${orderId}/cancel`;
-        return axiosClient.put(url);
+        return axiosClient.put(url, { cancelReason: "CUSTOMER", note: "cancelReason by customer" });
     },
     confirmOrder: (orderId) => {
         const url = `/order/1.0.0/order/${orderId}/confirm-sequence`;

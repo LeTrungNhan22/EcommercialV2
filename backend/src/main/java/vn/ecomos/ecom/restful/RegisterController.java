@@ -46,7 +46,7 @@ public class RegisterController extends BaseController {
 
     @ApiOperation(value = "register account")
     @PostMapping("/user")
-    public ResponseResult registerUser(@RequestBody CreateUserInput createInput)  {
+    public ResponseResult registerUser(@RequestBody CreateUserInput createInput) {
         User result;
 
         try {
@@ -57,15 +57,13 @@ public class RegisterController extends BaseController {
         if (null != result) {
             String code = GeneralIdUtils.generateId();
             String subject = "Ma xac Thuc";
-            String messSendMail = code + " la ma xac thuc OTP dang ky tai khoan tren san thuong mai MELLOW. " +
+            String messSendMail = code + " la ma xac thuc OTP dang ky tai khoan tren san thuong mai. " +
                     "De tranh bi mat tien, tuyet doi KHONG chia se ma nay voi bat ky ai.";
-            //Send mail login
             Session session = SendMailUtils.loginMail(emailEcommerce, passwordEcommerce);
-            //Send mail to customer
             try {
                 SendMailUtils.sendMailTo(session, emailEcommerce, storeName, result.getEmail(), subject, messSendMail);
 
-            } catch (UnsupportedEncodingException|MessagingException  e) {
+            } catch (UnsupportedEncodingException | MessagingException e) {
                 return new ResponseResult(0, "Email không hợp lệ", e.getStackTrace());
             }
             //Send mail to store

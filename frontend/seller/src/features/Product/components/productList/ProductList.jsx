@@ -4,10 +4,12 @@ import { DataGrid } from "@mui/x-data-grid";
 import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getProductsFilter } from "../../productSlice";
+import { deleteProduct, getProductsFilter } from "../../productSlice";
 import AuthContext from "../../../../context/authContext";
-import { Tooltip, tooltipClasses } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Modal, Slide, Tooltip, tooltipClasses } from "@mui/material";
 import styled from "@emotion/styled";
+import { toast } from "react-toastify";
+import productApi from "../../api/product/productApi";
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -16,13 +18,30 @@ const CustomWidthTooltip = styled(({ className, ...props }) => (
     maxWidth: 450,
   },
 });
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
+
 
 export default function ProductList() {
   const { user } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-
-
   useEffect(() => {
     const getProductsFilterByShopId = async () => {
       const filter = {
@@ -110,6 +129,19 @@ export default function ProductList() {
       }
     },
     {
+      field: "Quantity",
+      headerName: "Quantity",
+      width: 80,
+
+      renderCell: (params) => {
+        return (
+          <div className="productListItem">
+            {params?.row.quantityAvailable}
+          </div>
+        );
+      }
+    },
+    {
       field: "action",
       headerName: "Action",
       width: 150,
@@ -119,14 +151,12 @@ export default function ProductList() {
             <Link to={"/product/" + params.row.id + "/detail"}>
               <button className="productListEdit">Edit</button>
             </Link>
-            <DeleteOutline
-              className="productListDelete"
-              id="productListDelete"
-            />
+        
+
           </>
         );
       },
-    },
+    }
   ];
   return (
     <div className="productList">
@@ -141,6 +171,8 @@ export default function ProductList() {
         checkboxSelection
         disableSelectionOnClick
       />
+
+
     </div>
   );
 }

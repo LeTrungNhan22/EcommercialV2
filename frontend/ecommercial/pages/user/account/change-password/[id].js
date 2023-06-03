@@ -3,6 +3,7 @@ import ChangePassword from "../../../../components/UserProfile/ChangePassword";
 import UserLayout from "../../../../components/UserProfile/UserLayout";
 
 import AuthContext from "../../../../context/authContext";
+import ChangePassPage from "../../../../components/userProfile/ChangePassPage";
 
 const ChangPassWordScreen = () => {
   const { user } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const ChangPassWordScreen = () => {
   } = userProfile;
   return (
     <UserLayout userId={id}>
-      <ChangePassword></ChangePassword>
+      <ChangePassPage></ChangePassPage>
     </UserLayout>
   );
 };

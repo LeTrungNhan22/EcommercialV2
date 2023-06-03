@@ -1,7 +1,7 @@
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { unwrapResult } from "@reduxjs/toolkit";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineFilter } from "react-icons/ai";
 import { FaList, FaTh } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,11 @@ import Layout from "../../components/common/Layout";
 import ProductList from "../../components/product/ProductList";
 import { getProductByFilter } from "../../redux/product/productsSlice";
 import { getError } from "../../utils/error";
+import LanguageContext from "../../context/languageContext";
+
+
+
+
 
 const ShopScreen = () => {
   const [industrials, setIndustrials] = useState([]);
@@ -21,6 +26,15 @@ const ShopScreen = () => {
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
   const [selected, setSelected] = useState(false);
 
+  const { languageData } = useContext(LanguageContext);
+  const { filter_header,
+    product_size,
+    product_color,
+    filter_price_from,
+    filter_price_to,
+    category_all_name,
+    td_product_price } = languageData;
+
   useEffect(() => {
     const getProductList = async () => {
       const params = {
@@ -29,8 +43,7 @@ const ShopScreen = () => {
       };
       try {
         const res = await dispatch(getProductByFilter(params));
-        const { total } = unwrapResult(res);
-
+        const { total, resultList } = unwrapResult(res);
         setTotal(total);
       } catch (error) {
         console.log(getError(error));
@@ -69,6 +82,46 @@ const ShopScreen = () => {
     dispatch(getProductByFilter(params));
   };
 
+  const handleSortByPrice = (value) => {
+    console.log(value);
+    switch (value) {
+      case "price-asc":
+        const params1 = {
+          "maxResult": maxResult,
+          "priceFrom": 0,
+          "priceTo": 9999999999,
+        }
+        dispatch(getProductByFilter(params1));
+        break;
+      case "price-desc":
+        const params2 =
+        {
+          "maxResult": maxResult,
+          "priceFrom": 9999999999,
+        }
+        dispatch(getProductByFilter(params2));
+        break;
+      default:
+        const params3 = {
+          "maxResult": maxResult,
+        }
+        dispatch(getProductByFilter(params3));
+
+
+        break;
+    }
+
+  };
+
+  const convertNameToEnglish = (id) => {
+    if (languageData.hasOwnProperty(id)) {
+      return languageData['category_item_' + id];
+    } else {
+      return languageData['category_item_' + id];
+    }
+  };
+
+
   return (
     <Layout title={`Shops`}>
       <section className="bg-gray-300 ">
@@ -85,7 +138,7 @@ const ShopScreen = () => {
                   <div className="flex items-center mb-3 space-x-2">
                     <AiOutlineFilter className="text-xl" />
                     <h3 className="text-xl text-gray-800 uppercase font-medium">
-                      Bộ lọc tìm kiếm
+                      {filter_header}
                     </h3>
                   </div>
 
@@ -93,7 +146,7 @@ const ShopScreen = () => {
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
-                          <span>Theo loại sản phẩm</span>
+                          <span>{category_all_name}</span>
                           <ChevronUpIcon
                             className={`${open ? "rotate-180 transform" : ""
                               } h-5 w-5 text-rose-500`}
@@ -131,7 +184,7 @@ const ShopScreen = () => {
                                       htmlFor="cat-1s"
                                       className="text-gray-600 ml-3 cursor-pointer"
                                     >
-                                      {item.name}
+                                      {convertNameToEnglish(item.id)}
                                     </label>
                                     <div className="ml-auto text-gray-600 text-sm">
                                       (15)
@@ -148,44 +201,12 @@ const ShopScreen = () => {
                       </>
                     )}
                   </Disclosure>
+              
                   <Disclosure as="div" className="mt-2">
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
-                          <span>Nơi bán</span>
-                          <ChevronUpIcon
-                            className={`${open ? "rotate-180 transform" : ""
-                              } h-5 w-5 text-rose-500`}
-                          />
-                        </Disclosure.Button>
-                        <Transition
-                          enter="transition duration-200 ease-out"
-                          enterFrom="transform scale-95 opacity-0"
-                          enterTo="transform scale-200 opacity-100"
-                          leave="transition duration-75 ease-out"
-                          leaveFrom="transform scale-200 opacity-100"
-                          leaveTo="transform scale-95 opacity-0"
-                        >
-                          <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                            {/* category filter */}
-                            <div>
-                              <div className="space-y-2">
-                                {/* single category */}
-
-                                {/* single category */}
-                              </div>
-                            </div>
-                            {/* category filter */}
-                          </Disclosure.Panel>
-                        </Transition>
-                      </>
-                    )}
-                  </Disclosure>
-                  <Disclosure as="div" className="mt-2">
-                    {({ open }) => (
-                      <>
-                        <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
-                          <span>Giá bán</span>
+                          <span>{td_product_price}</span>
                           <ChevronUpIcon
                             className={`${open ? "rotate-180 transform" : ""
                               } h-5 w-5 text-rose-500`}
@@ -207,20 +228,20 @@ const ShopScreen = () => {
                                 <input
                                   type="text"
                                   className="w-full border-gray-300 px-3 py-2 text-gray-600 text-sm shadow-sm rounded focus:border-rose-600 focus:ring-0 "
-                                  placeholder="₫ TỪ"
+                                  placeholder={`${filter_price_from}`}
                                 />
                                 <span className="mx-3 text-gray-500">-</span>
                                 <input
                                   type="text"
                                   className="w-full border-gray-300 px-3 py-2 text-gray-600 text-sm shadow-sm rounded focus:border-rose-600 focus:ring-0 "
-                                  placeholder="₫ ĐẾN"
+                                  placeholder={`${filter_price_to}`}
                                 />
 
                                 {/* single price */}
                               </div>
                               <div className="mt-2">
                                 <button className="w-full px-3 py-2 bg-rose-500 text-white rounded hover:bg-rose-600 transition  ">
-                                  Áp dụng
+                                  Confirm
                                 </button>
                               </div>
                             </div>
@@ -234,7 +255,7 @@ const ShopScreen = () => {
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
-                          <span>Kích thước</span>
+                          <span>{product_size}</span>
                           <ChevronUpIcon
                             className={`${open ? "rotate-180 transform" : ""
                               } h-5 w-5 text-rose-500`}
@@ -335,7 +356,7 @@ const ShopScreen = () => {
                     {({ open }) => (
                       <>
                         <Disclosure.Button className="flex w-full justify-between rounded-lg bg-rose-100 px-4 py-2 text-left text-sm font-medium text-rose-900 hover:bg-rose-200 focus:outline-none focus-visible:ring focus-visible:ring-rose-500 focus-visible:ring-opacity-75">
-                          <span>Màu sắc</span>
+                          <span>{product_color}</span>
                           <ChevronUpIcon
                             className={`${open ? "rotate-180 transform" : ""
                               } h-5 w-5 text-rose-500`}
@@ -407,11 +428,27 @@ const ShopScreen = () => {
           <div className="col-span-3">
             {/* sorting */}
             <div className=" flex items-center mb-4">
-              <select className="w-44 text-sm text-gray-600 px-4 py-3 border-gray-300 rounded focus:ring-rose-600 focus:border-red-600">
-                <option>Săp xếp theo </option>
-                <option value="">Giá thấp - cao</option>
-                <option value="">Giá cao - thấp</option>
-                <option value="">Sản phẩm mới nhất</option>
+              <select
+
+                onChange={(e) =>
+                  handleSortByPrice(e.target.value)
+                }
+
+                className="w-44 text-sm text-gray-600 px-4 py-3 border-gray-300 rounded focus:ring-rose-600 focus:border-red-600">
+                <option
+                  value="default"
+
+                >Mặc định</option>
+                <option
+                  value="price-asc"
+
+                >
+                  Giá thấp - cao
+                </option>
+                <option
+                  value="price-desc"
+                >Giá cao - thấp</option>
+
               </select>
 
               <div className="flex gap-2 ml-auto">

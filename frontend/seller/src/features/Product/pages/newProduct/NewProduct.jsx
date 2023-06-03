@@ -44,15 +44,12 @@ export default function NewProduct() {
   const [open, setOpen] = React.useState(false);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-
-
-
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
+    setValue,
 
   } = useForm();
 
@@ -119,24 +116,30 @@ export default function NewProduct() {
 
     if (productImage.length === 0) {
       toast.error("Vui lòng thêm ảnh sản phẩm");
+      return;
     } else if (productImage.length < 3) {
       toast.error("Vui lòng thêm ít nhất 3 ảnh sản phẩm");
+      return;
     }
 
     if (variantsProduct.length === 0) {
       toast.error("Vui lòng thêm biến thể sản phẩm");
+      return;
     }
 
+    setLoading(false);
+
     const mediumPrice =
-      variantsProduct.reduce((a, b) => a + Number.parseInt(b.price.amount), 0) /
+      variantsProduct.reduce((a, b) => a + Number(b.price.amount), 0) /
       variantsProduct.length;
+
+    const salePrice = mediumPrice - (mediumPrice * data.discount / 100);
 
     const imageUrls = await uploadImages(productImage.map((item) => item.file));
 
     const productVariants = await Promise.all(
       variantsProduct.map(async (item) => {
         const imageUrl = await uploadImageVariants(item?.imageUrl.variantFile);
-
         return {
           ...item,
           productName: data.productName,
@@ -145,41 +148,65 @@ export default function NewProduct() {
       })
     );
 
-    setProductInput({
-      ...productInput,
+    const updatedProductInput = {
       product: {
-        name: data.productName,
-        description: description,
+        name: data.productName === "" ? getValues("productName") : data.productName,
+        description: description === "" ? description : description,
         imageUrls: imageUrls,
+        quantityAvailable: Number.parseInt(data.quantityAvailable) === 0 ? Number.parseInt(getValues("quantityAvailable")) : Number.parseInt(data.quantityAvailable),
+        salePrice: {
+          amount: Number(salePrice) === 0 ? Number(mediumPrice) : Number(salePrice),
+          currencyCode: "VND",
+        },
+        discount: Number.parseInt(data.discount) === 0 ? Number.parseInt(getValues("discount")) : Number.parseInt(data.discount),
         featuredImageUrl: imageUrls[0],
-        tradeMarkId: data.tradeMarkName,
-        industrialId: data.industrialTypeName,
-        industrialTypeName: industrials.filter((item) => item.id === data.industrialTypeName)[0].name,
+        tradeMarkId: data.tradeMarkName === "" ? getValues("tradeMarkName") : data.tradeMarkName,
+        industrialId: data.industrialTypeName === "" ? getValues("industrialTypeName") : data.industrialTypeName,
+        industrialTypeName: industrials.filter((item) => item.id === (data.industrialTypeName)[0].name === "" ? getValues("industrialTypeName")[0].name : data.industrialTypeName)[0].name,
         mediumPrice: {
-          amount: Number.parseInt(mediumPrice),
+          amount: Number(mediumPrice) === 0 ? Number(mediumPrice) : Number(mediumPrice),
           currencyCode: "VND",
         },
         shopId: user?.shop?.shopId,
       },
       productVariants: productVariants,
-    });
-    if (productInput && productInput.product && productInput.productVariants && productInput !== {}) {
+    };
+
+    createProduct(updatedProductInput);
+  };
+
+
+  const createProduct = async (updatedProductInput) => {
+    if (Object.keys(updatedProductInput).length !== 0) {
       try {
-        setLoading(false);
-        const res = await productApi.createProduct(productInput);
+        const res = await productApi.createProduct(updatedProductInput);
         if (res) {
           toast.success("Thêm sản phẩm thành công");
+          setValue("productName", "");
+          setValue("quantityAvailable", "");
+          setValue("discount", "");
+          setValue("industrialTypeName", "");
+          setValue("tradeMarkName", "");
           setProductImage([]);
           setVariantsProduct([]);
           setDescription("");
           setLoading(true);
-
         }
       } catch (error) {
+        setLoading(true);
         toast.error("Thêm sản phẩm thất bại");
       }
-    };
+    }
   }
+  useEffect(() => {
+    if (Object.keys(productInput).length === 0) {
+      setLoading(true);
+    } else {
+      createProduct();
+    }
+  }, [productInput]);
+
+
 
 
 
@@ -432,7 +459,6 @@ export default function NewProduct() {
 
                     </Grid>
                     <Grid item xs={12}>
-
                       <FormControl
                         sx={
                           {
@@ -466,9 +492,76 @@ export default function NewProduct() {
                         {errors.tradeMarkName && <FormHelperText style={{ color: "red" }}>TradeMarks Name is required</FormHelperText>}
                       </FormControl>
                     </Grid>
+                    <Grid item xs={12}>
+                      <FormControl
+                        sx={
+                          {
+                            width: '100%',
+                            marginTop: '5px',
+                            marginBottom: '15px',
+                            height: '50px'
+                          }
+                        }
+                        fullWidth>
+
+                        <TextField
+                          sx={{ width: '100%', marginBottom: '30px', height: '50px' }}
+                          id="quantityAvailable"
+                          label="Quantity Available"
+                          type="number"
+                          variant="outlined"
+                          color="secondary"
+                          {...register("quantityAvailable", {
+                            required: "Quantity Available is required",
+                            min: { value: 1, message: "Quantity Available must be at least 1" },
+                            max: { value: 100, message: "Quantity Available must be at most 100" },
+                          })}
+                          helperText={errors.quantityAvailable?.message}
+                          error={Boolean(errors.quantityAvailable)}
+                        />
+
+
+                      </FormControl>
+
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormControl
+                        sx={
+                          {
+                            width: '100%',
+                            marginTop: '5px',
+                            marginBottom: '15px',
+                            height: '50px'
+                          }
+                        }
+                        fullWidth>
+
+                        <TextField
+                          sx={{ width: '100%', marginBottom: '30px', height: '50px' }}
+                          id="discount"
+                          label="Discount"
+                          type="number"
+                          variant="outlined"
+                          color="secondary"
+                          {...register("discount", {
+                            required: true,
+                            minLength: 1,
+                            maxLength: 100,
+                          })}
+                          helperText={(errors.discount && errors.discount.type === "required" && "Discount is required") ||
+                            (errors.discount && errors.discount.type === "minLength" && "Discount must be at least 1 characters") ||
+                            (errors.discount && errors.discount.type === "maxLength" && "Discount must be at most 100 characters")}
+                          error={Boolean(errors.discount)}
+
+                        />
+
+
+                      </FormControl>
+
+                    </Grid>
                   </Grid>
                 </Item>
-                <Button
+                {loading ? (<Button
                   onClick={handleSubmit(handleAddVariant)}
                   type="submit"
                   sx={{
@@ -478,7 +571,18 @@ export default function NewProduct() {
 
                   }}
                   variant="contained"
-                >Tạo sản phẩm</Button>
+                >Tạo sản phẩm</Button>) : (
+                  <Button
+                    disabled
+                    sx={{
+                      width: '100%',
+                      marginTop: '5px',
+                      height: '50px'
+
+                    }}
+                    variant="contained"
+                  >Tạo sản phẩm</Button>
+                )}
               </Box>
             </Box>
           </Box>

@@ -22,6 +22,7 @@ import UserList from "./features/User/components/userList/UserList";
 import User from "./features/User/index/user/User";
 import newUser from "./features/User/pages/newUser/NewUser";
 import { initFirebase } from "./firebase/initFirebase";
+import OrderScreen from "./features/Order/pages";
 initFirebase();
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
                           component={ProductSingle}
                         />
                         <Route path="/newProduct" component={NewProduct}></Route>
+                        <Route path="/orders" component={OrderScreen}></Route>
                         <Route component={PageNotFound} />
                       </Switch>
 

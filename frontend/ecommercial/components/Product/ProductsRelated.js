@@ -15,7 +15,7 @@ const ProductsRelated = ({ industrialId }) => {
   const [productsRelated, setProductsRelated] = useState([]);
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
 
-  const {languageData}=useContext(LanguageContext);
+  const { languageData } = useContext(LanguageContext);
   const { product_see_more, button_see_more_product } = languageData;
 
   const dispatch = useDispatch();
@@ -97,11 +97,11 @@ const ProductsRelated = ({ industrialId }) => {
 
                   <div className="flex items-baseline space-x-2">
                     <p className="text-xl text-rose-600 font-semibold">
-                      {mediumPrice.amount} {mediumPrice.currencyCode}
+                      {Number(mediumPrice?.amount).toLocaleString()} {mediumPrice.currencyCode}
                     </p>
                     <p className="text-gray-500 line-through">
                       {" "}
-                      {mediumPrice.amount}{" "}
+                      {Number(mediumPrice?.amount).toLocaleString()}{" "}
                     </p>
                   </div>
                   <div className="flex items-center">

@@ -21,6 +21,8 @@ import LanguageContext from "../context/languageContext";
 //init firebase
 initFirebase();
 
+
+
 export default function Home() {
   const dispatch = useDispatch();
   const [industrialList, setIndustrialList] = useState([]);
@@ -28,9 +30,17 @@ export default function Home() {
   const [total, setTotal] = useState(0);
   const resultList = useSelector((state) => state.products.products);
   const [loadMoreProduct, setLoadMoreProduct] = useState(true);
-
   const {languageData}=useContext(LanguageContext);
   const {home_product_suggestions, header_category_name}=languageData;
+
+  const convertNameToEnglish = (id) => {  
+    if (languageData.hasOwnProperty(id)) {
+      return languageData['category_item_'+id];
+    } else {
+      return languageData['category_item_'+id];
+    }
+  };
+  
 
   // slideShow
   const settings = {
@@ -96,7 +106,12 @@ export default function Home() {
                 <div className="mt-2">
                   <Slider {...settings}>
                     {industrialList?.map(({ name, iconUrl, id }) => (
-                      <CategoryList name={name} key={name} iconUrl={iconUrl} id={id} />
+                      <CategoryList 
+                      languageData={languageData}
+                      name={convertNameToEnglish(id)} 
+                      key={name} 
+                      iconUrl={iconUrl} 
+                      id={id} />
                     ))}
                   </Slider>
                 </div>

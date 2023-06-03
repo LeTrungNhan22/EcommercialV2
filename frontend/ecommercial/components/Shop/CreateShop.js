@@ -9,7 +9,8 @@ import AddressPopUp from "../UserProfile/AddressPopUp";
 import { createShop } from "../../redux/auth/authSlice";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
-import {LanguageContext } from "../../../ecommercial/context/languageContext";
+import LanguageContext from "../../context/languageContext";
+
 
 const CreateShopPage = ({
   username,
@@ -49,7 +50,7 @@ const CreateShopPage = ({
 
   const [checkFile, setCheckFile] = useState(false);
 
-  const {languageData}=useContext(LanguageContext);
+  const { languageData } = useContext(LanguageContext);
   const {
     shop_avatar,
     shop_name,
@@ -59,7 +60,7 @@ const CreateShopPage = ({
     info_my_profile,
     shop_require_profile,
     shop_description_placeholder
-  }=languageData;
+  } = languageData;
   console.log('====================================');
   console.log(languageData);
   console.log('====================================');
@@ -125,7 +126,7 @@ const CreateShopPage = ({
       const shopAction = await dispatch(createShop({ params, data }));
       if (shopAction.type === "auth/createShop/fulfilled") {
         router.push(`${sellerUrl}/login`);
-      }else{
+      } else {
         toast.error("Đăng ký shop thất bại vui lòng thử lại");
       }
     } catch (error) {

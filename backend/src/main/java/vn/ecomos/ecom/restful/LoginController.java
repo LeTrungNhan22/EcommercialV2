@@ -118,12 +118,9 @@ public class LoginController extends BaseController {
 
     @ApiOperation(value = "Login account customer")
     @PostMapping("/customer")
-    public ResponseResult loginCustomer(
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("service-type") ServiceType serviceType,
-            @RequestParam("full-name") String fullName,
-            @RequestParam("image") String imageUrl) {
+    public ResponseResult loginCustomer(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("service-type") ServiceType serviceType,
+                                        @RequestParam("full-name") String fullName,
+                                        @RequestParam("image") String imageUrl) {
         // validateLoginInput
         try {
             validateLoginInput(email, password, false, serviceType, fullName);
@@ -137,7 +134,6 @@ public class LoginController extends BaseController {
                     break;
                 }
             }
-            //kiểm tra khi tài khoản đăng nhập là tài khoản thường
             if (ServiceType.NORMALLY.equals(serviceType)) {
                 if (null == userUpdate) {
                     return new ResponseResult(0,
@@ -151,10 +147,8 @@ public class LoginController extends BaseController {
                 RoleType roleType = null;
                 List<Role> roleList = userManager.getAllRole(userUpdate.getId());
                 for (Role role : roleList) {
-                    // quyền đang hoạt động
                     if (RoleStatus.ACTIVE.equals(role.getRoleStatus()))
-                        if (role.getRoleType().equals(RoleType.PERSONAL) ||
-                                role.getRoleType().equals(RoleType.STORE) ||
+                        if (role.getRoleType().equals(RoleType.PERSONAL) || role.getRoleType().equals(RoleType.STORE) ||
                                 role.getRoleType().equals(RoleType.PERSONAL_STORE)) {
                             roleType = role.getRoleType();
                             break;

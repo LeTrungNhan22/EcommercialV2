@@ -22,25 +22,27 @@ const CheckoutScreen = () => {
     const cartDetail = useSelector((state) => state.cart.cartDetail);
     const { totalPrice, totalCurrentPrice,
         totalDiscount, totalQuantity, itemToShops } = cartDetail;
+    const [loading, setLoading] = useState(false);
 
-    const {languageData}=useContext(LanguageContext);
+    const { languageData } = useContext(LanguageContext);
     const {
-         order_title,
-         order_address,
-         order_button_change_address,
-         cart_product_table_title,
-         cart_product_table_price,
-         product_quantity,
-         label_money,
-         order_shipping_unit,
-         order_message,
-         order_message_placeholder,
-         td_order_pay,
-         total_price,
-         cart_discount,
+        order_title,
+        order_address,
+        order_button_change_address,
+        cart_product_table_title,
+        cart_product_table_price,
+        product_quantity,
+        status_order_wating_process,
+        label_money,
+        order_shipping_unit,
+        order_message,
+        order_message_placeholder,
+        td_order_pay,
+        total_price,
+        cart_discount,
 
-     } = languageData;
-        
+    } = languageData;
+
 
     if (user === null || cartDetail === null) {
         return <div>Không tìm thấy thông tin giỏ hàng</div>;
@@ -95,11 +97,13 @@ const CheckoutScreen = () => {
             userId: id,
         };
         try {
+            setLoading(true);
             const response = await dispatch(createOrder(data));
             if (response.error) {
                 toast.error(response.error.message);
             }
             if (response.payload) {
+                setLoading(false);
                 toast.success("Đặt hàng thành công");
                 router.push("/user/account/order");
             }
@@ -160,7 +164,7 @@ const CheckoutScreen = () => {
                         </div>
                         <div className="space-x-10">
                             <span className=" text-xs border p-1 border-rose-500 text-red-600 ">
-                            Default
+                                Default
                             </span>
                             <>
                                 <button
@@ -240,12 +244,19 @@ const CheckoutScreen = () => {
                                     <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
                                     <div className="flex items-center space-x-2">
                                         <FaDollarSign />
-                                        <button
+                                        {loading === false ? (<button
                                             onClick={handleCheckout}
                                             className="relative"
                                         >
                                             {td_order_pay}
-                                        </button>
+                                        </button>) : (
+                                            <button
+                                                disabled
+                                                className="relative"
+                                            >
+                                                {status_order_wating_process}
+                                            </button>
+                                        )}
                                     </div>
                                 </a>
                             </div>

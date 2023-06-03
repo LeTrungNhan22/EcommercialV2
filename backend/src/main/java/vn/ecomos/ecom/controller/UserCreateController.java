@@ -27,7 +27,7 @@ public class UserCreateController {
     private ScoreManager scoreManager;
 
     public User createUser(CreateUserInput createUserInput) throws ServiceException {
-        //validateCreateUserInput
+//    check input
         validateCreateUserInput(createUserInput);
         UserInput userInput = createUserInput.getUser();
         User user = new User();
