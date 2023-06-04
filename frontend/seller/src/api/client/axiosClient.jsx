@@ -16,12 +16,17 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-  // Handle token here ...
-  if (localStorage.getItem("accessToken")) {
-    config.headers.Authorization = `${localStorage.getItem("accessToken")}`;
-  } else {
-    config.headers.Authorization = `${null}`;
+  if (localStorage.getItem("accessToken") === 'Bad credentials') {
+    localStorage.removeItem("accessToken");
   }
+  // Handle token here ...
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  } else {
+    config.headers.Authorization = `${null}`
+  }
+
   return config;
 });
 

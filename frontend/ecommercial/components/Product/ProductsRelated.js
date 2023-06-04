@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { getProductByFilter } from "../../redux/product/productsSlice";
 import { useContext } from "react";
 import LanguageContext from "../../context/languageContext";
+import { getError } from "../../utils/error";
 
 const ProductsRelated = ({ industrialId }) => {
   const [productsRelated, setProductsRelated] = useState([]);

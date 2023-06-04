@@ -190,6 +190,15 @@ public class ProductController extends BaseController {
 
     }
 
+    @ApiOperation(value = "delete product by product id")
+    @DeleteMapping("/product/{productId}/delete")
+    public Product deleteProduct(@PathVariable String productId) throws ServiceException {
+        Product product = getProduct(productId);
+        productManager.deleteProductById(productId);
+        return product;
+
+    }
+
     @ApiOperation(value = "get list industrial")
     @GetMapping("/product/industrials")
     public List<IndustrialProduct> getListIndustrial() throws ServiceException {

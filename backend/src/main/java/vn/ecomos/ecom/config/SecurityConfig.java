@@ -46,13 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.csrf().disable().authorizeRequests().antMatchers("/user/**",
-                        "/login/**", "/shipment/**", "/bank/**", "/product/**", "/geo/**",
-                        "/cart/**", "/order/**", "/mail/**", "/language/**", "/chat/**",
-                        "https://api.vietqr.io", "https://oauth.casso.vn/v2/**",
-                        "https://online-gateway.ghn.vn/shiip/public-api/**")
-
+        http.csrf().disable().authorizeRequests().antMatchers("/user/**","https://api.vietqr.io", "https://oauth.casso.vn/v2/**",
+                        "https://online-gateway.ghn.vn/shiip/public-api/**",
+                        "/product/**", "/login/**", "/mail/**", "/order/**", "/cart/**", "/bank/**", "/geo/**", "/shipment/**", "/language/**"
+                        )
                 .permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

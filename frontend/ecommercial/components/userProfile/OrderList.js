@@ -25,7 +25,6 @@ const OrderList = ({ userId }) => {
     useEffect(() => {
         const getOrderDetail = async () => {
             const data = {
-                "status": "READY",
                 "type": "PURCHASE",
                 "userId": userId
             }

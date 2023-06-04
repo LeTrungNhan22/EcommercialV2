@@ -36,6 +36,7 @@ public class GeoController  extends BaseController {
     public List<Geo> getWards(@RequestParam(value = "district-id") int districtId) {
         return geoManager.getGeoParent(GeoType.WARD, districtId);
     }
+
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public final Object handleAllServiceException(ServiceException e) {

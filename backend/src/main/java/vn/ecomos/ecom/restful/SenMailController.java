@@ -53,9 +53,9 @@ public class SenMailController extends BaseController {
             String subject = "Ma xac Thuc";
             String messSendMail = code + " la ma xac thuc OTP tai khoan tren san thuong mai MELLOW. " +
                     "De tranh bi mat tien, tuyet doi KHONG chia se ma nay voi bat ky ai.";
-            //Send mail login
+
             Session session = SendMailUtils.loginMail(emailEcommerce, passwordEcommerce);
-            //Send mail to customer
+
             try {
                 SendMailUtils.sendMailTo(session, emailEcommerce, storeName, result.getEmail(), subject, messSendMail);
 
@@ -65,11 +65,11 @@ public class SenMailController extends BaseController {
             //Send mail to store
 
             return new ResponseResult(1, "Gửi mã xác thực thành công.", code);
-        }
-        else {
-            return new ResponseResult(0,"Gửi mã xác thực không thành công.Không tìm thấy thông tin tài khoản","Register failed");
+        } else {
+            return new ResponseResult(0, "Gửi mã xác thực không thành công.Không tìm thấy thông tin tài khoản", "Register failed");
         }
     }
+
     @ExceptionHandler(ServiceException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public final Object handleAllServiceException(ServiceException e) {

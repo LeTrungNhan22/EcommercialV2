@@ -13,27 +13,25 @@ const OrderListItem = ({ orders, ordersDetail }) => {
         product_color,
         product_quantity,
         cart_discount,
-        total_price
+        total_price,
+        button_order_cancel,
+        mess_confirm,
+        mess_cancel_order
     } = languageData;
     const dispatch = useDispatch();
 
     const handleCancelOrder = async (id) => {
-        const confirm = window.confirm(`Bạn có chắc chắn muốn hủy đơn hàng ${id}`);
+        const confirm = window.confirm(`${mess_confirm} ${button_order_cancel}${id}`);
         if (confirm) {
             const res = await dispatch(cancelOrder(id));
             if (res.meta.requestStatus === "fulfilled") {
 
-                toast.success("Hủy đơn hàng thành công");
+                toast.success(`${mess_cancel_order} ${id}`);
             } else {
                 toast.error("Hủy đơn hàng thất bại");
             }
         }
-
-
-
     }
-
-
 
     return (
         <div>
@@ -44,7 +42,7 @@ const OrderListItem = ({ orders, ordersDetail }) => {
                         <button
                             onClick={() => handleCancelOrder(order.id)}
                             className="inline-flex items-center w-full px-2 py-2 mb-3 mr-5 text-base font-semibold text-white no-underline align-middle bg-rose-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-rose-700 hover:border-rose-700 hover:text-white transition-all duration-100">
-                            Hủy đơn
+                            {button_order_cancel}
                         </button>
                     </div>
                     <ul className="mt-5 divide-y space-y-3">
@@ -53,7 +51,10 @@ const OrderListItem = ({ orders, ordersDetail }) => {
                                 <li key={item.id} className="px-4 py-5 duration-150 hover:border-white hover:rounded-xl hover:bg-gray-100">
                                     <div className="flex items-center justify-between pb-3">
                                         <span className="font-bold text-ellipsis line-clamp-1 w-80">{item.variant.productName}</span>
+                                        <span className="text-sm text-gray-600 bg-blue-400 px-2 py-1 rounded-md mr-1">
+                                            {order.status}
 
+                                        </span>
                                     </div>
                                     <a href={`/product/${item.variant.productId}`} className="space-y-3">
                                         <div className="flex items-center gap-x-3">

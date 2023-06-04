@@ -1,18 +1,30 @@
-import { Publish } from "@mui/icons-material"
 import React from 'react'
-import "./ProductSingle.scss"
 
-const ProductVariant = ({ variant }) => {
+const OrderItem = ({ item }) => {
+    const { variant } = item;
+    // 
+    const totalPrice = item.originalTotalPrice.amount - item.discountedTotalPrice.amount;
+
     return (
-        <div className="productBottom">
+        <div><div className="productBottom">
             <form action="" className="productForm">
                 <div className="productFormLeft">
                     <label htmlFor="">{variant?.productName} ({variant?.id})</label>
-                    <input type="text" defaultValue={variant?.productName} />
+                    <input type="text" disabled
+                        defaultValue={variant?.productName} />
+
                     <label htmlFor="">Color</label>
-                    <input type="text" defaultValue={variant?.color} />
-                    <label htmlFor="">Price</label>
-                    <input type="text" defaultValue={`${variant?.price.amount} ${variant?.price.currencyCode}`} />
+                    <input type="text"
+                        disabled defaultValue={variant?.color} />
+
+                    <label htmlFor="">Original TotalPrice</label>
+                    <input type="text" disabled
+                        defaultValue={`${Number(item?.originalTotalPrice.amount).toLocaleString('vi')} ${variant?.price.currencyCode}`} />
+
+                    <label htmlFor="">Discount TotalPrice</label>
+                    <input type="text" disabled
+                        defaultValue={`${Number(item?.discountedTotalPrice.amount).toLocaleString('vi')} ${variant?.price.currencyCode}`} />
+
                     <label htmlFor="">Weight</label>
                     <input type="text" defaultValue={`${variant?.weight} ${variant?.weightUnit}`} />
                 </div>
@@ -21,18 +33,19 @@ const ProductVariant = ({ variant }) => {
                     <input type="text"
                         defaultValue={`${variant?.dimension?.width}x${variant?.dimension?.length}x${variant?.dimension?.height} ${variant?.dimension?.dimensionUnit}`}
                     />
-                    <label htmlFor="">QuantityAvailable:</label>
+                    <label htmlFor="">Quantity:</label>
                     <input type="text"
-                        defaultValue={variant?.quantityAvailable}
+                        defaultValue={item?.quantity}
                     />
                     <label htmlFor="">RequiresShipping:</label>
                     <input type="text"
                         defaultValue={`${variant?.requiresShipping}`}
                     />
-                    <label htmlFor="">RequiresShipping:</label>
+                    <label htmlFor="">SalePrice:</label>
                     <input type="text"
-                        defaultValue={`${variant?.requiresShipping}`}
+                        defaultValue={`${Number(variant?.salePrice.amount).toLocaleString('vi')} ${variant?.price.currencyCode}`}
                     />
+
                 </div>
 
                 <div className="productFormRight">
@@ -43,15 +56,15 @@ const ProductVariant = ({ variant }) => {
                             className="productUploadImg"
                         />
                         <label htmlFor="file">
-                            <Publish />
+                            {/* <Publish /> */}
                         </label>
                         <input type="file" id="file" style={{ display: "none" }} />
                     </div>
-                    <button className="productButton">Update</button>
+
                 </div>
             </form>
-        </div>
+        </div></div>
     )
 }
 
-export default ProductVariant
+export default OrderItem

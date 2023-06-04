@@ -277,4 +277,10 @@ public class ProductManager extends BaseManager {
         getProductCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
 
     }
+
+    public void deleteProductById(String productId) {
+        getProductCollection().deleteOne(Filters.eq("_id", productId));
+        getProductVariantCollection().deleteOne(Filters.eq("_id", productId));
+
+    }
 }
