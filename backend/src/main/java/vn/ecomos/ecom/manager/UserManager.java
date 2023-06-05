@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.TextIndexDefinition;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.base.filter.ResultList;
 import vn.ecomos.ecom.base.manager.BaseManager;
 import vn.ecomos.ecom.enums.ActivityLogType;
@@ -55,9 +55,7 @@ public class UserManager extends BaseManager {
 
     @PostConstruct
     public void createTextIndex() {
-        mongoTemplate.indexOps(User.class).ensureIndex(new TextIndexDefinition.TextIndexDefinitionBuilder()
-                .onField("username").onField("fullname").onField("email").onField("_id")
-                .build());
+        mongoTemplate.indexOps(User.class).ensureIndex(new TextIndexDefinition.TextIndexDefinitionBuilder().onField("username").onField("fullname").onField("email").onField("_id").build());
 
     }
 
@@ -100,11 +98,10 @@ public class UserManager extends BaseManager {
         getRoleCollection().insertOne(role);
         ActivityUser activityUser = new ActivityUser();
         activityUser.setUserId(generateId());
-        activityUser.setUserName("Nguyễn Thị Cẩm Tiên");
-        activityUser.setEmail("nguyenthicamtien@gmail.com");
-        activityUser.setPhone("0909499599");
-        addActivityLog(
-                activityUser, "Tạo tài khoản ", user.getId(), ActivityLogType.CREATE, User.class);
+        activityUser.setUserName("Hồ Xuân Thịnh");
+        activityUser.setEmail("hxthinh2001@gmail.com");
+        activityUser.setPhone("0353357781");
+        addActivityLog(activityUser, "Tạo tài khoản ", user.getId(), ActivityLogType.CREATE, User.class);
 
         return user;
     }
@@ -160,8 +157,7 @@ public class UserManager extends BaseManager {
 
     public void updateShop(String userId, int shopId, ShopUpdateInput updateShop) {
 
-        Bson filter = Filters.and(
-                Filters.eq("_id", userId));
+        Bson filter = Filters.and(Filters.eq("_id", userId));
         Document document = new Document();
         if (updateShop.getName() != null && StringUtils.hasText(updateShop.getName()))
             document.put("shop.name", updateShop.getName());
@@ -169,21 +165,17 @@ public class UserManager extends BaseManager {
             document.put("shop.imageUrl", updateShop.getImageUrl());
         if (updateShop.getDescription() != null && StringUtils.hasText(updateShop.getDescription()))
             document.put("shop.description", updateShop.getDescription());
-        if (updateShop.getStatus() != null)
-            document.put("shop.status", updateShop.getStatus().toString());
+        if (updateShop.getStatus() != null) document.put("shop.status", updateShop.getStatus().toString());
         Document newDocument = new Document();
         newDocument.append("$set", document);
         LinkedList<Document> updateALl = new LinkedList<>();
         updateALl.add(newDocument);
-        getUserCollection()
-                .updateOne(filter, updateALl);
+        getUserCollection().updateOne(filter, updateALl);
     }
 
-    public void updateAddressShop(int shopId, int provinceCode, int districtCode, int wardCode, String
-            address) {
+    public void updateAddressShop(int shopId, int provinceCode, int districtCode, int wardCode, String address) {
 
-        Bson filter = Filters.and(
-                Filters.eq("shop.shopId", shopId));
+        Bson filter = Filters.and(Filters.eq("shop.shopId", shopId));
         Document document = new Document();
         document.put("shop.address.address1", address);
         document.put("shop.address.wardCode", wardCode);
@@ -193,8 +185,7 @@ public class UserManager extends BaseManager {
         newDocument.append("$set", document);
         LinkedList<Document> updateALl = new LinkedList<>();
         updateALl.add(newDocument);
-        getUserCollection()
-                .updateOne(filter, updateALl);
+        getUserCollection().updateOne(filter, updateALl);
     }
 
 
@@ -204,39 +195,33 @@ public class UserManager extends BaseManager {
         return user.getShop();
     }
 
-    public User updateInfoUser(String userId, UpdateInfoUserInput updateInfoUser) throws ServiceException {
+    public User updateInfoUser(String userId, UpdateInfoUserInput updateInfoUser) throws EcomosException {
         Document updateDocument = new Document();
         if (updateInfoUser == null) {
-            throw new ServiceException("not_found", "Vui lòng nhập thông tin cần cập nhật của tài khoản", "update info is invalid_data");
+            throw new EcomosException("not_found", "Vui lòng nhập thông tin cần cập nhật của tài khoản",
+                    "update info is invalid_data");
         }
         updateDocument.put("updatedAt", new Date());
-        if (updateInfoUser.getUsername() != null)
-            updateDocument.put("username", updateInfoUser.getUsername());
-        if (updateInfoUser.getBirthday() != null)
-            updateDocument.put("birthday", updateInfoUser.getBirthday());
-        if (updateInfoUser.getGender() != null)
-            updateDocument.put("gender", updateInfoUser.getGender().toString());
-        if (updateInfoUser.getImageUrl() != null)
-            updateDocument.put("imageUrl", updateInfoUser.getImageUrl());
-        if (updateInfoUser.getEmail() != null)
-            updateDocument.put("email", updateInfoUser.getEmail());
-        if (updateInfoUser.getTelephone() != null)
-            updateDocument.put("telephone", updateInfoUser.getTelephone());
-        if (updateInfoUser.getFullName() != null)
-            updateDocument.put("fullName", updateInfoUser.getFullName());
+        if (updateInfoUser.getUsername() != null) updateDocument.put("username", updateInfoUser.getUsername());
+        if (updateInfoUser.getBirthday() != null) updateDocument.put("birthday", updateInfoUser.getBirthday());
+        if (updateInfoUser.getGender() != null) updateDocument.put("gender", updateInfoUser.getGender().toString());
+        if (updateInfoUser.getImageUrl() != null) updateDocument.put("imageUrl", updateInfoUser.getImageUrl());
+        if (updateInfoUser.getEmail() != null) updateDocument.put("email", updateInfoUser.getEmail());
+        if (updateInfoUser.getTelephone() != null) updateDocument.put("telephone", updateInfoUser.getTelephone());
+        if (updateInfoUser.getFullName() != null) updateDocument.put("fullName", updateInfoUser.getFullName());
 
-        Document newDocument = new Document();
-        newDocument.append("$set", updateDocument);
+        Document appenDocument = new Document();
+        appenDocument.append("$set", updateDocument);
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(AFTER);
         List<Bson> filters = new ArrayList<>();
         filters.add(Filters.eq("_id", userId));
 
-        return getUserCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
+        return getUserCollection().findOneAndUpdate(Filters.and(filters), appenDocument, options);
 
 
     }
 
-    public KeyPassword updatePassword(String userId, String password) throws ServiceException {
+    public KeyPassword updatePassword(String userId, String password) throws EcomosException {
         Document document = new Document();
         document.put("updatedAt", new Date());
         document.put("password", password);
@@ -252,8 +237,7 @@ public class UserManager extends BaseManager {
     public User updateAddress(String userId, Address address) {
         Document updateDocument = new Document();
         updateDocument.put("updatedAt", new Date());
-        if (address != null)
-            updateDocument.put("address", address);
+        if (address != null) updateDocument.put("address", address);
 
         Document newDocument = new Document();
         newDocument.append("$set", updateDocument);
@@ -264,14 +248,14 @@ public class UserManager extends BaseManager {
         return getUserCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
     }
 
-    public User updateUserStatus(String userId, UpdateStatusInput statusBody) throws ServiceException {
+    public User updateUserStatus(String userId, UpdateStatusInput statusBody) throws EcomosException {
         User user = getUser(userId);
         if (null == user)
-            throw new ServiceException("not_found", "Không tìm thấy thông tin tài khoản", "user not found");
-        //validate status
+            throw new EcomosException("not_found", "Không tìm thấy thông tin tài khoản", "user not found");
+        //validate
         validateUpdateStatus(statusBody, user);
         if (null != user) {
-            // update order status
+            // update user status
             Document document = new Document();
             document.put("updatedAt", new Date());
             document.put("userStatus", statusBody.getStatus().toString());
@@ -283,8 +267,7 @@ public class UserManager extends BaseManager {
             FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(AFTER);
             user = getUserCollection().findOneAndUpdate(Filters.and(bsonList), newDocument, options);
             // add activity
-            String description = "Cập nhật trạng thái" +
-                    ": " + statusBody.getStatus();
+            String description = "Cập nhật trạng thái" + ": " + statusBody.getStatus();
             if (StringUtils.hasText(statusBody.getNote())) {
                 description += ". " + statusBody.getNote();
             }
@@ -296,40 +279,34 @@ public class UserManager extends BaseManager {
         return null;
     }
 
-    private void validateUpdateStatus(UpdateStatusInput statusBody, User user) throws ServiceException {
+    private void validateUpdateStatus(UpdateStatusInput statusBody, User user) throws EcomosException {
         if (null == statusBody) {
-            throw new ServiceException("invalid_data", "Thông tin không hợp lệ", "update Status Body is required");
+            throw new EcomosException("invalid_data", "Thông tin không hợp lệ", "update Status Body is required");
         }
         if (!UserStatus.isExist(statusBody.getStatus())) {
-            throw new ServiceException("status_error", "Trang thái tài khoản không tồn tại", "status not exist");
+            throw new EcomosException("status_error", "Trang thái của tài khoản không tồn tại", "status not exist");
         }
         if (UserStatus.CANCELLED.equals(user.getUserStatus())) {
-            throw new ServiceException("status_updated", "Yêu cầu trạng thái công việc đã bị hủy", "Status is cancelled, can't update status");
+            throw new EcomosException("status_updated", "Yêu cầu trạng thái công việc đã bị hủy", "Status is cancelled, can't update status");
         }
     }
 
     public ResultList<User> filterUser(UserFilter filterData) {
         List<Bson> filter = getFilters(filterData);
         appendFilter(filterData.getFullName(), "fullName", filter);
-        if (null != filterData.getGender())
-            appendFilter(filterData.getGender().toString(), "gender", filter);
+        if (null != filterData.getGender()) appendFilter(filterData.getGender().toString(), "gender", filter);
         if (null != filterData.getUserStatus())
             appendFilter(filterData.getUserStatus().toString(), "userStatus", filter);
         if (null != filterData.getServiceType())
             appendFilter(filterData.getServiceType().toString(), "serviceType", filter);
-        if (null != filterData.getEmail())
-            appendFilter(filterData.getEmail(), "email", filter);
-        if (null != filterData.getTelephone())
-            appendFilter(filterData.getTelephone(), "telephone", filter);
-        if (null != filterData.getUserId())
-            appendFilter(filterData.getUserId(), "_id", filter);
+        if (null != filterData.getEmail()) appendFilter(filterData.getEmail(), "email", filter);
+        if (null != filterData.getTelephone()) appendFilter(filterData.getTelephone(), "telephone", filter);
+        if (null != filterData.getUserId()) appendFilter(filterData.getUserId(), "_id", filter);
         return getResultList(getUserCollection(), filter, filterData.getOffset(), filterData.getMaxResult());
     }
 
     public List<User> getShops() {
-        return getUserCollection().find(
-                Filters.ne("shop", null)
-        ).into(new ArrayList<>());
+        return getUserCollection().find(Filters.ne("shop", null)).into(new ArrayList<>());
     }
 
     public Role updateRole(String userId, RoleType type, ActivityUser activityUser) {
@@ -342,8 +319,7 @@ public class UserManager extends BaseManager {
         List<Bson> filters = new ArrayList<>();
         filters.add(Filters.eq("userId", userId));
         Role user = getRoleCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
-        addActivityLog(activityUser,
-                "Cập nhật phân quyền " + type.getDescription() + " cho tài khoản :" + userId, userId, ActivityLogType.UPDATE_INFO, Role.class);
+        addActivityLog(activityUser, "Cập nhật phân quyền " + type.getDescription() + " cho tài khoản :" + userId, userId, ActivityLogType.UPDATE_INFO, Role.class);
         return user;
     }
 

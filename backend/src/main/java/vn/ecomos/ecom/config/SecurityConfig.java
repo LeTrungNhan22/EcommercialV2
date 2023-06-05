@@ -46,23 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/user/**","https://api.vietqr.io", "https://oauth.casso.vn/v2/**",
-                        "https://online-gateway.ghn.vn/shiip/public-api/**",
-                        "/product/**", "/login/**", "/mail/**", "/order/**", "/cart/**", "/bank/**", "/geo/**", "/shipment/**", "/language/**"
-                        )
-                .permitAll().anyRequest().authenticated()
-                .and().exceptionHandling().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.csrf().disable().authorizeRequests().antMatchers("/user/**", "/product/**", "/login/**", "/mail/**", "/order/**", "/cart/**", "/bank/**", "/geo/**", "/shipment/**", "/language/**").permitAll().anyRequest().authenticated().and().exceptionHandling().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui/**",
-                "/webjars/**");
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui/**", "/webjars/**");
     }
 }

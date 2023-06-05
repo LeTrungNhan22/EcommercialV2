@@ -1,11 +1,8 @@
 package vn.ecomos.ecom.base.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 
-public class BaseController {
+public class MainController {
 
     protected Object error(String errorCode, String errorMessage, String errorDetail) {
         HashMap<String, String> result = new HashMap<>();

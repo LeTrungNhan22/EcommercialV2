@@ -85,7 +85,6 @@ public class ProductManager extends BaseManager {
 
     }
 
-    //nghành hàng
     private MongoCollection<IndustrialProduct> industrialProductMongoCollection;
 
     public MongoCollection<IndustrialProduct> getIndustrialProductCollection() {
@@ -131,12 +130,9 @@ public class ProductManager extends BaseManager {
 
         Document newDocument = new Document();
         newDocument.append("$set", document);
-        // avoid update at the same time
         List<Bson> filter = getUpdateFilter();
         filter.add(Filters.eq("_id", productId));
-        // display data after updated
         FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(AFTER);
-        // update data
         return getProductCollection().findOneAndUpdate(Filters.eq(filter), newDocument, options);
     }
 
@@ -281,6 +277,5 @@ public class ProductManager extends BaseManager {
     public void deleteProductById(String productId) {
         getProductCollection().deleteOne(Filters.eq("_id", productId));
         getProductVariantCollection().deleteOne(Filters.eq("_id", productId));
-
     }
 }

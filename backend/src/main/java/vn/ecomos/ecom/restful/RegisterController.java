@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import vn.ecomos.ecom.base.controller.BaseController;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.controller.MainController;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.controller.CreateCartController;
 import vn.ecomos.ecom.controller.UserCreateController;
 import vn.ecomos.ecom.manager.UserManager;
@@ -27,20 +27,20 @@ import java.io.UnsupportedEncodingException;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/user/1.0.0/register")
-public class RegisterController extends BaseController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);
+public class RegisterController extends MainController {
+
 
     @Autowired
     private UserManager userManager;
     @Autowired
     private UserCreateController userCreateController;
 
-    @Value("${ecommerce_floor.store.name}")
-    private String storeName;
-    @Value("${ecommerce_floor.store.mail}")
-    private String emailEcommerce;
-    @Value("${mellow.password}")
-    private String passwordEcommerce;
+    @Value("${baddy.store.name}")
+    private String mailName;
+    @Value("${baddy.store.mail}")
+    private String emailFrom;
+    @Value("${baddy.password}")
+    private String passwordEmail;
     @Autowired
     private CreateCartController createCartController;
 
@@ -48,46 +48,56 @@ public class RegisterController extends BaseController {
     @PostMapping("/user")
     public ResponseResult registerUser(@RequestBody CreateUserInput createInput) {
         User result;
-
         try {
             result = userCreateController.createUser(createInput);
-        } catch (ServiceException e) {
+        } catch (EcomosException e) {
             return new ResponseResult(0, e.getErrorMessage(), e.getErrorDetail());
         }
         if (null != result) {
             String code = GeneralIdUtils.generateId();
-            String subject = "Ma xac Thuc";
-            String messSendMail = code + " la ma xac thuc OTP dang ky tai khoan tren san thuong mai. " +
-                    "De tranh bi mat tien, tuyet doi KHONG chia se ma nay voi bat ky ai.";
-            Session session = SendMailUtils.loginMail(emailEcommerce, passwordEcommerce);
+            String messSendMail = code + " la ma xac thuc OTP dang ky tai ";
+            String subject = "Ma xac Thuc OTP";
+            Session session = SendMailUtils.loginMail(emailFrom, passwordEmail);
             try {
-                SendMailUtils.sendMailTo(session, emailEcommerce, storeName, result.getEmail(), subject, messSendMail);
+                SendMailUtils.sendMailTo(session,
+                        emailFrom,
+                        mailName,
+                        result.getEmail(),
+                        subject,
+                        messSendMail);
 
             } catch (UnsupportedEncodingException | MessagingException e) {
                 return new ResponseResult(0, "Email không hợp lệ", e.getStackTrace());
             }
-            //Send mail to store
+            //Gửi mail thành công thì tạo cart cho user
             Cart cart = new Cart();
             cart.setUserId(result.getId());
             try {
                 createCartController.createCart(cart, null);
-            } catch (ServiceException e) {
+            } catch (EcomosException e) {
                 return new ResponseResult(0, e.getErrorMessage(), e.getErrorDetail());
             }
             DataRegister dataRegister = new DataRegister();
             dataRegister.setCode(code);
             dataRegister.setUserId(result.getId());
-            return new ResponseResult(1,
-                    "Đăng ký tài khoản thành công vui lòng nhập mã xác thực để kích hoạt tài khoản", dataRegister);
+            return new ResponseResult(
+                    1,
+                    "Đăng ký tài khoản thành công vui lòng nhập mã xác thực để kích hoạt tài khoản",
+                    dataRegister);
         } else {
 
-            return new ResponseResult(0, "Đăng ký tài khoản không thành công", "Register failed");
+            return new ResponseResult(
+                    0,
+                    "Đăng ký tài khoản không thành công",
+                    "Register failed");
         }
     }
 
-    @ExceptionHandler(ServiceException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final Object handleAllServiceException(ServiceException e) {
+    private final static Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);
+
+    @ExceptionHandler(EcomosException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)//500 error
+    public final Object handleAllServiceException(EcomosException e) {
         LOGGER.error("ServiceException error.", e);
         return error(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
     }

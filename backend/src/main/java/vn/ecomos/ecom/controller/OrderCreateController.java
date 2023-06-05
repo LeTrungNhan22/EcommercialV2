@@ -2,7 +2,7 @@ package vn.ecomos.ecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.enums.OrderStatus;
 import vn.ecomos.ecom.enums.OrderType;
 import vn.ecomos.ecom.manager.CartManager;
@@ -32,22 +32,22 @@ public class OrderCreateController {
     @Autowired
     private CartManager cartManager;
 
-    private void validateOrderInputCreate(CreateOrderInput item) throws ServiceException {
+    private void validateOrderInputCreate(CreateOrderInput item) throws EcomosException {
         if (null == item) {
-            throw new ServiceException("invalid_data", "Thông tin không hợp lệ", "Order Input Create is required");
+            throw new EcomosException("invalid_data", "Thông tin không hợp lệ", "Order Input Create is required");
         }
         if (null == item.getUserId()) {
-            throw new ServiceException("invalid_data", "Vui lòng nhập mã user", "userId is required");
+            throw new EcomosException("invalid_data", "Vui lòng nhập mã user", "userId is required");
         }
         if (null == item.getCartItemInputs()) {
-            throw new ServiceException("invalid_data", "Vui lòng truyền danh sách item giỏ hàng ", "cartItems is required");
+            throw new EcomosException("invalid_data", "Vui lòng truyền danh sách item giỏ hàng ", "cartItems is required");
         }
 
     }
 
 
     // create order
-    public List<Order> createOrder(CreateOrderInput orderCreateInput) throws ServiceException {
+    public List<Order> createOrder(CreateOrderInput orderCreateInput) throws EcomosException {
         //validate data
         validateOrderInputCreate(orderCreateInput);
         List<Order> orders = new ArrayList<>();
@@ -71,18 +71,14 @@ public class OrderCreateController {
                 orderItem.setOrderStatus(OrderStatus.READY);
 
                 //Tổng số tiền giảm giá
-                orderItem.setDiscountedTotalPrice(MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount() -
-                        cartItem.getProductVariant().getSalePrice().getAmount()));
+                orderItem.setDiscountedTotalPrice(MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount() - cartItem.getProductVariant().getSalePrice().getAmount()));
                 totalPrice += cartItem.getTotalPrice();
                 totalDiscount += orderItem.getDiscountedTotalPrice().getAmount();
                 orderItem.setQuantity(cartItem.getQuantity());
 
 
-                orderItem.setOriginalTotalPrice(MoneyCalculateUtils.getMoney(
-                        cartItem.getProductVariant().getPrice().getAmount()
-                ));   //Tổng số tiền chưa giảm giá(giá gốc)
+                orderItem.setOriginalTotalPrice(MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount()));   //Tổng số tiền chưa giảm giá(giá gốc)
                 orderItems.add(orderItem);
-
                 cartManager.deleteCartItem(cartItem.getId());
                 cartManager.updateCartQuantity(cartItem.getCartId(), 0, 0, 0, 0);
 
@@ -102,10 +98,10 @@ public class OrderCreateController {
             order.setEmailCustomer(user.getEmail());
             order.setNameCustomer(user.getFullName() != null ? user.getFullName() : user.getUsername());
             order.setPayment(orderCreateInput.isPayment());
-            //create đơn mua
+            //create đơn mua cho shop
             order = orderManager.createOrder(order, orderItems);
             orders.add(order);
-            //create đơn bán
+            //create đơn bán cho shop
             order.setType(OrderType.SELL);
             order.setFromOrderId(order.getId());
             order = orderManager.createOrder(order, orderItems);

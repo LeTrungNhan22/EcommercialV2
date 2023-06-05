@@ -2,7 +2,7 @@ package vn.ecomos.ecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.manager.CartManager;
 import vn.ecomos.ecom.manager.ProductManager;
 import vn.ecomos.ecom.model.cart.Cart;
@@ -20,49 +20,18 @@ public class CreateCartController {
     @Autowired
     private CartManager cartManager;
 
-    public Cart createCart(Cart cart, List<CartItem> cartItems) throws ServiceException {
+    public Cart createCart(Cart cart, List<CartItem> cartItems) throws EcomosException {
         //validate
         validateCartInput(cart, cartItems);
 
         return cartManager.createCart(cart, cartItems);
     }
 
-    private void validateCartInput(Cart cart, List<CartItem> cartItems) throws ServiceException {
-        if (null == cart) {
-            throw new ServiceException("not_found", "Vui lòng nhập thông tin giỏ hàng", "Cart is not available");
-        }
-        if (null == cart.getUserId()) {
-            throw new ServiceException("not_found", "Vui lòng nhập mã khách hàng của giỏ hàng này.", "User id is not available");
-        }
-        if (null != cartItems && cartItems.size() != 0) {
-            for (CartItem cartItem : cartItems) {
-                //validate
-                validateCartItemInput(cartItem);
-            }
-
-        }
-    }
-
-    private void validateCartItemInput(CartItem cartItem) throws ServiceException {
-        if (null == cartItem.getProductVariant()) {
-            throw new ServiceException("not_found", "Vui lòng nhập thông tin của sản phẩm.", "Product variant is not available");
-        }
-        if (0 == cartItem.getQuantity()) {
-            throw new ServiceException("not_found", "Số lượng của sản phầm :" + cartItem.getProductVariant().getProductName() + " nhỏ hơn hoặc bằng không.", "Quantity is not available");
-        }
-        if (null == cartItem.getProductVariant().getPrice()) {
-            throw new ServiceException("not_found", "Sản phẩm chưa có giá", "product variant.price is null");
-        }
-        double total = cartItem.getQuantity() * cartItem.getProductVariant().getSalePrice().getAmount();
-        cartItem.setTotalPrice(total);
-    }
-
-    public CartItem createCartItem(CartItem cartItem) throws ServiceException {
-        //validate
+    public CartItem createCartItem(CartItem cartItem) throws EcomosException {
+        //validate cart input
         validateCartItemInput(cartItem);
         if (null == cartItem.getCartId()) {
-            throw new ServiceException("not_found", "Vui lòng nhập thông tin mã giỏ hàng.", "cart id is not available");
-
+            throw new EcomosException("not_found", "Vui lòng nhập thông tin mã giỏ hàng.", "cart id is not available");
         }
         ProductVariant variant = cartItem.getProductVariant();
         Product product = productManager.getProduct(variant.getProductId());
@@ -70,11 +39,11 @@ public class CreateCartController {
         cartItem.setShopId(shopId);
         Cart cart = cartManager.getCartById(cartItem.getCartId());
         CartItem cartItemExist = cartManager.getCartItem(cartItem.getCartId(), cartItem.getProductVariant().getId());
-        //tổng tiền giảm
+        // total discount
         double totalDiscount = cart.getTotalDiscount() + (cartItem.getQuantity() * (
                 cartItem.getProductVariant().getPrice().getAmount() -
                         cartItem.getProductVariant().getSalePrice().getAmount()));
-        //tổng tiền ban đầu chưa giảm
+        // total current price
         double totalCurrentPrice = cart.getTotalCurrentPrice() + (cartItem.getQuantity() * (
                 cartItem.getProductVariant().getPrice().getAmount()));
         if (null != cartItemExist) {
@@ -86,8 +55,8 @@ public class CreateCartController {
                     //tổng tiền
                     cart.getTotalPrice() + cartItem.getTotalPrice());
             return cartManager.updateQuantityCartItem(cartItemExist.getId(),
-                    cartItem.getQuantity() + cartItemExist.getQuantity()
-                    , cartItem.getTotalPrice() + cartItemExist.getTotalPrice());
+                    cartItem.getQuantity() + cartItemExist.getQuantity(),
+                    cartItem.getTotalPrice() + cartItemExist.getTotalPrice());
         }
 
         cartManager.updateCartQuantity(cartItem.getCartId(),
@@ -99,5 +68,35 @@ public class CreateCartController {
                 cart.getTotalPrice() + cartItem.getTotalPrice());
 
         return cartManager.createCartItem(cartItem);
+    }
+
+    private void validateCartInput(Cart cart, List<CartItem> cartItems) throws EcomosException {
+        if (null == cart) {
+            throw new EcomosException("not_found", "Vui lòng nhập thông tin giỏ hàng", "Cart is not available");
+        }
+        if (null == cart.getUserId()) {
+            throw new EcomosException("not_found", "Vui lòng nhập mã khách hàng của giỏ hàng này.", "User id is not available");
+        }
+        if (null != cartItems && cartItems.size() != 0) {
+            for (CartItem cartItem : cartItems) {
+                //validate
+                validateCartItemInput(cartItem);
+            }
+
+        }
+    }
+
+    private void validateCartItemInput(CartItem cartItem) throws EcomosException {
+        if (null == cartItem.getProductVariant()) {
+            throw new EcomosException("not_found", "Vui lòng nhập thông tin của sản phẩm.", "Product variant is not available");
+        }
+        if (0 == cartItem.getQuantity()) {
+            throw new EcomosException("not_found", "Số lượng của sản phầm :" + cartItem.getProductVariant().getProductName() + " nhỏ hơn hoặc bằng không.", "Quantity is not available");
+        }
+        if (null == cartItem.getProductVariant().getPrice()) {
+            throw new EcomosException("not_found", "Sản phẩm chưa có giá", "product variant.price is null");
+        }
+        double total = cartItem.getQuantity() * cartItem.getProductVariant().getSalePrice().getAmount();
+        cartItem.setTotalPrice(total);
     }
 }

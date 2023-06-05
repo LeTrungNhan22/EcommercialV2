@@ -7,7 +7,7 @@ import com.mongodb.client.model.FindOneAndUpdateOptions;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.springframework.stereotype.Repository;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.base.manager.BaseManager;
 import vn.ecomos.ecom.base.logs.ActivityLog;
 import vn.ecomos.ecom.model.cart.Cart;
@@ -117,7 +117,7 @@ public class CartManager extends BaseManager {
         return getCartMongoCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
     }
 
-    public CartItem updateQuantityCartItem(String cartItemId, long quantity, double totalPrice) throws ServiceException {
+    public CartItem updateQuantityCartItem(String cartItemId, long quantity, double totalPrice) throws EcomosException {
         Document updateDocument = new Document();
         updateDocument.put("updatedAt", new Date());
         updateDocument.put("quantity", quantity);
@@ -133,7 +133,6 @@ public class CartManager extends BaseManager {
     public void deleteCartItem(String cartItemId) {
         getCartItemMongoCollection().deleteOne(Filters.eq("_id", cartItemId));
     }
-
 
 
 }

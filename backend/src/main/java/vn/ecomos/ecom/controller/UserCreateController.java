@@ -2,7 +2,7 @@ package vn.ecomos.ecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.enums.*;
 import vn.ecomos.ecom.manager.ScoreManager;
 import vn.ecomos.ecom.manager.UserManager;
@@ -22,12 +22,11 @@ import java.util.List;
 public class UserCreateController {
     @Autowired
     private UserManager userManager;
-
     @Autowired
     private ScoreManager scoreManager;
 
-    public User createUser(CreateUserInput createUserInput) throws ServiceException {
-//    check input
+    public User createUser(CreateUserInput createUserInput) throws EcomosException {
+//        check input data
         validateCreateUserInput(createUserInput);
         UserInput userInput = createUserInput.getUser();
         User user = new User();
@@ -37,11 +36,14 @@ public class UserCreateController {
             user.setUsername(RemoveAccentUtils.generateUserName(userInput.getFullName()));
         }
         user.setTelephone(userInput.getTelephone());
+
         UserStatus userStatus = UserStatus.INACTIVE;
         if (null != userInput.getUserStatus()) {
             userStatus = userInput.getUserStatus();
 
         }
+
+
         user.setUserStatus(userStatus);
         user.setGender(userInput.getGender());
         user.setEmail(userInput.getEmail());
@@ -49,6 +51,7 @@ public class UserCreateController {
         user.setBirthday(userInput.getBirthday());
         user.setAddress(userInput.getAddress());
         user.setImageUrl(userInput.getImageUrl());
+
         if (null == userInput.getImageUrl()) {
             String imageUrl = userInput.getFullName() == null ? user.getUsername() : userInput.getFullName();
             user.setImageUrl("https://ui-avatars.com/api/?name=" + imageUrl.replaceAll(" ", ""));
@@ -57,16 +60,20 @@ public class UserCreateController {
         if (null != userInput.getServiceType()) {
             serviceType = userInput.getServiceType();
         }
+
         user.setServiceType(serviceType);
         user.setDescription("Login " + user.getServiceType().getDescription());
         //set key password
         KeyPasswordInput keyPasswordInput = createUserInput.getPassword();
         KeyPassword keyPassword = new KeyPassword();
+
         String token = KeyUtils.getToken();
         String password = KeyUtils.SHA256(KeyUtils.decodeBase64Encoder(keyPasswordInput.getPassword()) + token);
+
         keyPassword.setPassword(password);
         keyPassword.setToken(token);
         keyPassword.setNote(keyPasswordInput.getNote());
+
         PasswordStatus passwordStatus = PasswordStatus.NEW;
         if (null != keyPasswordInput.getPasswordStatus()) {
             passwordStatus = keyPasswordInput.getPasswordStatus();
@@ -74,7 +81,7 @@ public class UserCreateController {
         }
         keyPassword.setPasswordStatus(passwordStatus);
 
-        //set role for user
+        //role
         RoleInput roleInput = createUserInput.getRole();
         Role role = new Role();
         role.setNote(roleInput.getNote());
@@ -94,7 +101,7 @@ public class UserCreateController {
 
         if (userList.size() != 0) {
             if (UserStatus.ACTIVE.equals(userList.get(0).getUserStatus())) {
-                throw new ServiceException("exist_account", "Email của bạn đã tồn tại", "Email user is exists");
+                throw new EcomosException("exist_account", "Email của bạn đã tồn tại", "Email user is exists");
             }
             if (UserStatus.INACTIVE.equals(userList.get(0).getUserStatus())) {
                 userManager.updatePassword(userList.get(0).getId(), password);
@@ -102,6 +109,7 @@ public class UserCreateController {
 
             }
         }
+
         user = userManager.createUser(user, keyPassword, role);
         // create score
         Score score = new Score();
@@ -112,30 +120,30 @@ public class UserCreateController {
         return user;
     }
 
-    private void validateCreateUserInput(CreateUserInput createUserInput) throws ServiceException {
+    private void validateCreateUserInput(CreateUserInput createUserInput) throws EcomosException {
         if (null == createUserInput) {
-            throw new ServiceException("invalid_data", "Chưa điền thông tin cho user", "user is null");
+            throw new EcomosException("invalid_data", "Chưa điền thông tin cho user", "user is null");
         }
         if (null == createUserInput.getUser()) {
-            throw new ServiceException("invalid_data", "Chưa điền thông tin cho user", "user is null");
+            throw new EcomosException("invalid_data", "Chưa điền thông tin cho user", "user is null");
         }
         if (null == createUserInput.getUser().getEmail()) {
-            throw new ServiceException("invalid_data", "Chưa điền thông tin cho email", "email is null");
+            throw new EcomosException("invalid_data", "Chưa điền thông tin cho email", "email is null");
         }
 
         if (null != createUserInput.getUser().getUserStatus() &&
                 !UserStatus.isExist(createUserInput.getUser().getUserStatus().toString())) {
-            throw new ServiceException(
+            throw new EcomosException(
                     "exists_status", "Trạng thái của user không tồn tại.( " +
                     UserStatus.getListName() + " )", "Status user is not exists");
         }
         if (null != createUserInput.getUser().getGender() &&
                 !GenderType.isExist(createUserInput.getUser().getGender().toString())) {
-            throw new ServiceException("exists_type", "Loại giới tính không tồn tại.( " +
+            throw new EcomosException("exists_type", "Loại giới tính không tồn tại.( " +
                     GenderType.getListName() + " )", "gender type is not exists");
         }
         if (!ServiceType.isExist(createUserInput.getUser().getServiceType().toString())) {
-            throw new ServiceException("exists_type", "Loại dịch vụ không tồn tại. ( " +
+            throw new EcomosException("exists_type", "Loại dịch vụ không tồn tại. ( " +
                     ServiceType.getListName() + " )", "service type is not exists");
         }
 
@@ -143,25 +151,25 @@ public class UserCreateController {
         if (null == createUserInput.getPassword() || null == createUserInput.getPassword().getPassword()
                 || createUserInput.getPassword().getPassword().length() == 0
                 || "null".equalsIgnoreCase(createUserInput.getPassword().getPassword())) {
-            throw new ServiceException("invalid_data", "Chưa điền thông tin cho password", "password is null");
+            throw new EcomosException("invalid_data", "Chưa điền thông tin cho password", "password is null");
         }
         if (null == createUserInput.getPassword().getPasswordStatus() &&
                 !PasswordStatus.isExist(createUserInput.getPassword().getPasswordStatus().toString())) {
-            throw new ServiceException("exists_status", "Trạng thái của password không tồn tại.( " +
+            throw new EcomosException("exists_status", "Trạng thái của password không tồn tại.( " +
                     PasswordStatus.getListName() + " )", "Status password is not exists");
 
         }
         if (null == createUserInput.getRole() || null == createUserInput.getRole().getRoleType()) {
-            throw new ServiceException("invalid_data", "Chưa tạo phân quyền cho user", "role is null");
+            throw new EcomosException("invalid_data", "Chưa tạo phân quyền cho user", "role is null");
         }
         if (null != createUserInput.getRole().getRoleStatus()
                 && !RoleStatus.isExist(createUserInput.getRole().getRoleStatus())) {
-            throw new ServiceException("exists_status", "Trạng thái của role không tồn tại.( " +
+            throw new EcomosException("exists_status", "Trạng thái của role không tồn tại.( " +
                     RoleStatus.getListName() + " )", "Status role is not exists");
 
         }
         if (!RoleType.isExist(createUserInput.getRole().getRoleType().toString())) {
-            throw new ServiceException("exists_type", "Loại phân quyền không tồn tại. ( " +
+            throw new EcomosException("exists_type", "Loại phân quyền không tồn tại. ( " +
                     RoleType.getListName() + " )", "Role type is not exists");
 
         }

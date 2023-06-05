@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.ecomos.ecom.base.controller.BaseController;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.controller.MainController;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.base.filter.ResultList;
 import vn.ecomos.ecom.controller.UserCreateController;
 import vn.ecomos.ecom.controller.UserProfileController;
@@ -31,7 +31,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/user/1.0.0/")
-public class UserController extends BaseController {
+public class UserController extends MainController {
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserManager userManager;
@@ -49,48 +49,44 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "create new  user")
     @PostMapping("/user")
-    public User createUser(@RequestBody CreateUserInput createInput) throws ServiceException {
+    public User createUser(@RequestBody CreateUserInput createInput) throws EcomosException {
         return userCreateController.createUser(createInput);
     }
 
     @ApiOperation(value = "get user by user id")
     @GetMapping("/user/{userId}")
-    public User getUser(@PathVariable String userId) throws ServiceException {
+    public User getUser(@PathVariable String userId) throws EcomosException {
         User data = userManager.getUser(userId);
         if (null == data || !data.getUserStatus().equals(UserStatus.ACTIVE)) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin user", "Not found data user by id: " + userId);
+            throw new EcomosException("not_found", "Không tìm thấy thông tin user",
+                    "Not found data user by id: " + userId);
         }
         return data;
     }
 
     @ApiOperation(value = "get user profile by user id")
     @GetMapping("/user/{userId}/profile")
-    public UserProfile getUserProfile(@PathVariable String userId) throws ServiceException {
+    public UserProfile getUserProfile(@PathVariable String userId) throws EcomosException {
         return userProfileController.getUserProfile(userId);
     }
 
     @ApiOperation(value = "update user status by user Id")
     @PutMapping("/user/{userId}/status")
-    public User updateUserStatus(@PathVariable String userId, @RequestBody UpdateStatusInput statusBody) throws ServiceException {
+    public User updateUserStatus(@PathVariable String userId, @RequestBody UpdateStatusInput statusBody) throws EcomosException {
         return userManager.updateUserStatus(userId, statusBody);
     }
 
-    @ApiOperation(value = "Cập nhật trạng thái đang hoạt động cho tài khoản")
-    @PutMapping("user/{userId}/active/{activeBy}")
-    public User activeUser(@PathVariable String userId, @PathVariable String activeBy) throws ServiceException {
-        return userManager.updateActiveUser(userId, activeBy);
-    }
 
     @ApiOperation(value = "update info user by user Id")
     @PutMapping("/user/{userId}/info-basic")
-    public User updateUserInfo(@PathVariable String userId, @RequestBody UpdateInfoUserInput statusBody) throws ServiceException {
+    public User updateUserInfo(@PathVariable String userId, @RequestBody UpdateInfoUserInput statusBody) throws EcomosException {
         getUser(userId);
         return userManager.updateInfoUser(userId, statusBody);
     }
 
     @ApiOperation(value = "update address user by user Id")
     @PutMapping("/user/{userId}/info-address")
-    public User updateUserAddress(@PathVariable String userId, @RequestBody Address address) throws ServiceException {
+    public User updateUserAddress(@PathVariable String userId, @RequestBody Address address) throws EcomosException {
         getUser(userId);
         return userManager.updateAddress(userId, address);
     }
@@ -98,7 +94,7 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "update user password by user Id")
     @PutMapping("/user/{userId}/info-password")
-    public User updatePassword(@PathVariable String userId, @RequestParam("pwd") String password) throws ServiceException {
+    public User updatePassword(@PathVariable String userId, @RequestParam("pwd") String password) throws EcomosException {
         User user = getUser(userId);
         String token = KeyUtils.getToken();
         password = KeyUtils.SHA256(KeyUtils.decodeBase64Encoder(password) + token);
@@ -111,7 +107,7 @@ public class UserController extends BaseController {
     @ApiOperation(value = "find user")
     @PostMapping("/user/filter")
     public ResultList<User> searchUser(
-            @RequestBody UserFilter userFilter) throws ServiceException {
+            @RequestBody UserFilter userFilter) throws EcomosException {
         ResultList<User> resultList = userManager.filterUser(userFilter);
         ResultList<User> result = new ResultList<User>();
         List<User> userList = new ArrayList<User>();
@@ -131,7 +127,6 @@ public class UserController extends BaseController {
                 }
             } else {
                 userList.add(user);
-
             }
         }
         result.setResultList(userList);
@@ -139,14 +134,13 @@ public class UserController extends BaseController {
         result.setIndex(resultList.getIndex());
         result.setMaxResult(resultList.getMaxResult());
 
-
         return result;
     }
 
 
-    @ExceptionHandler(ServiceException.class)
+    @ExceptionHandler(EcomosException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final Object handleAllServiceException(ServiceException e) {
+    public final Object handleAllServiceException(EcomosException e) {
         LOGGER.error("ServiceException error.", e);
         return error(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
     }

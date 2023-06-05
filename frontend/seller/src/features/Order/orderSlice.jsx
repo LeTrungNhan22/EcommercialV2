@@ -87,6 +87,7 @@ const orderSlice = createSlice({
         builder.addCase(updateOrderStatus.fulfilled, (state, action) => {
             state.orderStatus = action.payload;
             state.loading = false;
+            toast.success("Cập nhật trạng thái đơn hàng thành công");
         }
         );
         builder.addCase(updateOrderStatus.rejected, (state, action) => {

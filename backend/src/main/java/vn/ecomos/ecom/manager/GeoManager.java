@@ -30,7 +30,6 @@ public class GeoManager extends BaseManager {
     }
 
 
-
     public Geo createGeo(Geo geo) {
         geo.setCreatedAt(new Date());
         geo.setId(generateId());
@@ -39,7 +38,7 @@ public class GeoManager extends BaseManager {
     }
 
     public List<Geo> getGeoType(GeoType type) {
-      return getGeoCollection().find(Filters.eq("type", type.toString())).into(new ArrayList<>());
+        return getGeoCollection().find(Filters.eq("type", type.toString())).into(new ArrayList<>());
     }
 
     public Geo getGeoGHN_ID(GeoType type, int ghn_id) {

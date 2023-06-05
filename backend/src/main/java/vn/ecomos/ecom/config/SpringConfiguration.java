@@ -1,4 +1,4 @@
-package vn.ecomos.ecom;
+package vn.ecomos.ecom.config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -14,7 +14,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 @Configuration
-public class SpringConfiguration{
+public class SpringConfiguration {
 
     @Bean
     public MongoClient mongoClient() {

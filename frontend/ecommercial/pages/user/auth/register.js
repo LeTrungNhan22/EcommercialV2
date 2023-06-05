@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
+import { get, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FaRegEnvelope } from "react-icons/fa";
 import { TbLock } from "react-icons/tb";
@@ -14,6 +14,7 @@ import googleLogo from "../../../assets/icon/google.png";
 import { registerUser } from "../../../redux/auth/authSlice";
 import LanguageContext from "../../../context/languageContext";
 import { lang } from "moment/moment";
+import { getError } from "../../../utils/error";
 
 const RegisterScreen = () => {
   var base64 = require("base-64");
@@ -65,11 +66,13 @@ const RegisterScreen = () => {
         setLoading(false);
         toast.success("Vui lòng kiểm tra email để xác nhận tài khoản");
         router.push("/user/auth/verifyEmail");
+      } else {
+        throw new Error(data.message)
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
-      toast.error(error.errorMessage);
+      console.log(getError(error));
+      toast.error(getError(error));
     }
   };
 

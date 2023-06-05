@@ -1,22 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaDollarSign, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
 import Layout from "../../components/common/Layout";
-import ProductList from "../../components/product/ProductList";
+import ProductsRelated from "../../components/product/ProductsRelated";
 import AuthContext from "../../context/authContext";
+import LanguageContext from "../../context/languageContext";
 import {
   getCartDetailByUserId,
   updateQuantityCartItem
 } from "../../redux/cart/cartSlice";
-import LanguageContext from "../../context/languageContext";
-import ProductsRelated from "../../components/product/ProductsRelated";
-import { useRouter } from "next/router";
 import { getError } from "../../utils/error";
 
-const CartScreen = () => {
+export default function CartScreen() {
   const { isLogin, user } = useContext(AuthContext);
   const cartDetail = useSelector((state) => state.cart.cartDetail);
   const { totalPrice, totalCurrentPrice, totalDiscount, totalQuantity, itemToShops } = cartDetail;
@@ -102,7 +101,6 @@ const CartScreen = () => {
       }
       try {
         const response = await dispatch(getCartDetailByUserId({ userId }));
-    
       } catch (error) {
         setButtonLoading(false);
         console.log(error);
@@ -112,6 +110,35 @@ const CartScreen = () => {
       console.log(error);
     }
   };
+
+
+  const handleRemoveCartItem = async (cartItemId) => {
+    const handleConfirm = confirm(`Bạn có chắc chắn muốn xóa sản phẩm ${cartItemId} này?`);
+    if (handleConfirm) {
+      try {
+        setButtonLoading(true);
+        const response = await dispatch(
+          updateQuantityCartItem({ cartItemId, quantity: 0 })
+        );
+        setButtonLoading(false);
+        const userId = user?.id;
+        if (userId === undefined) {
+          return;
+        }
+        try {
+          const response = await dispatch(getCartDetailByUserId({ userId }));
+        } catch (error) {
+          setButtonLoading(false);
+          console.log(error);
+        }
+      } catch (error) {
+        setButtonLoading(false);
+        console.log(error);
+      }
+    }
+
+  }
+
   useEffect(() => {
     const getProductDetail = async () => {
       try {
@@ -251,9 +278,11 @@ const CartScreen = () => {
                     </p>
                     <div className="flex  justify-between  ">
                       <div className="flex items-center text-red-500 cursor-pointer">
-                        <p className="text-md leading-3 underline mr-3  ">
+                        <button
+                          onClick={() => handleRemoveCartItem(item.id)}
+                          className="text-md leading-3 underline mr-3  ">
                           {cart_remove_product}
-                        </p>
+                        </button>
                         <FaTrashAlt />
                       </div>
                       <div>
@@ -299,9 +328,8 @@ const CartScreen = () => {
                           <div className="flex flex-col my-2">
                             <p className="text-xl font-bold leading-none text-rose-700">
                               {td_order_total_price}:
-                              {Number(totalCurrentPrice).toLocaleString("vi-VN")}
+                              {Number(item.productVariant.price.amount * item.quantity).toLocaleString("vi-VN")}
                               {item.productVariant.price.currencyCode}
-
                             </p>
                           </div>
                         </div>
@@ -385,4 +413,9 @@ const CartScreen = () => {
   );
 };
 
-export default CartScreen;
+
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}

@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 @SpringBootApplication
 
-public class EcommerceApiApplication extends SpringBootServletInitializer {
+public class EcomosApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(EcommerceApiApplication.class, args);
+        SpringApplication.run(EcomosApplication.class, args);
     }
 
 }

@@ -9,7 +9,7 @@ import org.bson.conversions.Bson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.base.filter.ResultList;
 import vn.ecomos.ecom.base.manager.BaseManager;
 import vn.ecomos.ecom.enums.ActivityLogType;
@@ -110,7 +110,7 @@ public class OrderManager extends BaseManager {
     }
 
 
-    public Order cancelOrder(String orderId, OrderCancelReason cancelReason, String note) throws ServiceException {
+    public Order cancelOrder(String orderId, OrderCancelReason cancelReason, String note) throws EcomosException {
         Order order = getOrder(orderId);
         if (null != order) {
             UpdateStatusInput statusInput = new UpdateStatusInput();
@@ -159,7 +159,7 @@ public class OrderManager extends BaseManager {
         return getOrderCollection().findOneAndUpdate(Filters.and(filters), newDocument, options);
     }
 
-    public Order updateOrderStatus(String orderId, UpdateStatusInput statusBody) throws ServiceException {
+    public Order updateOrderStatus(String orderId, UpdateStatusInput statusBody) throws EcomosException {
         Order order = getOrder(orderId);
 
         //validate status
@@ -208,8 +208,6 @@ public class OrderManager extends BaseManager {
                     scoreManager.updateScoreType(order.getUserId(), ScoreType.RANK_GOLD);
 
                 }
-
-
             }
             // add log update status
             addActivityLog(statusBody.getByUser(), description, orderId, ActivityLogType.UPDATE_STATUS, Order.class);
@@ -219,19 +217,19 @@ public class OrderManager extends BaseManager {
         return null;
     }
 
-    private void validateUpdateStatus(UpdateStatusInput statusBody, Order order) throws ServiceException {
+    private void validateUpdateStatus(UpdateStatusInput statusBody, Order order) throws EcomosException {
 
         if (null == statusBody) {
-            throw new ServiceException("invalid_data", "Thông tin không hợp lệ", "update Status Body is required");
+            throw new EcomosException("invalid_data", "Thông tin không hợp lệ", "update Status Body is required");
         }
         if (!OrderStatus.isExist(statusBody.getStatus())) {
-            throw new ServiceException("status_error", "Trang thái đơn hàng không tồn tại", "status not exist");
+            throw new EcomosException("status_error", "Trang thái đơn hàng không tồn tại", "status not exist");
         }
         if (OrderStatus.DELIVERED.equals(order.getStatus())) {
-            throw new ServiceException("status_updated", "Yêu cầu trạng thái công việc đã hoàn thành", "Status is completed, can't update status");
+            throw new EcomosException("status_updated", "Yêu cầu trạng thái công việc đã hoàn thành", "Status is completed, can't update status");
         }
         if (OrderStatus.CANCELLED.equals(order.getStatus())) {
-            throw new ServiceException("status_updated", "Yêu cầu trạng thái công việc đã bị hủy", "Status is cancelled, can't update status");
+            throw new EcomosException("status_updated", "Yêu cầu trạng thái công việc đã bị hủy", "Status is cancelled, can't update status");
         }
     }
 

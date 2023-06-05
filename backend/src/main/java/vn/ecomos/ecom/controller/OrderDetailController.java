@@ -2,8 +2,8 @@ package vn.ecomos.ecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import vn.ecomos.ecom.base.controller.BaseController;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.controller.MainController;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.enums.OrderStatus;
 import vn.ecomos.ecom.manager.OrderManager;
 import vn.ecomos.ecom.base.logs.ActivityUser;
@@ -13,34 +13,34 @@ import vn.ecomos.ecom.model.order.Order;
 import vn.ecomos.ecom.model.order.OrderDetail;
 
 @Component
-public class OrderDetailController extends BaseController {
+public class OrderDetailController extends MainController {
     @Autowired
     private OrderManager orderManager;
 
     // get order detail
-    public Order getOrder(String orderId) throws ServiceException {
+    public Order getOrder(String orderId) throws EcomosException {
         Order data = orderManager.getOrder(orderId);
         if (null == data) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin đơn hàng", "Not found order by order id: " + orderId);
+            throw new EcomosException("not_found", "Không tìm thấy thông tin đơn hàng", "Not found order by order id: " + orderId);
         }
         return data;
     }
 
     // get order detail
-    public OrderDetail getOrderDetail(String orderId) throws ServiceException {
+    public OrderDetail getOrderDetail(String orderId) throws EcomosException {
         OrderDetail data = orderManager.getOrderDetail(orderId);
         if (null == data) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin chi tiết đơn hàng", "Not found order by order id: " + orderId);
+            throw new EcomosException("not_found", "Không tìm thấy thông tin chi tiết đơn hàng", "Not found order by order id: " + orderId);
         }
         return data;
     }
 
     public Order cancelOrder(String orderId, CancelOrderInput cancelInput) throws
-            ServiceException {
+            EcomosException {
         //check order exists
         Order order = getOrder(orderId);
         if (null == order) {
-            throw new ServiceException("cancel_failure", "Xác nhận hủy đơn hàng " + orderId + " không thành công. Đơn hàng không tồn tại.", "cancelled order failure");
+            throw new EcomosException("cancel_failure", "Xác nhận hủy đơn hàng " + orderId + " không thành công. Đơn hàng không tồn tại.", "cancelled order failure");
 
         }
         orderManager.cancelOrder(orderId, cancelInput.getCancelReason(), cancelInput.getNote());
@@ -50,7 +50,7 @@ public class OrderDetailController extends BaseController {
         return order;
     }
 
-    public Order confirmSequenceStatus(String orderId, ActivityUser byUser) throws ServiceException {
+    public Order confirmSequenceStatus(String orderId, ActivityUser byUser) throws EcomosException {
         Order order = getOrder(orderId);
         if (OrderStatus.DELIVERED.equals(order.getStatus())
                 || OrderStatus.CANCELLED.equals(order.getStatus())) {

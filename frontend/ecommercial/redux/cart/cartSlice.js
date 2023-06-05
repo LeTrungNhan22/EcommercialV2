@@ -60,11 +60,9 @@ const cartSlice = createSlice({
         state.cartItems[indexItem].quantity += action.payload.quantity;
         toast.success(
           <div>
-            Sản phẩm <span className="text-red-700">{action.payload.name}</span>{" "}
-            trong giỏ hàng có số lượng là{" "}
-            <span className="text-2xl text-gray-500">
-              {state.cartItems[indexItem].quantity}
-            </span>
+            Đã thêm sản phẩm{" "}
+            <span className="text-red-700">{action.payload.name}</span> vào giỏ
+            hàng!
           </div>
         );
       } else {

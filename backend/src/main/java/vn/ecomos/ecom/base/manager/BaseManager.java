@@ -168,16 +168,15 @@ public class BaseManager {
 
     protected ResultList getResultList(MongoCollection collection, List<Bson> filter, int offset, int maxResult) {
         Bson filters = Filters.and(filter);
-        long count = collection.countDocuments();
+        long countDoc = collection.countDocuments();
         FindIterable itr = collection.find();
         if (filter.size() > 0) {
             itr = collection.find(filters);
-            count = collection.countDocuments(filters);
+            countDoc = collection.countDocuments(filters);
         }
         ResultList resultList = new ResultList();
         resultList.setResultList(new ArrayList());
-        if (count > 0) {
-
+        if (countDoc > 0) {
             boolean hasFilterText = false;
             for (Bson bson : filter) {
                 String f = bson.toString();
@@ -199,7 +198,7 @@ public class BaseManager {
             resultList.setResultList(list);
             resultList.setMaxResult(maxResult);
             resultList.setIndex(offset);
-            resultList.setTotal(count);
+            resultList.setTotal(countDoc);
         }
         return resultList;
     }

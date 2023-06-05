@@ -1,66 +1,57 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import { AiOutlineSearch } from "react-icons/ai";
-import { HeartIcon } from "@heroicons/react/24/outline";
-import { FaHeart, FaShopify, FaStar } from "react-icons/fa";
-import Link from "next/link";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import Link from "next/link";
+import { AiOutlineSearch } from "react-icons/ai";
+import { FaHeart, FaShopify, FaStar } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductByFilter } from "../../redux/product/productsSlice";
-import { useContext } from "react";
-import LanguageContext from "../../context/languageContext";
 import { getError } from "../../utils/error";
 
-const ProductsRelated = ({ industrialId }) => {
-  const [productsRelated, setProductsRelated] = useState([]);
-  const [loadMoreProduct, setLoadMoreProduct] = useState(true);
-
-  const { languageData } = useContext(LanguageContext);
-  const { product_see_more, button_see_more_product } = languageData;
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getProductList = async () => {
-      const params = {
-        maxResult: 10,
-        industrialId: industrialId,
-      };
-      try {
-        const res = await dispatch(getProductByFilter(params));
-        const { resultList } = unwrapResult(res);
-        setProductsRelated(resultList);
-      } catch (error) {
-        console.log(getError(error));
-      }
-    };
-    getProductList();
-  }, []);
-
-  if (productsRelated?.length === 0) {
+const ProductsRelated = ({ industrialId, product_see_more, button_see_more_product }) => {
+  const products = useSelector((state) => state.products.products);
+  // get 10 products related from products
+  if (!industrialId) return;
+  const productsRelated = products.filter((product) => product.industrialId === industrialId).slice(0, 10);
+  console.log(productsRelated);
+  if (productsRelated < 10) {
     return (
       <div className="text-center text-2xl font-bold mb-5 text-rose-700">
         Loading...
       </div>
     );
   }
+  // useEffect(() => {
 
-  if (!industrialId) return;
+  //   const getProductList = async () => {
+  //     const params = {
+  //       maxResult: 10,
+  //       industrialId: industrialId,
+  //     };
+  //     try {
+  //       const res = await dispatch(getProductByFilter(params));
+  //       console.log(res);
+  //       const { resultList } = unwrapResult(res);
+  //       console.log(resultLists);
+  //       setProductsRelated(resultList);
+  //     } catch (error) {
+  //       console.log(getError(error));
+  //     }
+  //   };
 
-  const loadMore = () => {
-    setMaxResult(maxResult + 20);
-    if (maxResult >= total) {
-      setLoadMoreProduct(false);
-    } else {
-      setLoadMoreProduct(true);
-    }
-  };
+  //   if (industrialId && loadMoreProduct) {
+  //     getProductList();
+  //   }
+
+  // }, []);
+
 
   return (
     <>
       <div className="container pb-16 my-7">
         <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 mb-5">
-          {productsRelated?.map(
+          {productsRelated && productsRelated.map(
             ({ featuredImageUrl, mediumPrice, name, id }) => (
               <div
                 className="bg-white shadow-md rounded overflow-hidden group p-3 hover:shadow-xl transition"

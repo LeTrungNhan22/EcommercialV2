@@ -2,7 +2,7 @@ package vn.ecomos.ecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.manager.CartManager;
 import vn.ecomos.ecom.manager.ProductManager;
 import vn.ecomos.ecom.manager.UserManager;
@@ -26,11 +26,11 @@ public class CartDetailController {
     private UserManager userManager;
 
 
-    public CartDetail getCartDetail(String userId) throws ServiceException {
+    public CartDetail getCartDetail(String userId) throws EcomosException {
         CartDetail cartDetail = new CartDetail();
         Cart cart = cartManager.getCart(userId);
         if (cart == null) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin giỏ hàng :" + userId, "Cart not found");
+            throw new EcomosException("not_found", "Không tìm thấy thông tin giỏ hàng :" + userId, "Cart not found");
         }
         List<CartItem> cartItems = cartManager.getCartItems(cart.getId());
         if (null != cartItems || cartItems.size() != 0) {
@@ -53,10 +53,10 @@ public class CartDetailController {
 
     }
 
-    public CartDetail deleteCartItem(String cartItemId, long quantity) throws ServiceException {
+    public CartDetail deleteCartItem(String cartItemId, long quantity) throws EcomosException {
         CartItem cartItem = cartManager.getCartItem(cartItemId);
         if (null == cartItem) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin cart item :" + cartItemId, "Not found cart item :" + cartItemId);
+            throw new EcomosException("not_found", "Không tìm thấy thông tin cart item :" + cartItemId, "Not found cart item :" + cartItemId);
         }
         Cart cart = cartManager.getCartById(cartItem.getCartId());
         if (quantity == 0) {
@@ -86,10 +86,10 @@ public class CartDetailController {
 
     }
 
-    public CartDetail updateQuantityCartItem(String cartItemId, long quantity) throws ServiceException {
+    public CartDetail updateQuantityCartItem(String cartItemId, long quantity) throws EcomosException {
         CartItem cartItem = cartManager.getCartItem(cartItemId);
         if (null == cartItem) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin cart item :" + cartItemId, "Not found cart item :" + cartItemId);
+            throw new EcomosException("not_found", "Không tìm thấy thông tin cart item :" + cartItemId, "Not found cart item :" + cartItemId);
         }
         Cart cart = cartManager.getCartById(cartItem.getCartId());
 
@@ -104,7 +104,6 @@ public class CartDetailController {
         if (quantityDiff == 0) {
             return getCartDetail(cart.getUserId()); // Không có sự thay đổi, trả về ngay
         }
-
 
         // Cập nhật giá trị mới của cartItem
         cartItem.setQuantity(quantity);

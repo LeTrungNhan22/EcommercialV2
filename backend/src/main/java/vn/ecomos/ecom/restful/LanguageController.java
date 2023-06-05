@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import vn.ecomos.ecom.base.controller.BaseController;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.controller.MainController;
+import vn.ecomos.ecom.base.exception.EcomosException;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -15,24 +15,25 @@ import java.util.ResourceBundle;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/language/1.0.0/language")
-public class LanguageController extends BaseController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(LanguageController.class);
-
+public class LanguageController extends MainController {
     @ApiOperation(value = "change language")
     @GetMapping("/change")
     public LinkedHashMap<String, Object> changeLocale(@RequestParam("locale") String locale) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("language", new Locale(locale));
-        for (String rb : resourceBundle.keySet()) {
-            result.put(rb, resourceBundle.getString(rb));
+        Locale locale1 = new Locale(locale);
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("lang", locale1);
+        for (String key : resourceBundle.keySet()) {
+            result.put(key, resourceBundle.getString(key));
         }
         return result;
+
     }
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(LanguageController.class);
 
-    @ExceptionHandler(ServiceException.class)
+    @ExceptionHandler(EcomosException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final Object handleAllServiceException(ServiceException e) {
+    public final Object handleAllServiceException(EcomosException e) {
         LOGGER.error("ServiceException error.", e);
         return error(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
     }

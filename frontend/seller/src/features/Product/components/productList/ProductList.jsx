@@ -89,7 +89,7 @@ export default function ProductList() {
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            {params.row.mediumPrice?.amount}{" "}
+            {Number(params.row.mediumPrice?.amount).toLocaleString("vi")}{" "}
             {params.row.mediumPrice?.currencyCode}
           </div>
         );
@@ -130,7 +130,7 @@ export default function ProductList() {
             <Link to={"/product/" + params.row.id + "/detail"}>
               <button className="productListEdit">Edit</button>
             </Link>
-        
+
 
           </>
         );

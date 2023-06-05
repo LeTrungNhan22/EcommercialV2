@@ -17,17 +17,16 @@ export default function ProductScreen() {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
-
   const product = useSelector((state) => state.productDetail.product);
   const shop = useSelector((state) => state.productDetail.shop);
   const variants = useSelector((state) => state.productDetail.variants);
-
-  const {languageData}=useContext(LanguageContext);
-  const { 
+  const { languageData } = useContext(LanguageContext);
+  const {
     product_details,
     add_product_industry,
     add_product_name,
-    from_the_same_shop
+    from_the_same_shop,
+    product_see_more, button_see_more_product
   } = languageData;
 
   useEffect(() => {
@@ -87,7 +86,7 @@ export default function ProductScreen() {
 
                         <tr>
                           <th className="py-2 px-2 border border-gray-200 w-40 font-medium">
-                           {add_product_industry}
+                            {add_product_industry}
                           </th>
                           <th className="py-2 px-2 border border-gray-200 w-40 font-medium text-blue-600">
                             {product?.industrialTypeName}
@@ -107,7 +106,10 @@ export default function ProductScreen() {
                   {from_the_same_shop}
                 </h3>
                 <div className="   mx-auto mt-5  bg-gray-200 ">
-                  <ProductsRelated industrialId={product?.industrialId} />
+                  <ProductsRelated 
+                  product_see_more={product_see_more}
+                  button_see_more_product={button_see_more_product}
+                  industrialId={product?.industrialId} />
                 </div>
               </div>
             </div>

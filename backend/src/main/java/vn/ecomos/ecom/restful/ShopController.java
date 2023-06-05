@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import vn.ecomos.ecom.base.controller.BaseController;
+import vn.ecomos.ecom.base.controller.MainController;
 import vn.ecomos.ecom.base.exception.ClientException;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.client.GHNClient;
 import vn.ecomos.ecom.enums.ActiveStatus;
 import vn.ecomos.ecom.enums.RoleType;
@@ -26,7 +26,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/user/1.0.0/shop")
-public class ShopController extends BaseController {
+public class ShopController extends MainController {
     private final static Logger LOGGER = LoggerFactory.getLogger(ShopController.class);
     @Value("${GHN.url}")
     private String url;
@@ -35,28 +35,28 @@ public class ShopController extends BaseController {
     @Autowired
     private UserManager userManager;
 
-    private void validateShopInput(String userId, CreateShopInput shopInput) throws ServiceException {
+    private void validateShopInput(String userId, CreateShopInput shopInput) throws EcomosException {
         if (userId == null || userId.isEmpty()) {
-            throw new ServiceException("not_found", "Vui lòng truyền mã tài khoản", "userId is empty");
+            throw new EcomosException("not_found", "Vui lòng truyền mã tài khoản", "userId is empty");
         }
 
         if (shopInput == null) {
-            throw new ServiceException("not_found", "Vui lòng truyền thông tin cửa hàng của bạn", "shop is empty");
+            throw new EcomosException("not_found", "Vui lòng truyền thông tin cửa hàng của bạn", "shop is empty");
         }
 
         if (null == shopInput.getAddress() || 0 == shopInput.getDistrict_id()
                 || null == shopInput.getWardCode()) {
-            throw new ServiceException("not_found", "Vui lòng truyền địa chỉ của cửa hàng bạn", "shopId is empty");
+            throw new EcomosException("not_found", "Vui lòng truyền địa chỉ của cửa hàng bạn", "shopId is empty");
         }
         if (null == shopInput.getPhone()) {
-            throw new ServiceException("not_found", "Vui lòng truyền số điện thoại của cửa hàng bạn", "phone is empty");
+            throw new EcomosException("not_found", "Vui lòng truyền số điện thoại của cửa hàng bạn", "phone is empty");
         }
 
         if (null == shopInput.getName()) {
-            throw new ServiceException("not_found", "Vui lòng truyền tên cửa hàng của bạn", "shopName is empty");
+            throw new EcomosException("not_found", "Vui lòng truyền tên cửa hàng của bạn", "shopName is empty");
         }
         if (null == shopInput.getImageUrl()) {
-            throw new ServiceException("not_found", "Vui lòng truyền logo của cửa hàng bạn", "imageUrl is empty");
+            throw new EcomosException("not_found", "Vui lòng truyền logo của cửa hàng bạn", "imageUrl is empty");
         }
     }
 
@@ -66,10 +66,10 @@ public class ShopController extends BaseController {
 
     @ApiOperation("create shop from user")
     @PostMapping("/create")
-    public User createShop(@RequestParam("user-id") String userId, @RequestBody CreateShopInput shopInput) throws ServiceException {
+    public User createShop(@RequestParam("user-id") String userId, @RequestBody CreateShopInput shopInput) throws EcomosException {
         User user = userManager.getUser(userId);
         if (user == null) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin tài khoản :" + userId, "user is empty");
+            throw new EcomosException("not_found", "Không tìm thấy thông tin tài khoản :" + userId, "user is empty");
         }
         //validate shop
         validateShopInput(userId, shopInput);
@@ -107,13 +107,13 @@ public class ShopController extends BaseController {
                                   @RequestParam("province-code") int provinceCode,
                                   @RequestParam("district-code") int districtCode,
                                   @RequestParam("ward-code") int wardCode
-            , @RequestParam("address") String address) throws ServiceException {
+            , @RequestParam("address") String address) throws EcomosException {
         userManager.updateAddressShop(shopId, provinceCode, districtCode, wardCode, address);
         return getInfoShop(shopId);
     }
 
 
-    private Integer createShopShipmentGHN(CreateShopInput shopInput) throws ServiceException {
+    private Integer createShopShipmentGHN(CreateShopInput shopInput) throws EcomosException {
         Integer shopId = null;
         try {
             ShopGHNInput shopGHNInput = new ShopGHNInput();
@@ -126,14 +126,14 @@ public class ShopController extends BaseController {
             shopId = Integer.valueOf(current.substring(10, current.length() - 3));
 
         } catch (ClientException e) {
-            throw new ServiceException(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
+            throw new EcomosException(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
         }
         return shopId;
     }
 
     @ApiOperation(value = "get shop by shop id")
     @GetMapping("/shop/{shopId}")
-    public Shop getInfoShop(@PathVariable int shopId) throws ServiceException {
+    public Shop getInfoShop(@PathVariable int shopId) throws EcomosException {
         return userManager.getInfoShop(shopId);
     }
 
@@ -151,9 +151,9 @@ public class ShopController extends BaseController {
         return shops;
     }
 
-    @ExceptionHandler(ServiceException.class)
+    @ExceptionHandler(EcomosException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final Object handleAllServiceException(ServiceException e) {
+    public final Object handleAllServiceException(EcomosException e) {
         LOGGER.error("ServiceException error.", e);
         return error(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
     }

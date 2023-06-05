@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vn.ecomos.ecom.base.controller.BaseController;
-import vn.ecomos.ecom.base.exception.ServiceException;
+import vn.ecomos.ecom.base.controller.MainController;
+import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.base.filter.ResultList;
 import vn.ecomos.ecom.controller.OrderCreateController;
 import vn.ecomos.ecom.controller.OrderDetailController;
 import vn.ecomos.ecom.manager.OrderManager;
-import vn.ecomos.ecom.base.logs.ActivityUser;
 import vn.ecomos.ecom.model.input.CancelOrderInput;
 import vn.ecomos.ecom.model.input.CreateOrderInput;
 import vn.ecomos.ecom.model.input.UpdateStatusInput;
@@ -26,7 +25,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/order/1.0.0/")
-public class OrderController extends BaseController {
+public class OrderController extends MainController {
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
@@ -44,54 +43,48 @@ public class OrderController extends BaseController {
 
     @ApiOperation(value = "get order by orderId")
     @GetMapping("/order/{orderId}")
-    public Order getOrder(@PathVariable String orderId) throws ServiceException {
+    public Order getOrder(@PathVariable String orderId) throws EcomosException {
         Order data = orderManager.getOrder(orderId);
         if (null == data) {
-            throw new ServiceException("not_found", "Không tìm thấy thông tin order ", "Not found order by order id: " + orderId);
+            throw new EcomosException("not_found", "Không tìm thấy thông tin order ", "Not found order by order id: " + orderId);
         }
         return data;
     }
 
     @ApiOperation(value = "get order detail by orderId")
     @GetMapping("/order-detail/{orderId}")
-    public OrderDetail getOrderDetail(@PathVariable String orderId) throws ServiceException {
+    public OrderDetail getOrderDetail(@PathVariable String orderId) throws EcomosException {
         return orderDetailController.getOrderDetail(orderId);
     }
 
 
     @ApiOperation(value = "create new  order")
     @PostMapping("/order")
-    public List<Order> createOrder(@RequestBody CreateOrderInput createInput) throws ServiceException {
+    public List<Order> createOrder(@RequestBody CreateOrderInput createInput) throws EcomosException {
         return orderCreateController.createOrder(createInput);
     }
 
     @ApiOperation(value = "cancel order by orderId")
     @PutMapping("/order/{orderId}/cancel")
-    public Order cancelOrder(@PathVariable String orderId, @RequestBody CancelOrderInput cancelInput) throws ServiceException {
+    public Order cancelOrder(@PathVariable String orderId, @RequestBody CancelOrderInput cancelInput) throws EcomosException {
         return orderDetailController.cancelOrder(orderId, cancelInput);
     }
 
-    @ApiOperation(value = "confirm status order by orderId")
-    @PutMapping("/order/{orderId}/confirm-sequence")
-    public Order confirmSequenceStatus(@PathVariable String orderId, @RequestBody ActivityUser confirmInput) throws ServiceException {
-        return orderDetailController.confirmSequenceStatus(orderId, confirmInput);
-    }
     @ApiOperation(value = "update order status by orderId")
     @PutMapping("/order/{orderId}/status")
-    public Order updateOrderStatus(@PathVariable String orderId, @RequestBody UpdateStatusInput statusBody) throws ServiceException {
+    public Order updateOrderStatus(@PathVariable String orderId, @RequestBody UpdateStatusInput statusBody) throws EcomosException {
         return orderManager.updateOrderStatus(orderId, statusBody);
     }
 
     @ApiOperation(value = "find order request")
     @PostMapping("/order/filter")
-    public ResultList<Order> filterOrder(
-            @RequestBody OrderFilter filterData) {
+    public ResultList<Order> filterOrder(@RequestBody OrderFilter filterData) {
         return orderManager.filterOrder(filterData);
     }
 
-    @ExceptionHandler(ServiceException.class)
+    @ExceptionHandler(EcomosException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public final Object handleAllServiceException(ServiceException e) {
+    public final Object handleAllServiceException(EcomosException e) {
         LOGGER.error("ServiceException error.", e);
         return error(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
     }
