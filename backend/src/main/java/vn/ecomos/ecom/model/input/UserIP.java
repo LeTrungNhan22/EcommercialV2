@@ -11,7 +11,7 @@ import vn.ecomos.ecom.model.geo.Address;
 import java.util.Date;
 
 @Data
-public class UserInput {
+public class UserIP {
     private String username;
     private String fullName;
     private String email;
@@ -26,7 +26,7 @@ public class UserInput {
     private UserStatus userStatus;
     private ActivityUser byUser;
 
-    public UserInput() {
+    public UserIP() {
 
     }
 }

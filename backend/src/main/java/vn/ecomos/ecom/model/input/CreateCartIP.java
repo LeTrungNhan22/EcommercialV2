@@ -7,7 +7,7 @@ import vn.ecomos.ecom.model.cart.CartItem;
 import java.util.List;
 
 @Data
-public class CreateCartInput {
+public class CreateCartIP {
     private Cart cart;
     private List<CartItem> cartItemList;
 }

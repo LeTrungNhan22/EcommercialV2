@@ -14,7 +14,7 @@ import vn.ecomos.ecom.client.GHNClient;
 import vn.ecomos.ecom.enums.ActiveStatus;
 import vn.ecomos.ecom.enums.RoleType;
 import vn.ecomos.ecom.manager.UserManager;
-import vn.ecomos.ecom.model.input.CreateShopInput;
+import vn.ecomos.ecom.model.input.CreateShopIP;
 import vn.ecomos.ecom.model.input.ShopGHNInput;
 import vn.ecomos.ecom.model.input.ShopUpdateInput;
 import vn.ecomos.ecom.model.shop.Shop;
@@ -35,7 +35,7 @@ public class ShopController extends MainController {
     @Autowired
     private UserManager userManager;
 
-    private void validateShopInput(String userId, CreateShopInput shopInput) throws EcomosException {
+    private void validateShopInput(String userId, CreateShopIP shopInput) throws EcomosException {
         if (userId == null || userId.isEmpty()) {
             throw new EcomosException("not_found", "Vui lòng truyền mã tài khoản", "userId is empty");
         }
@@ -66,7 +66,7 @@ public class ShopController extends MainController {
 
     @ApiOperation("create shop from user")
     @PostMapping("/create")
-    public User createShop(@RequestParam("user-id") String userId, @RequestBody CreateShopInput shopInput) throws EcomosException {
+    public User createShop(@RequestParam("user-id") String userId, @RequestBody CreateShopIP shopInput) throws EcomosException {
         User user = userManager.getUser(userId);
         if (user == null) {
             throw new EcomosException("not_found", "Không tìm thấy thông tin tài khoản :" + userId, "user is empty");
@@ -113,7 +113,7 @@ public class ShopController extends MainController {
     }
 
 
-    private Integer createShopShipmentGHN(CreateShopInput shopInput) throws EcomosException {
+    private Integer createShopShipmentGHN(CreateShopIP shopInput) throws EcomosException {
         Integer shopId = null;
         try {
             ShopGHNInput shopGHNInput = new ShopGHNInput();

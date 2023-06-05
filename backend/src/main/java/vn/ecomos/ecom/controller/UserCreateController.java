@@ -13,7 +13,7 @@ import vn.ecomos.ecom.utils.RemoveAccentUtils;
 import vn.ecomos.ecom.model.input.CreateUserInput;
 import vn.ecomos.ecom.model.input.KeyPasswordInput;
 import vn.ecomos.ecom.model.input.RoleInput;
-import vn.ecomos.ecom.model.input.UserInput;
+import vn.ecomos.ecom.model.input.UserIP;
 
 
 import java.util.List;
@@ -28,37 +28,36 @@ public class UserCreateController {
     public User createUser(CreateUserInput createUserInput) throws EcomosException {
 //        check input data
         validateCreateUserInput(createUserInput);
-        UserInput userInput = createUserInput.getUser();
+        UserIP userIP = createUserInput.getUser();
         User user = new User();
-        user.setByUser(userInput.getByUser());
-        user.setUsername(userInput.getUsername());
-        if (null == userInput.getUsername()) {
-            user.setUsername(RemoveAccentUtils.generateUserName(userInput.getFullName()));
+        user.setByUser(userIP.getByUser());
+        user.setUsername(userIP.getUsername());
+        if (null == userIP.getUsername()) {
+            user.setUsername(RemoveAccentUtils.generateUserName(userIP.getFullName()));
         }
-        user.setTelephone(userInput.getTelephone());
+        user.setTelephone(userIP.getTelephone());
 
         UserStatus userStatus = UserStatus.INACTIVE;
-        if (null != userInput.getUserStatus()) {
-            userStatus = userInput.getUserStatus();
+        if (null != userIP.getUserStatus()) {
+            userStatus = userIP.getUserStatus();
 
         }
 
-
         user.setUserStatus(userStatus);
-        user.setGender(userInput.getGender());
-        user.setEmail(userInput.getEmail());
-        user.setFullName(userInput.getFullName());
-        user.setBirthday(userInput.getBirthday());
-        user.setAddress(userInput.getAddress());
-        user.setImageUrl(userInput.getImageUrl());
+        user.setGender(userIP.getGender());
+        user.setEmail(userIP.getEmail());
+        user.setFullName(userIP.getFullName());
+        user.setBirthday(userIP.getBirthday());
+        user.setAddress(userIP.getAddress());
+        user.setImageUrl(userIP.getImageUrl());
 
-        if (null == userInput.getImageUrl()) {
-            String imageUrl = userInput.getFullName() == null ? user.getUsername() : userInput.getFullName();
+        if (null == userIP.getImageUrl()) {
+            String imageUrl = userIP.getFullName() == null ? user.getUsername() : userIP.getFullName();
             user.setImageUrl("https://ui-avatars.com/api/?name=" + imageUrl.replaceAll(" ", ""));
         }
         ServiceType serviceType = ServiceType.NORMALLY;
-        if (null != userInput.getServiceType()) {
-            serviceType = userInput.getServiceType();
+        if (null != userIP.getServiceType()) {
+            serviceType = userIP.getServiceType();
         }
 
         user.setServiceType(serviceType);

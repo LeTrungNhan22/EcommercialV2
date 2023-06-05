@@ -23,7 +23,7 @@ import vn.ecomos.ecom.base.logs.ActivityUser;
 import vn.ecomos.ecom.model.user.*;
 
 import vn.ecomos.ecom.model.input.ShopUpdateInput;
-import vn.ecomos.ecom.model.input.UpdateInfoUserInput;
+import vn.ecomos.ecom.model.input.UpdateInfoUserIP;
 import vn.ecomos.ecom.model.input.UpdateStatusInput;
 import vn.ecomos.ecom.model.shop.Shop;
 
@@ -195,7 +195,7 @@ public class UserManager extends BaseManager {
         return user.getShop();
     }
 
-    public User updateInfoUser(String userId, UpdateInfoUserInput updateInfoUser) throws EcomosException {
+    public User updateInfoUser(String userId, UpdateInfoUserIP updateInfoUser) throws EcomosException {
         Document updateDocument = new Document();
         if (updateInfoUser == null) {
             throw new EcomosException("not_found", "Vui lòng nhập thông tin cần cập nhật của tài khoản",

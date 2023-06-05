@@ -7,7 +7,7 @@ import vn.ecomos.ecom.base.exception.EcomosException;
 import vn.ecomos.ecom.enums.OrderStatus;
 import vn.ecomos.ecom.manager.OrderManager;
 import vn.ecomos.ecom.base.logs.ActivityUser;
-import vn.ecomos.ecom.model.input.CancelOrderInput;
+import vn.ecomos.ecom.model.input.CancelOrderIP;
 import vn.ecomos.ecom.model.input.UpdateStatusInput;
 import vn.ecomos.ecom.model.order.Order;
 import vn.ecomos.ecom.model.order.OrderDetail;
@@ -35,7 +35,7 @@ public class OrderDetailController extends MainController {
         return data;
     }
 
-    public Order cancelOrder(String orderId, CancelOrderInput cancelInput) throws
+    public Order cancelOrder(String orderId, CancelOrderIP cancelInput) throws
             EcomosException {
         //check order exists
         Order order = getOrder(orderId);

@@ -10,7 +10,7 @@ import vn.ecomos.ecom.manager.OrderManager;
 import vn.ecomos.ecom.manager.UserManager;
 import vn.ecomos.ecom.utils.MoneyCalculateUtils;
 import vn.ecomos.ecom.model.cart.CartItem;
-import vn.ecomos.ecom.model.input.CreateOrderInput;
+import vn.ecomos.ecom.model.input.CreateOrderIP;
 import vn.ecomos.ecom.model.order.Order;
 import vn.ecomos.ecom.model.order.OrderItem;
 import vn.ecomos.ecom.model.shop.Shop;
@@ -32,7 +32,7 @@ public class OrderCreateController {
     @Autowired
     private CartManager cartManager;
 
-    private void validateOrderInputCreate(CreateOrderInput item) throws EcomosException {
+    private void validateOrderInputCreate(CreateOrderIP item) throws EcomosException {
         if (null == item) {
             throw new EcomosException("invalid_data", "Thông tin không hợp lệ", "Order Input Create is required");
         }
@@ -47,7 +47,7 @@ public class OrderCreateController {
 
 
     // create order
-    public List<Order> createOrder(CreateOrderInput orderCreateInput) throws EcomosException {
+    public List<Order> createOrder(CreateOrderIP orderCreateInput) throws EcomosException {
         //validate data
         validateOrderInputCreate(orderCreateInput);
         List<Order> orders = new ArrayList<>();

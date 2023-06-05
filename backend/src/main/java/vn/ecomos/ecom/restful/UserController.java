@@ -18,7 +18,7 @@ import vn.ecomos.ecom.manager.UserManager;
 import vn.ecomos.ecom.model.geo.Address;
 import vn.ecomos.ecom.utils.KeyUtils;
 import vn.ecomos.ecom.model.input.CreateUserInput;
-import vn.ecomos.ecom.model.input.UpdateInfoUserInput;
+import vn.ecomos.ecom.model.input.UpdateInfoUserIP;
 import vn.ecomos.ecom.model.input.UpdateStatusInput;
 import vn.ecomos.ecom.model.user.Role;
 import vn.ecomos.ecom.model.user.User;
@@ -79,7 +79,7 @@ public class UserController extends MainController {
 
     @ApiOperation(value = "update info user by user Id")
     @PutMapping("/user/{userId}/info-basic")
-    public User updateUserInfo(@PathVariable String userId, @RequestBody UpdateInfoUserInput statusBody) throws EcomosException {
+    public User updateUserInfo(@PathVariable String userId, @RequestBody UpdateInfoUserIP statusBody) throws EcomosException {
         getUser(userId);
         return userManager.updateInfoUser(userId, statusBody);
     }

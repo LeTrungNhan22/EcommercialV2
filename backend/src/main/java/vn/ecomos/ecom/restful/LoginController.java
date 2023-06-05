@@ -23,7 +23,7 @@ import vn.ecomos.ecom.model.cart.Cart;
 import vn.ecomos.ecom.model.input.CreateUserInput;
 import vn.ecomos.ecom.model.input.KeyPasswordInput;
 import vn.ecomos.ecom.model.input.RoleInput;
-import vn.ecomos.ecom.model.input.UserInput;
+import vn.ecomos.ecom.model.input.UserIP;
 import vn.ecomos.ecom.model.user.Role;
 import vn.ecomos.ecom.model.user.User;
 import vn.ecomos.ecom.model.user.UserFilter;
@@ -178,11 +178,11 @@ public class LoginController extends MainController {
             } else {
                 if (currentUser == null) {
                     CreateUserInput createUserInput = new CreateUserInput();
-                    UserInput userInput = new UserInput();
-                    userInput.setImageUrl(imageUrl);
-                    userInput.setEmail(email);
-                    userInput.setServiceType(serviceType);
-                    userInput.setFullName(fullName);
+                    UserIP userIP = new UserIP();
+                    userIP.setImageUrl(imageUrl);
+                    userIP.setEmail(email);
+                    userIP.setServiceType(serviceType);
+                    userIP.setFullName(fullName);
 
                     KeyPasswordInput keyPasswordInput = new KeyPasswordInput();
                     keyPasswordInput.setPassword(String.valueOf(System.currentTimeMillis()));
@@ -191,7 +191,7 @@ public class LoginController extends MainController {
                     RoleInput role = new RoleInput();
                     role.setRoleType(RoleType.PERSONAL);
 
-                    createUserInput.setUser(userInput);
+                    createUserInput.setUser(userIP);
                     createUserInput.setPassword(keyPasswordInput);
                     createUserInput.setRole(role);
                     User result = userCreateController.createUser(createUserInput);

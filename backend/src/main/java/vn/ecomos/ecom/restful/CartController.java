@@ -13,7 +13,7 @@ import vn.ecomos.ecom.controller.CreateCartController;
 import vn.ecomos.ecom.model.cart.Cart;
 import vn.ecomos.ecom.model.cart.CartDetail;
 import vn.ecomos.ecom.model.cart.CartItem;
-import vn.ecomos.ecom.model.input.CreateCartInput;
+import vn.ecomos.ecom.model.input.CreateCartIP;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -27,7 +27,7 @@ public class CartController extends MainController {
 
     @ApiOperation(value = "create a new cart")
     @PostMapping("/cart/create")
-    public Cart createCart(@RequestBody CreateCartInput cartInput) throws EcomosException {
+    public Cart createCart(@RequestBody CreateCartIP cartInput) throws EcomosException {
         return createCartController.createCart(cartInput.getCart(), cartInput.getCartItemList());
     }
 

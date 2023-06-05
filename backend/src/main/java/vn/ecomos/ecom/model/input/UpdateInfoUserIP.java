@@ -7,7 +7,7 @@ import vn.ecomos.ecom.enums.GenderType;
 import java.util.Date;
 
 @Data
-public class UpdateInfoUserInput {
+public class UpdateInfoUserIP {
     private String fullName;
     private String telephone;
     private String email;

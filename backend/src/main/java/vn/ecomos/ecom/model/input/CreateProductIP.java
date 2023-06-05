@@ -8,7 +8,7 @@ import vn.ecomos.ecom.model.product.ProductVariant;
 import java.util.List;
 
 @Data
-public class CreateProductInput {
+public class CreateProductIP {
     private Product product;
     private List<ProductVariant> productVariants ;
 }

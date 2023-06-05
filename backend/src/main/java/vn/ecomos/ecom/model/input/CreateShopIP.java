@@ -5,7 +5,7 @@ import vn.ecomos.ecom.enums.ActiveStatus;
 import vn.ecomos.ecom.model.geo.Address;
 
 @Data
-public class CreateShopInput {
+public class CreateShopIP {
     private String name;
     private String imageUrl;
     private String description;

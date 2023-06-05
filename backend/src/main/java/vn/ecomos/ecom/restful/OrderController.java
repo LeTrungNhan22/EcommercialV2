@@ -13,8 +13,8 @@ import vn.ecomos.ecom.base.filter.ResultList;
 import vn.ecomos.ecom.controller.OrderCreateController;
 import vn.ecomos.ecom.controller.OrderDetailController;
 import vn.ecomos.ecom.manager.OrderManager;
-import vn.ecomos.ecom.model.input.CancelOrderInput;
-import vn.ecomos.ecom.model.input.CreateOrderInput;
+import vn.ecomos.ecom.model.input.CancelOrderIP;
+import vn.ecomos.ecom.model.input.CreateOrderIP;
 import vn.ecomos.ecom.model.input.UpdateStatusInput;
 import vn.ecomos.ecom.model.order.Order;
 import vn.ecomos.ecom.model.order.OrderDetail;
@@ -60,13 +60,13 @@ public class OrderController extends MainController {
 
     @ApiOperation(value = "create new  order")
     @PostMapping("/order")
-    public List<Order> createOrder(@RequestBody CreateOrderInput createInput) throws EcomosException {
+    public List<Order> createOrder(@RequestBody CreateOrderIP createInput) throws EcomosException {
         return orderCreateController.createOrder(createInput);
     }
 
     @ApiOperation(value = "cancel order by orderId")
     @PutMapping("/order/{orderId}/cancel")
-    public Order cancelOrder(@PathVariable String orderId, @RequestBody CancelOrderInput cancelInput) throws EcomosException {
+    public Order cancelOrder(@PathVariable String orderId, @RequestBody CancelOrderIP cancelInput) throws EcomosException {
         return orderDetailController.cancelOrder(orderId, cancelInput);
     }
 

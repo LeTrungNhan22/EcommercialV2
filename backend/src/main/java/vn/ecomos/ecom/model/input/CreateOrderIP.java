@@ -6,7 +6,7 @@ import vn.ecomos.ecom.model.cart.CartItem;
 import java.util.List;
 
 @Data
-public class CreateOrderInput {
+public class CreateOrderIP {
     private String userId;
     private boolean payment;
     private List<CartItem> cartItemInputs;

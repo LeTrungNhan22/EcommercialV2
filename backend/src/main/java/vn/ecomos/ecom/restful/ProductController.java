@@ -15,7 +15,7 @@ import vn.ecomos.ecom.model.product.*;
 import vn.ecomos.ecom.utils.GeneralIdUtils;
 import vn.ecomos.ecom.utils.MoneyCalculateUtils;
 import vn.ecomos.ecom.model.industrial.IndustrialProduct;
-import vn.ecomos.ecom.model.input.CreateProductInput;
+import vn.ecomos.ecom.model.input.CreateProductIP;
 import vn.ecomos.ecom.model.input.ProductUpdate;
 import vn.ecomos.ecom.model.input.WeightUnit;
 
@@ -36,7 +36,7 @@ public class ProductController extends MainController {
     @Autowired
     private UserManager userManager;
 
-    private void validateProductVariantInput(CreateProductInput productInput) throws EcomosException {
+    private void validateProductVariantInput(CreateProductIP productInput) throws EcomosException {
         if (null == productInput) {
             throw new EcomosException("not_found", "Vui lòng nhập thông tin của sản phẩm biến thể", "Product variant is empty");
         }
@@ -111,7 +111,7 @@ public class ProductController extends MainController {
 
     @ApiOperation(value = "create a new product")
     @PostMapping("/product/create")
-    public ProductDetail createProductVariant(@RequestBody CreateProductInput productInput) throws EcomosException {
+    public ProductDetail createProductVariant(@RequestBody CreateProductIP productInput) throws EcomosException {
         //validate product input
         validateProductVariantInput(productInput);
         Product product = productInput.getProduct();
