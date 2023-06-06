@@ -55,7 +55,7 @@ public class RegisterController extends MainController {
         }
         if (null != result) {
             String code = GeneralIdUtils.generateId();
-            String messSendMail = code + " la ma xac thuc OTP dang ky tai ";
+            String messSendMail = code + " la ma xac thuc OTP dang ky tai khoan";
             String subject = "Ma xac Thuc OTP";
             Session session = SendMailUtils.loginMail(emailFrom, passwordEmail);
             try {

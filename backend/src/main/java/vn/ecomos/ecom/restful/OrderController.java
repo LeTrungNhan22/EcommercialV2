@@ -41,23 +41,6 @@ public class OrderController extends MainController {
     }
 
 
-    @ApiOperation(value = "get order by orderId")
-    @GetMapping("/order/{orderId}")
-    public Order getOrder(@PathVariable String orderId) throws EcomosException {
-        Order data = orderManager.getOrder(orderId);
-        if (null == data) {
-            throw new EcomosException("not_found", "Không tìm thấy thông tin order ", "Not found order by order id: " + orderId);
-        }
-        return data;
-    }
-
-    @ApiOperation(value = "get order detail by orderId")
-    @GetMapping("/order-detail/{orderId}")
-    public OrderDetail getOrderDetail(@PathVariable String orderId) throws EcomosException {
-        return orderDetailController.getOrderDetail(orderId);
-    }
-
-
     @ApiOperation(value = "create new  order")
     @PostMapping("/order")
     public List<Order> createOrder(@RequestBody CreateOrderIP createInput) throws EcomosException {
@@ -81,6 +64,23 @@ public class OrderController extends MainController {
     public ResultList<Order> filterOrder(@RequestBody OrderFilter filterData) {
         return orderManager.filterOrder(filterData);
     }
+
+    @ApiOperation(value = "get order by orderId")
+    @GetMapping("/order/{orderId}")
+    public Order getOrder(@PathVariable String orderId) throws EcomosException {
+        Order data = orderManager.getOrder(orderId);
+        if (null == data) {
+            throw new EcomosException("not_found", "Không tìm thấy thông tin order ", "Not found order by order id: " + orderId);
+        }
+        return data;
+    }
+
+    @ApiOperation(value = "get order detail by orderId")
+    @GetMapping("/order-detail/{orderId}")
+    public OrderDetail getOrderDetail(@PathVariable String orderId) throws EcomosException {
+        return orderDetailController.getOrderDetail(orderId);
+    }
+
 
     @ExceptionHandler(EcomosException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

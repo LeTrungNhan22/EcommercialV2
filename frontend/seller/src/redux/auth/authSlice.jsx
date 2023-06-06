@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import authApi from "../../api/auth/authApi";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -74,12 +75,12 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.message = action.payload.message;
       localStorage.setItem("user", JSON.stringify(action.payload));
-
     }
     );
     builder.addCase(loginInfo.rejected, (state, action) => {
       state.loading = false;
       state.message = action.payload.message;
+      toast.error("User chưa đăng ký shop");
     }
     );
   },

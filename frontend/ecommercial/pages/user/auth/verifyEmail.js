@@ -34,7 +34,8 @@ const VerifyEmailScreen = () => {
     mess_confirm,
     change_email_address,
     resend_code,
-    email_confirm_title
+    email_confirm_title,
+    signup_message_success
   }=languageData;
 
 
@@ -66,7 +67,7 @@ const VerifyEmailScreen = () => {
           .then(function (response) {
             if (response.status === 200) {
               console.log(response.status);
-              toast.success("Đăng ký tài khoản thành công");
+              toast.success(`${signup_message_success}`);
               router.push("/user/auth/login");
               localStorage.removeItem("mailCode");
               localStorage.removeItem("mailMessage");

@@ -49,8 +49,8 @@ const LoginScreen = () => {
         "service-type": "NORMALLY",
       };
       const response = await dispatch(loginUser(params));
+      console.log(response);
       const data = unwrapResult(response);
-
       if (data.status === 1) {
         setLoading(false);
         const token = data.data;
@@ -59,23 +59,19 @@ const LoginScreen = () => {
           "code-token": token,
           "service-type": "NORMALLY",
         };
-        await dispatch(getCustomerInfoByToken(loginData));
+        const res = await dispatch(getCustomerInfoByToken(loginData));
+        localStorage.setItem("accessToken", token);
         toast.success("Login successfully");
         router.push("/");
-
       } else {
         throw new Error(data.message);
       }
     } catch (error) {
+      console.log(error);
       setLoading(false);
-      if (getError(error) == "Bad credentials") {
-        toast.error(languageData?.login_error);
-      }
-      if (
-        getError(error) ==
-        "Đăng nhập thất bại. Không tìm thấy thông tin tài khoản"
-      ) {
-        toast.error(getError(error));
+      console.log(getError(error));
+      if (getError(error) === "Bad credentials") {
+        toast.error("Email or password is incorrect (Tài khoản hoặc mật khẩu không chính xác)");
       }
     }
   };

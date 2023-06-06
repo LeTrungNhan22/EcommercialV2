@@ -30,12 +30,11 @@ const RegisterScreen = () => {
     valid_password,
     order_dialog_button,
     status_order_wating_process,
+    email_confirm_title,
     header_or,
     header_login,
     button_help
   } = languageData;
-
-
   const {
     handleSubmit,
     register,
@@ -60,14 +59,14 @@ const RegisterScreen = () => {
         },
       };
       const actionResult = await dispatch(registerUser(registerData));
+      // console.log("actionResult", actionResult);
       const data = unwrapResult(actionResult);
-
       if (data.status === 1) {
         setLoading(false);
-        toast.success("Vui lòng kiểm tra email để xác nhận tài khoản");
+        toast.success(`${email_confirm_title}`);
         router.push("/user/auth/verifyEmail");
       } else {
-        throw new Error(data.message)
+        throw new Error(data.data)
       }
     } catch (error) {
       setLoading(false);

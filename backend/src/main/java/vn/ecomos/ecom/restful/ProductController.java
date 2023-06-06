@@ -112,7 +112,6 @@ public class ProductController extends MainController {
     @ApiOperation(value = "create a new product")
     @PostMapping("/product/create")
     public ProductDetail createProductVariant(@RequestBody CreateProductIP productInput) throws EcomosException {
-        //validate product input
         validateProductVariantInput(productInput);
         Product product = productInput.getProduct();
         product.setId(GeneralIdUtils.generateId());
@@ -135,6 +134,13 @@ public class ProductController extends MainController {
 
         return productManager.createProduct(product, productVariant);
     }
+
+    @ApiOperation(value = "find product")
+    @PostMapping("/product/filter")
+    public ResultList<Product> searchProduct(@RequestBody ProductFilter productFilter) {
+        return productManager.filterProduct(productFilter);
+    }
+
 
     @ApiOperation(value = "get product by product id")
     @GetMapping("/product/{productId}")
@@ -272,12 +278,6 @@ public class ProductController extends MainController {
         if (null == trademark.getIconUrl()) {
             throw new EcomosException("invalid_data", "Vui lòng truyền icon của thương hiệu", "Trademark product icon url is null");
         }
-    }
-
-    @ApiOperation(value = "find product")
-    @PostMapping("/product/filter")
-    public ResultList<Product> searchProduct(@RequestBody ProductFilter productFilter) {
-        return productManager.filterProduct(productFilter);
     }
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ProductController.class);

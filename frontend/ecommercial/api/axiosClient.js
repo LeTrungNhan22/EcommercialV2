@@ -15,9 +15,6 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-  if (localStorage.getItem("accessToken") === 'Bad credentials') {
-    localStorage.removeItem("accessToken");
-  }
   // Handle token here ...
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {

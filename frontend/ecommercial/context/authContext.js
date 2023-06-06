@@ -23,8 +23,8 @@ export const AuthContextProvider = ({ children }) => {
     }
   }, [items]);
   //   logout context
-  const logoutContext = () => {
-    dispatch(logout());
+  const logoutContext = async () => {
+    await dispatch(logout());
     setIsLogin(false);
     setUser({});
     toast.success("Logout success");

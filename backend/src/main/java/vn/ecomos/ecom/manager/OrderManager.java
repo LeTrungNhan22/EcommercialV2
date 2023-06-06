@@ -175,7 +175,6 @@ public class OrderManager extends BaseManager {
             dateAt = statusBody.getStatus().equals(OrderStatus.DELIVERED.toString()) ? completedAt : dateAt;
             dateAt =
                     statusBody.getStatus().equals(OrderStatus.DELIVERY_ONLY.toString()) ? processedAt : dateAt;
-
             if (!dateAt.equals("none")) {
                 document.put(dateAt, new Date());
             }

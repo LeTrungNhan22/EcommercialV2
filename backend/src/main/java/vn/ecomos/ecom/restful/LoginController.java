@@ -169,7 +169,6 @@ public class LoginController extends MainController {
                             new UsernamePasswordAuthenticationToken(email, KeyUtils.SHA256(decodePassword)));
                 } catch (Exception e) {
                     return new ResponseResult(0, e.getMessage(), e.getLocalizedMessage());
-
                 }
                 if (auth != null && auth.isAuthenticated()) {
                     return new ResponseResult(1,

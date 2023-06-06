@@ -84,6 +84,8 @@ export default function Login() {
             "service-type": "NORMALLY",
           };
           const getInfoAction = await dispatch(loginInfo({ params }));
+          console.log(getInfoAction);
+
           if (getInfoAction.type === "user/loginInfo/fulfilled") {
             setLoading(true);
             toast.success(data.message);

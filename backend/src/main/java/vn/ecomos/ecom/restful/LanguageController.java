@@ -20,10 +20,12 @@ public class LanguageController extends MainController {
     @GetMapping("/change")
     public LinkedHashMap<String, Object> changeLocale(@RequestParam("locale") String locale) {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
-        Locale locale1 = new Locale(locale);
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("lang", locale1);
+        Locale localeParam = new Locale(locale);
+
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("lang", localeParam); // lang.properties
+
         for (String key : resourceBundle.keySet()) {
-            result.put(key, resourceBundle.getString(key));
+            result.put(key, resourceBundle.getString(key)); // key = "hello", value = "Xin chào"
         }
         return result;
 

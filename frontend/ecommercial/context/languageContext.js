@@ -18,7 +18,8 @@ export const LanguageContextProvider = ({ children }) => {
 
     useEffect(() => {
         const getLanguage = async () => {
-            const response = await axios.get(`${baseUrl}/language/1.0.0/language/change?locale=${language.code}`);
+            const response = await
+             axios.get(`${baseUrl}/language/1.0.0/language/change?locale=${language.code}`);
             setLanguageData(response.data);
         }
         getLanguage();

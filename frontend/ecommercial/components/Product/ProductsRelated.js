@@ -14,7 +14,7 @@ const ProductsRelated = ({ industrialId, product_see_more, button_see_more_produ
   // get 10 products related from products
   if (!industrialId) return;
   const productsRelated = products.filter((product) => product.industrialId === industrialId).slice(0, 10);
-  console.log(productsRelated);
+  // console.log(productsRelated);
   if (productsRelated < 10) {
     return (
       <div className="text-center text-2xl font-bold mb-5 text-rose-700">

@@ -52,8 +52,11 @@ public class UserCreateController {
         user.setImageUrl(userIP.getImageUrl());
 
         if (null == userIP.getImageUrl()) {
-            String imageUrl = userIP.getFullName() == null ? user.getUsername() : userIP.getFullName();
-            user.setImageUrl("https://ui-avatars.com/api/?name=" + imageUrl.replaceAll(" ", ""));
+            String imageUrl = userIP.getFullName() == null ?
+                    user.getUsername() :
+                    userIP.getFullName();
+            user.setImageUrl("https://ui-avatars.com/api/?name="
+                    + imageUrl.replaceAll(" ", ""));
         }
         ServiceType serviceType = ServiceType.NORMALLY;
         if (null != userIP.getServiceType()) {

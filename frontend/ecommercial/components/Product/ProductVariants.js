@@ -29,9 +29,9 @@ export default function ProductVariants({ product, variants }) {
   const [variantDetail, setVariantDetail] = useState({});
   const [cartDetail, setCartDetail] = useState({});
 
-  const {languageData}=useContext(LanguageContext);
-  const { 
-    button_add_to_cart, 
+  const { languageData } = useContext(LanguageContext);
+  const {
+    button_add_to_cart,
     button_buy_now,
     header_category_name,
     error_add_to_cart,
@@ -41,7 +41,7 @@ export default function ProductVariants({ product, variants }) {
     product_quantity,
     error_choose_color
 
-   } = languageData;
+  } = languageData;
 
   useEffect(() => {
     setProductSingle(product);
@@ -72,7 +72,6 @@ export default function ProductVariants({ product, variants }) {
     { productId, variantId },
     salePrice
   ) => {
-
     setProductSingle({
       ...productSingle,
       featuredImageUrl: imageUrl,
@@ -174,7 +173,7 @@ export default function ProductVariants({ product, variants }) {
       if (response.payload === null) {
         return;
       } else {
-        console.log({ response: response.payload });
+        // console.log({ response: response.payload });
         setVariantDetail(response.payload);
       }
     } catch (err) {

@@ -9,6 +9,7 @@ const initialState = {
   loading: false,
   errorMessage: "",
   mailMessage: "",
+
 };
 
 // sign up
@@ -154,14 +155,13 @@ const authSlice = createSlice({
       })
       .addCase(
         loginUser.fulfilled,
-        (state, { payload: { errorMessage, data, user } }) => {
+        (state, { payload: { message, status, data } }) => {
           state.loading = false;
-          if (errorMessage) {
-            state.errorMessage = errorMessage;
-          } else {
+          if (status === 1) {
             state.accessToken = data;
-            state.user = user;
-            localStorage.setItem("accessToken", data);
+            toast.success(message);
+          } else {
+            // toast.error(`${message} (${data})`);
           }
         }
       )

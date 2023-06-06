@@ -6,20 +6,33 @@
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/manager/BaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/manager/BaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderCreateController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/UserCreateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/ProductManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/OrderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/user/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/language_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/language_vi.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/language_vi.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/api/product/productApi.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/api/product/productApi.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/dialog/VariantProductDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/dialog/VariantProductDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/productList/ProductList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/productList/ProductList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/pages/newProduct/NewProduct.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/pages/newProduct/NewProduct.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/productSlice.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/productSlice.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/service/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/service/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/GeneralIdUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/GeneralIdUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/SendMailUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/SendMailUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_vi.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_vi.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/api/axiosClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/api/axiosClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Product/ProductVariants.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Product/ProductVariants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/context/languageContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/context/languageContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/redux/auth/authSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/redux/auth/authSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/components/login/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/components/login/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/components/topbar/AccountMenu.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/components/topbar/AccountMenu.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/context/authContext.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/context/authContext.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/redux/auth/authSlice.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/redux/auth/authSlice.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,9 +96,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EcommerceApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="EcomosApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="ecomos-api" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="vn.ecomos.ecom.EcommerceApiApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="vn.ecomos.ecom.EcomosApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="vn.ecomos.ecom.*" />
@@ -98,7 +111,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.EcommerceApiApplication" />
+        <item itemvalue="Spring Boot.EcomosApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -129,7 +142,14 @@
       <workItem from="1685692065654" duration="5789000" />
       <workItem from="1685755190370" duration="2749000" />
       <workItem from="1685772132195" duration="8204000" />
-      <workItem from="1685782290925" duration="12372000" />
+      <workItem from="1685782290925" duration="12994000" />
+      <workItem from="1685846153208" duration="11604000" />
+      <workItem from="1685891386151" duration="4483000" />
+      <workItem from="1685935638123" duration="7752000" />
+      <workItem from="1685948308987" duration="3331000" />
+      <workItem from="1685952959925" duration="40074000" />
+      <workItem from="1686058280826" duration="1306000" />
+      <workItem from="1686070450794" duration="3652000" />
     </task>
     <servers />
   </component>

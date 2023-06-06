@@ -13,7 +13,10 @@ import vn.ecomos.ecom.enums.UserStatus;
 import vn.ecomos.ecom.model.geo.Address;
 import vn.ecomos.ecom.model.shop.Shop;
 
+
 import java.util.Date;
+import javax.validation.constraints.NotNull;
+
 
 @Data
 public class User extends BaseModel {
@@ -26,7 +29,7 @@ public class User extends BaseModel {
     private Date birthday;
     private Address address;
     private GenderType gender;
-    @NonNull
+    @NotNull
     private ServiceType serviceType;
     private String description;
     private UserStatus userStatus;

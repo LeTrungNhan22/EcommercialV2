@@ -32,38 +32,36 @@ public class OrderCreateController {
     @Autowired
     private CartManager cartManager;
 
-    private void validateOrderInputCreate(CreateOrderIP item) throws EcomosException {
-        if (null == item) {
-            throw new EcomosException("invalid_data", "Thông tin không hợp lệ", "Order Input Create is required");
-        }
-        if (null == item.getUserId()) {
-            throw new EcomosException("invalid_data", "Vui lòng nhập mã user", "userId is required");
-        }
-        if (null == item.getCartItemInputs()) {
-            throw new EcomosException("invalid_data", "Vui lòng truyền danh sách item giỏ hàng ", "cartItems is required");
-        }
-
-    }
-
-
+    
     // create order
     public List<Order> createOrder(CreateOrderIP orderCreateInput) throws EcomosException {
         //validate data
-        validateOrderInputCreate(orderCreateInput);
+
+        if (null == orderCreateInput) {
+            throw new EcomosException("invalid_data", "Thông tin không hợp lệ", "Order Input Create is required");
+        }
+        if (null == orderCreateInput.getUserId()) {
+            throw new EcomosException("invalid_data", "Vui lòng nhập mã user", "userId is required");
+        }
+        if (null == orderCreateInput.getCartItemInputs()) {
+            throw new EcomosException("invalid_data", "Vui lòng truyền danh sách item giỏ hàng ", "cartItems is required");
+        }
+
+
         List<Order> orders = new ArrayList<>();
         UserProfile userProfile = userController.getUserProfile(orderCreateInput.getUserId());
         User user = userProfile.getUser();
-        HashMap<Integer, List<CartItem>> mapShop = new HashMap<>();
+        HashMap<Integer, List<CartItem>> mapShopId = new HashMap<>();
         for (CartItem cartItem : orderCreateInput.getCartItemInputs()) {
-            List<CartItem> sampleCartItems = mapShop.computeIfAbsent(cartItem.getShopId(), k -> new ArrayList<>());
+            List<CartItem> sampleCartItems = mapShopId.computeIfAbsent(cartItem.getShopId(), k -> new ArrayList<>());
             sampleCartItems.add(cartItem);
         }
-        for (Integer shopId : mapShop.keySet()) {
+        for (Integer shopId : mapShopId.keySet()) {
             Shop shop = userManager.getInfoShop(shopId);
             List<OrderItem> orderItems = new ArrayList<>();
             double totalPrice = 0;
             double totalDiscount = 0;
-            for (CartItem cartItem : mapShop.get(shopId)) {
+            for (CartItem cartItem : mapShopId.get(shopId)) {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setVariant(cartItem.getProductVariant());
                 orderItem.setShopId(cartItem.getShopId());
@@ -71,16 +69,19 @@ public class OrderCreateController {
                 orderItem.setOrderStatus(OrderStatus.READY);
 
                 //Tổng số tiền giảm giá
-                orderItem.setDiscountedTotalPrice(MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount() - cartItem.getProductVariant().getSalePrice().getAmount()));
+                orderItem.setDiscountedTotalPrice(
+                        MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount() - cartItem.getProductVariant().getSalePrice().getAmount()));
                 totalPrice += cartItem.getTotalPrice();
                 totalDiscount += orderItem.getDiscountedTotalPrice().getAmount();
                 orderItem.setQuantity(cartItem.getQuantity());
 
 
-                orderItem.setOriginalTotalPrice(MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount()));   //Tổng số tiền chưa giảm giá(giá gốc)
+                orderItem.setOriginalTotalPrice(
+                        MoneyCalculateUtils.getMoney(cartItem.getProductVariant().getPrice().getAmount()));   //Tổng số tiền chưa giảm giá(giá gốc)
                 orderItems.add(orderItem);
                 cartManager.deleteCartItem(cartItem.getId());
-                cartManager.updateCartQuantity(cartItem.getCartId(), 0, 0, 0, 0);
+                cartManager.updateCartQuantity(cartItem.getCartId(),
+                        0, 0, 0, 0);
 
                 //remove cart item
 
@@ -109,4 +110,18 @@ public class OrderCreateController {
         }
         return orders;
     }
+
+
+    //    private void validateOrderInputCreate(CreateOrderIP item) throws EcomosException {
+//        if (null == item) {
+//            throw new EcomosException("invalid_data", "Thông tin không hợp lệ", "Order Input Create is required");
+//        }
+//        if (null == item.getUserId()) {
+//            throw new EcomosException("invalid_data", "Vui lòng nhập mã user", "userId is required");
+//        }
+//        if (null == item.getCartItemInputs()) {
+//            throw new EcomosException("invalid_data", "Vui lòng truyền danh sách item giỏ hàng ", "cartItems is required");
+//        }
+//
+//    }
 }

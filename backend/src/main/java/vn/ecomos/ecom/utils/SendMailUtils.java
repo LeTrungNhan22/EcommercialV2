@@ -11,34 +11,37 @@ public class SendMailUtils {
 
     public static Session loginMail(String email, String pwd) {
         Properties prop = new Properties();
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "465");
-        prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.starttls.required", "true");
-        prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+        prop.put("mail.smtp.host", "smtp.gmail.com");//smtp.gmail.com
+        prop.put("mail.smtp.port", "465");// smtp port
+
+        prop.put("mail.smtp.auth", "true");//enable authentication
+        prop.put("mail.smtp.starttls.enable", "true");//enable STARTTLS
+
+        prop.put("mail.smtp.starttls.required", "true");//enable STARTTLS
+
+        prop.put("mail.smtp.ssl.protocols", "TLSv1.2");//enable SSL
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");//SSL Factory Class
 
 
-
-        Session resSession = Session.getInstance(prop, new Authenticator() {
+        Session resposeSession = Session.getInstance(prop, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(email, pwd);
+                return new PasswordAuthentication(email, pwd);//email, password
             }
         });
-        return resSession;
+        return resposeSession;
     }
 
     public static void sendMailTo(Session sessMail, String emailFrom, String nameFrom,
                                   String emailTo, String subjectEMail, String messMail)
             throws UnsupportedEncodingException, MessagingException {
-            Message mess = new MimeMessage(sessMail);
-            mess.setFrom(new InternetAddress(emailFrom, nameFrom));
-            mess.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
-            mess.setSubject(subjectEMail);
-            mess.setText(messMail);
-            Transport.send(mess);
+        Message mess = new MimeMessage(sessMail);
+        mess.setFrom(new InternetAddress(emailFrom, nameFrom));//email, name
+        mess.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));// email recipient
+        mess.setSubject(subjectEMail);//subject
+        mess.setText(messMail);//message
+        Transport.send(mess); //send mail
 
     }
 

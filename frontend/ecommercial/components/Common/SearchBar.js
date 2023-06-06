@@ -73,6 +73,10 @@ const SearchBar = () => {
           <input
             // onBlur={setProductMatches([])}
             onChange={(e) => handleSearchProductByName(e.target.value)}
+            onBlur={() =>
+              setProductMatches([])
+            }
+            onMouseLeave={() => setProductMatches([])}
             type="text"
             className="outline-none pl-5 bg-transparent flex-grow h-12 md:h-10 focus:ring-0 border-none"
             placeholder={languageData?.search_product}
@@ -83,7 +87,7 @@ const SearchBar = () => {
         {productMatches.length > 0 && (
           <div className="bg-gray-100 w-[32%] flex flex-col  p-3 max-[100px] absolute top-[70px] rounded-md bg-opacity-95">
             {productMatches.map((product) => (
-              <Link href={`/product/${product.id}`}>
+              <Link key={product.id} href={`/product/${product.id}`}>
                 <span
                   className="text-gray-500 hover:text-rose-500 cursor-pointer"
                   key={product.id}
