@@ -179,6 +179,7 @@ const authSlice = createSlice({
       .addCase(getCustomerInfoByToken.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.message = action.payload.message;
         localStorage.setItem("user", JSON.stringify(action.payload));
       })
       .addCase(getCustomerInfoByToken.rejected, (state, action) => {

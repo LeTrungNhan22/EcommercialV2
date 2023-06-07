@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BreadCrumb from "../breadcrumb/BreadCrumb";
 import Layout from "../common/Layout";
 import SideBar from "./SideBar";
+import AuthContext from "../../context/authContext";
+import { useRouter } from "next/router";
 
 const UserLayout = ({ children, userId }) => {
   return (

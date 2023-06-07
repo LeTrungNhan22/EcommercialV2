@@ -10,6 +10,7 @@ import { createShop } from "../../redux/auth/authSlice";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import LanguageContext from "../../context/languageContext";
+import AuthContext from "../../context/authContext";
 
 
 const CreateShopPage = ({
@@ -27,6 +28,8 @@ const CreateShopPage = ({
   openModal,
   isOpen,
 }) => {
+
+
   const {
     register,
     handleSubmit,
@@ -47,9 +50,7 @@ const CreateShopPage = ({
   const [selectedFile, setSelectedFile] = useState();
   const sellerUrl = process.env.NEXT_PUBLIC_SELLER_URL;
   const router = useRouter();
-
   const [checkFile, setCheckFile] = useState(false);
-
   const { languageData } = useContext(LanguageContext);
   const {
     shop_avatar,

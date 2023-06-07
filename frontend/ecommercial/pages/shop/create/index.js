@@ -1,9 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import CreateShopPage from "../../../components/Shop/createShop";
 import AuthContext from "../../../context/authContext";
+import { useRouter } from "next/router";
 
 const CreateShopeScreen = () => {
-  const { user } = useContext(AuthContext);
+  const { user, isLogin } = useContext(AuthContext);
+  const router = useRouter();
+  useEffect(() => {
+    if (isLogin === false) {
+      router.push("/user/auth/login");
+    }
+  }, [isLogin]);
   const [userProfile, setUserProfile] = useState({});
   useEffect(() => {
     setUserProfile(user);

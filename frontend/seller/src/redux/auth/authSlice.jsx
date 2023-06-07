@@ -48,20 +48,23 @@ const authSlice = createSlice({
       localStorage.removeItem("mailMessage");
       localStorage.removeItem("cartItems");
       localStorage.clear();
+
     },
   },
   extraReducers: (builder) => {
     builder.addCase(loginCustomer.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(loginCustomer.fulfilled, (state, action) => {
-      state.loading = false;
-      state.accessToken = action.payload.data;
-      state.message = action.payload.message;
-      localStorage.setItem("accessToken", action.payload.data);
-
-
-    });
+    builder.addCase(loginCustomer.fulfilled,
+      (state, { payload: { message, status, data } }) => {
+        state.loading = false;
+        if (status === 1) {
+          state.accessToken = data;
+          // toast.success(message);
+        } else {
+          // toast.error(`${message} (${data})`);
+        }
+      });
     builder.addCase(loginCustomer.rejected, (state, action) => {
       state.loading = false;
       state.message = action.payload.message;

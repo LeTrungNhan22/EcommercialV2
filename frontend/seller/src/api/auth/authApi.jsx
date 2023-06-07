@@ -6,7 +6,7 @@ const userApi = {
   },
   loginInfo: (params) => {
     const url = "/user/1.0.0/login/info";
-    return axiosClient.get(url, params);
+    return axiosClient.get(url, { params });
   },
 };
 

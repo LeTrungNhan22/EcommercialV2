@@ -66,7 +66,7 @@ const RegisterScreen = () => {
         toast.success(`${email_confirm_title}`);
         router.push("/user/auth/verifyEmail");
       } else {
-        throw new Error(data.data)
+        throw new Error(data.message)
       }
     } catch (error) {
       setLoading(false);

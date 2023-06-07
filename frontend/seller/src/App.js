@@ -35,7 +35,10 @@ function App() {
       setLoading(false);
     }, 2000);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [])
+  console.log("isLogin=", isLogin);
+
+
 
   return (
     <div className="App">
@@ -43,8 +46,8 @@ function App() {
       <Router>
         <Switch>
           <>
-            <Route exact path="/" render={() => <Redirect to="/login" />} />
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/" render={() => <Redirect to="/seller/login" />} />
+            <Route exact path="/seller/login" component={Login} />
             {isLogin ? (
               <>
                 <div className="container">
@@ -57,18 +60,18 @@ function App() {
                   ) : (
                     <>
                       <Switch>
-                        <Route exact path="/dashboard-seller" component={Home}></Route>
-                        <Route path="/users" component={UserList}></Route>
-                        <Route path="/user/:userId" component={User}></Route>
-                        <Route path="/newUser" component={newUser}></Route>
-                        <Route path="/products" component={ProductHome}></Route>
+                        <Route exact path="/seller/dashboard-seller" component={Home}></Route>
+                        <Route path="/seller/users" component={UserList}></Route>
+                        <Route path="/seller/user/:userId" component={User}></Route>
+                        <Route path="/seller/newUser" component={newUser}></Route>
+                        <Route path="/seller/products" component={ProductHome}></Route>
                         <Route
-                          path="/product/:productId/detail"
+                          path="/seller/product/:productId/detail"
                           component={ProductSingle}
                         />
-                        <Route path="/newProduct" component={NewProduct}></Route>
-                        <Route path="/orders" component={OrderScreen}></Route>
-                        <Route path="/order/:orderId/detail" component={OrderDetail}></Route>
+                        <Route path="/seller/newProduct" component={NewProduct}></Route>
+                        <Route path="/seller/orders" component={OrderScreen}></Route>
+                        <Route path="/seller/order/:orderId/detail" component={OrderDetail}></Route>
 
                         <Route component={PageNotFound} />
                       </Switch>
@@ -78,7 +81,9 @@ function App() {
 
                   )}
                 </div></>
-            ) : null}
+            ) :
+              <PageNotFound />
+            }
           </>
 
         </Switch>

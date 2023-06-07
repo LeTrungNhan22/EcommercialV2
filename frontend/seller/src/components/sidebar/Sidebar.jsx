@@ -30,7 +30,7 @@ export default function Sidebar() {
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link
-              to="/dashboard-seller"
+              to="/seller/dashboard-seller"
               className="link"
               onClick={handleActive}
             >
@@ -49,7 +49,7 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
-            <Link to="/users" className="link" onClick={handleActive}>
+            <Link to="/seller/users" className="link" onClick={handleActive}>
               <li
                 className={`sidebarListItem ${active === "users" ? "active" : null
                   } `}
@@ -58,7 +58,7 @@ export default function Sidebar() {
                 Users
               </li>
             </Link>
-            <Link to="/products" className="link" onClick={handleActive}>
+            <Link to="/seller/products" className="link" onClick={handleActive}>
               <li
                 className={`sidebarListItem ${active === "products" ? "active" : null
                   } `}
@@ -67,7 +67,7 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
-            <Link to="/orders" className="link" onClick={handleActive}>
+            <Link to="/seller/orders" className="link" onClick={handleActive}>
               <li
                 className={`sidebarListItem ${active === "orders" ? "active" : null
                   } `}

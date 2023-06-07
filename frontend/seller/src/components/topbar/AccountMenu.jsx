@@ -14,6 +14,7 @@ import Logout from '@mui/icons-material/Logout';
 
 import "./Topbar.scss"
 import AuthContext from "../../context/authContext";
+import { Redirect } from "react-router-dom";
 
 export default function AccountMenu({ accountImage }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -27,6 +28,7 @@ export default function AccountMenu({ accountImage }) {
     };
     const handleLogout = async () => {
         logoutContext();
+        return <Redirect to="/seller/login" />;
     };
     return (
         <React.Fragment>

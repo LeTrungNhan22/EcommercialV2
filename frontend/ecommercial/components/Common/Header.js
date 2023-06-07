@@ -310,7 +310,7 @@ const Header = ({ totalQuantity, itemToShops }) => {
                               isLogin && user.shop === null
                                 ? router.push(`/shop/create`)
                                 : isLogin && user.shop !== null
-                                  ? window.open(`${sellerUrl}/login`, "_blank")
+                                  ? window.open(`${sellerUrl}/seller/login`, "_blank")
                                   : router.push(`/user/auth/login`);
                             }}
                             className={`${active ? "hover-active" : "text-gray-900"

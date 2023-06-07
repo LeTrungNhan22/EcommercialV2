@@ -25,7 +25,6 @@ export const AuthContextProvider = ({ children }) => {
       setUser(parseUser);
     } else {
       setUser({});
-
     }
   }, [items]);
   //   logout context
@@ -35,8 +34,7 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.clear();
-    
-
+    dispatch(logout());
   };
 
   const context = {

@@ -15,7 +15,7 @@ import * as React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import bgImage from "../../assets/background/seller_image_background.png";
 import AuthContext from "../../context/authContext";
@@ -51,6 +51,8 @@ export default function Login() {
   const { logoutContext } = React.useContext(AuthContext);
   const dispatch = useDispatch();
   const location = useLocation();
+
+
   const {
     register,
     handleSubmit,
@@ -64,9 +66,10 @@ export default function Login() {
     }
   }, []);
 
-  const submitHandler = async ({ email, password }) => {
-    setLoading(false);
+  const submitHandler = async ({ email, password }, e) => {
+    e.preventDefault();
     try {
+      setLoading(false);
       const params = {
         email: email,
         password: base64.encode(password),
@@ -74,47 +77,40 @@ export default function Login() {
         image: "null",
         "service-type": "NORMALLY",
       };
-      const getTokenAction = await dispatch(loginCustomer(params));
-      const data = unwrapResult(getTokenAction);
+      const response = await dispatch(loginCustomer(params));
+      console.log(response);
+      const data = unwrapResult(response);
       if (data.status === 1) {
-        const token = data.data;
-        try {
-          const params = {
-            "code-token": token,
-            "service-type": "NORMALLY",
-          };
-          const getInfoAction = await dispatch(loginInfo({ params }));
-          console.log(getInfoAction);
-
-          if (getInfoAction.type === "user/loginInfo/fulfilled") {
-            setLoading(true);
-            toast.success(data.message);
-            window.location.href = "/dashboard-seller";
-          }
-
-        } catch (error) {
-          throw new Error(data?.message);
-        }
-      }else{
         setLoading(true);
-        throw new Error(data?.message);
+        const token = data.data;
+        // console.log(token);
+        const loginData = {
+          "code-token": token,
+          "service-type": "NORMALLY",
+        };
+        const res = await dispatch(loginInfo(loginData));
+        const unwrapRes = unwrapResult(res);
+        if (unwrapRes.shop === null) {
+          toast.error(`Bạn đăng ký shop vui lòng đến trang đăng ký shop`);
+        } else {
+          setLoading(true);
+          localStorage.setItem("accessToken", token);
+          toast.success("Login successfully");
+          window.location.href = "/seller/dashboard-seller";
+        }
+      } else {
+        throw new Error(data.message);
       }
     } catch (error) {
-      setLoading(true);
-      if (getError(error) == "Bad credentials") {
-        toast.error("Email hoặc mật khẩu không đúng", {
-
-        });
-      }
-      if (getError(error) == "Đăng nhập thất bại. Không tìm thấy thông tin tài khoản",
-      {
-        position: toast.POSITION.TOP_RIGHT,
-      }
-      ) {
-        toast.error(getError(error));
-      }
+      getError(error) && setLoading(true);
+      console.log(error);
+      console.log(getError(error));
+      toast.error(getError(error) === "Bad credentials" ? "Bad credentials(Sai thông tin mật khẩu)" : getError(error));
     }
   };
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -207,7 +203,7 @@ export default function Login() {
                 autoComplete="current-password"
               />
 
-              {loading === true ? (
+              {loading ? (
                 <Button
                   type="submit"
                   fullWidth
@@ -231,12 +227,27 @@ export default function Login() {
                 </LoadingButton>
               )}
 
-              <Grid container>
-                <Grid item xs>
+              <Grid container
+                display="flex"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Grid item
+
+                >
                   <Link href="#" variant="body2">
                     Quên mật khẩu?
                   </Link>
+
                 </Grid>
+                <Grid item >
+                  <Link
+                    target="_blank"
+                    href="http://localhost:3000/shop/create" variant="body2">
+                    Đăng ký shop
+                  </Link>
+                </Grid>
+
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>

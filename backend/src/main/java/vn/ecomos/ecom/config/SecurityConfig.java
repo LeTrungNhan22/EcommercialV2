@@ -48,9 +48,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests().antMatchers("/user/**", "/product/**",
                         "/login/**", "/mail/**", "/order/**", "/cart/**", "/bank/**", "/geo/**",
-                        "/shipment/**", "/language/**").permitAll().anyRequest()
-                .authenticated().and().exceptionHandling().and().
-                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                        "/language/**").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .exceptionHandling()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);    // We don't need sessions to be created.
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
