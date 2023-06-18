@@ -130,7 +130,7 @@ export default function OrderScreen() {
             renderCell: (params) => {
                 return (
                     <>
-                        <Link to={"/order/" + params.row.id + "/detail"}>
+                        <Link to={"/seller/order/" + params.row.id + "/detail"}>
                             <button className="productListEdit">View</button>
                         </Link>
 

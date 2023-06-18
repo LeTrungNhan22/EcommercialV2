@@ -183,14 +183,18 @@ public class OrderManager extends BaseManager {
             Document newDocument = new Document();
             newDocument.append("$set", document);
 
+            //update order in mongodb
+
             List<Bson> bsonList = new ArrayList<>();
             bsonList.add(Filters.eq("_id", orderId));
             FindOneAndUpdateOptions options = new FindOneAndUpdateOptions().returnDocument(AFTER);
             order = getOrderCollection().findOneAndUpdate(Filters.and(bsonList), newDocument, options);
-            //update session item in mongodb
+
+            //update order item in mongodb
             List<Bson> filterOrderItem = new ArrayList<>();
             filterOrderItem.add(Filters.eq("orderId", orderId));
             getOrderItemCollection().updateMany(Filters.and(filterOrderItem), newDocument);
+
             // add activity
             String description = "Cập nhật trạng thái" +
                     ": " + statusBody.getStatus();

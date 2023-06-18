@@ -9,7 +9,7 @@ import OrderItem from "../../components/OrderItem";
 const OrderDetail = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const orderId = history.location.pathname.split("/")[2];
+    const orderId = history.location.pathname.split("/")[3];
     const orderDetailSelector = useSelector((state) => state.order.orderDetail);
     const { order, orderItems } = orderDetailSelector;
 
@@ -44,7 +44,7 @@ const OrderDetail = () => {
                 const currentOrder = unwrapResult(actionResult);
                 console.log(currentOrder);
                 if (currentOrder) {
-                    history.push("/orders");
+                    history.push("/seller/orders");
                 } else {
                     throw new Error();
                 }

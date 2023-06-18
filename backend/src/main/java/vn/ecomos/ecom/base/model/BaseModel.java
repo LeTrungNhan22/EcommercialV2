@@ -13,10 +13,11 @@ import java.util.Date;
 public class BaseModel {
     @Id
     @BsonId
-    protected String id;
+    protected String id; //id unique
+
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     protected Date createdAt;
+
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     protected Date updatedAt;
-
 }

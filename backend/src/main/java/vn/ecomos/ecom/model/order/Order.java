@@ -16,17 +16,11 @@ import java.util.Date;
 @Data
 public class Order extends BaseModel {
     private OrderCancelReason cancelReason;
-    @JsonFormat(
-            shape = JsonFormat.Shape.NUMBER
-    )
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Date canceledAt;
-    @JsonFormat(
-            shape = JsonFormat.Shape.NUMBER
-    )
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Date processedAt;
-    @JsonFormat(
-            shape = JsonFormat.Shape.NUMBER
-    )
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Date completedAt;
     private MoneyV2 discountTotalPrice;
     private MoneyV2 totalShippingPrice;

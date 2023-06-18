@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import axios from "axios";
 import queryString from "query-string";
 
@@ -34,8 +38,31 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle errors
-    throw error;
+    // Handle errors: if token is expired, open logout and redirect to login page
+    const { config, status, data } = error.response;
+
+    switch (status) {
+      case 401:
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem('user');
+        localStorage.removeItem("refreshToken");
+        const confirm = window.confirm("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
+        if (confirm) {
+          window.location.href = "/login";
+        }
+        break;
+      case 403:
+        window.location.href = "/403";
+        break;
+      case 404:
+        window.location.href = "/404";
+        break;
+      case 500:
+        window.location.href = "/500";
+        break;
+      default:
+        break;
+    }
   }
 );
 

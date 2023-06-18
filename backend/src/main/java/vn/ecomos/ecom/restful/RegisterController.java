@@ -93,6 +93,7 @@ public class RegisterController extends MainController {
         }
     }
 
+
     private final static Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);
 
     @ExceptionHandler(EcomosException.class)

@@ -21,11 +21,13 @@ public class UserServices implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        String pwd = "";
         UserFilter userFilter = new UserFilter();
         userFilter.setEmail(email);
         User user = userManager.filterUser(userFilter).getResultList().get(0);
+
         List<KeyPassword> keyPasswords = userManager.getAllKeyPassword(user.getId());
-        String pwd = "";
+
         for (KeyPassword key : keyPasswords) {
             if (PasswordStatus.NEW.equals(key.getPasswordStatus())) {
                 pwd = key.getPassword();

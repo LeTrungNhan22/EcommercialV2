@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 
 import { getDownloadURL, ref, uploadBytesResumable, uploadBytes } from "@firebase/storage";
 import { storage } from "../firebase/initFirebase";

@@ -6,8 +6,36 @@
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/model/BaseModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/model/BaseModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderCreateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderCreateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/controller/OrderDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/manager/OrderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/order/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/product/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/model/product/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/LanguageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/restful/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/service/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/service/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/utils/JwtFilterToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/features/Product/index/product/Product.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/features/Product/index/product/Product.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/api/auth/authApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/api/auth/authApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/api/axiosClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/api/axiosClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/api/cart/cartApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/api/cart/cartApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/api/product/productApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/api/product/productApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Common/SearchBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/api/auth/[...nextauth].js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/api/auth/[...nextauth].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/cart/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/cart/[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/auth/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/redux/cart/cartSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/redux/cart/cartSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Order/pages/detail/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Order/pages/detail/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Order/pages/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Order/pages/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/productList/ProductList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/components/productList/ProductList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/features/Product/pages/productSingle/ProductSingle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/features/Product/pages/productSingle/ProductSingle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/seller/src/utils/uploadImage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/seller/src/utils/uploadImage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +44,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/mongodb/mongodb-driver-sync/4.1.1/mongodb-driver-sync-4.1.1.jar!/com/mongodb/client/FindIterable.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/mongodb/mongodb-driver-sync/4.1.1/mongodb-driver-sync-4.1.1.jar!/com/mongodb/client/MongoCollection.class" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -31,6 +63,9 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+    <option name="sortByType" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
@@ -125,7 +160,15 @@
       <workItem from="1685952959925" duration="40074000" />
       <workItem from="1686058280826" duration="1306000" />
       <workItem from="1686070450794" duration="4154000" />
-      <workItem from="1686109757176" duration="6769000" />
+      <workItem from="1686109757176" duration="9856000" />
+      <workItem from="1686138489264" duration="3587000" />
+      <workItem from="1686199561636" duration="1273000" />
+      <workItem from="1686203282885" duration="3660000" />
+      <workItem from="1686280178784" duration="2033000" />
+      <workItem from="1686544714432" duration="761000" />
+      <workItem from="1686564302774" duration="8025000" />
+      <workItem from="1686614751919" duration="8593000" />
+      <workItem from="1686899645887" duration="105000" />
     </task>
     <servers />
   </component>

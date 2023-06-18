@@ -13,7 +13,7 @@ export default function ProductSingle() {
   const dispatch = useDispatch();
 
   // getProductId from url
-  const productId = history.location.pathname.split("/")[2];
+  const productId = history.location.pathname.split("/")[3];
   // console.log(productId);
 
   const product = useSelector((state) => state.productSingle.productSingle.product);
@@ -40,7 +40,7 @@ export default function ProductSingle() {
           <button
             onClick={() => history.goBack()}
             className="backButton">Back</button>
-          <Link to="/newProduct">
+          <Link to="/seller/newProduct">
             <button className="productAddButton">Create</button>
           </Link>
         </div>
@@ -110,11 +110,11 @@ export default function ProductSingle() {
           </div>
         </div>
       </div>
-    
-        {variants && variants.map((variant) => (
-          <ProductVariant key={variant?.id} variant={variant} />
-        ))}
-     
+
+      {variants && variants.map((variant) => (
+        <ProductVariant key={variant?.id} variant={variant} />
+      ))}
+
     </div>
   );
 }

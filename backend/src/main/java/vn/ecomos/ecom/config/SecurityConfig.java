@@ -15,7 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import vn.ecomos.ecom.utils.JwtFilter;
+import vn.ecomos.ecom.utils.JwtFilterToken;
 import vn.ecomos.ecom.service.UserServices;
 
 @Configuration
@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserServices userDetailsService;
 
     @Autowired
-    private JwtFilter jwtFilter;
+    private JwtFilterToken jwtFilterToken;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -46,22 +46,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/user/**", "/product/**",
-                        "/login/**", "/mail/**", "/order/**", "/cart/**", "/bank/**", "/geo/**",
-                        "/language/**").permitAll()
+        http.csrf().disable().authorizeRequests().antMatchers(
+                        "/user/**", "/product/**",
+                        "/login/**", "/mail/**",
+                        "/order/**", "/cart/**",
+                        "/geo/**", "/language/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .exceptionHandling()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);    // We don't need sessions to be created.
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .exceptionHandling();
+        // We don't need sessions to be created.
+        http.addFilterBefore(jwtFilterToken, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui"
-                , "/swagger-resources/**", "/configuration/security", "/swagger-ui/**", "/webjars/**");
+                , "/swagger-resources/**", "/configuration/security", "/swagger-ui/**", "/webjars/**"); // ignore swagger
+
     }
 }

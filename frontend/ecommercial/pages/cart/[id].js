@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -254,11 +258,14 @@ export default function CartScreen() {
                           {item.productVariant.productName}
                         </a>
                       </Link>
+
                       <p className="text-base font-black leading-none text-gray-700">
                         {add_product_price}:
                         {Number(item.productVariant.price.amount).toLocaleString("vi-VN")}
                         {item.productVariant.price.currencyCode}
+
                       </p>
+
                     </div>
                     <div className="text-md leading-3 text-gray-600 pt-2">
                       <div className=" flex items-center text-gray-500">
@@ -325,12 +332,14 @@ export default function CartScreen() {
                                 +
                               </div>
                             </div>)}
-                          <div className="flex flex-col my-2">
+                          <div className="flex flex-col my-2 items-end">
                             <p className="text-xl font-bold leading-none text-rose-700">
                               {td_order_total_price}:
                               {Number(item.productVariant.price.amount * item.quantity).toLocaleString("vi-VN")}
                               {item.productVariant.price.currencyCode}
+
                             </p>
+
                           </div>
                         </div>
                       </div>

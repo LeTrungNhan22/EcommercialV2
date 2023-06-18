@@ -40,7 +40,8 @@ public class OrderDetailController extends MainController {
         //check order exists
         Order order = getOrder(orderId);
         if (null == order) {
-            throw new EcomosException("cancel_failure", "Xác nhận hủy đơn hàng " + orderId + " không thành công. Đơn hàng không tồn tại.", "cancelled order failure");
+            throw new EcomosException("cancel_failure", "Xác nhận hủy đơn hàng " + orderId +
+                    " không thành công. Đơn hàng không tồn tại.", "cancelled order failure");
 
         }
         orderManager.cancelOrder(orderId, cancelInput.getCancelReason(), cancelInput.getNote());

@@ -20,7 +20,7 @@ public class Product extends BaseModel {
     private MoneyV2 mediumPrice;
     private MoneyV2 salePrice;
     private String title;
-    private long quantityAvailable;
+    private long quantityAvailable; //số lượng còn lại
     private double discount;
     //thương hiệu
     private String tradeMarkId;

@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import axiosClient from "../axiosClient";
 
 const productApi = {

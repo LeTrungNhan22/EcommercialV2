@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/order/1.0.0/")
 public class OrderController extends MainController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+
 
     @Autowired
     private OrderCreateController orderCreateController;
@@ -81,16 +81,21 @@ public class OrderController extends MainController {
         return orderDetailController.getOrderDetail(orderId);
     }
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @ExceptionHandler(EcomosException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
     public final Object handleAllServiceException(EcomosException e) {
+
         LOGGER.error("ServiceException error.", e);
+
         return error(e.getErrorCode(), e.getErrorMessage(), e.getErrorDetail());
     }
 
     @ExceptionHandler(RuntimeException.class)
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+
     public final Object handleAllExceptions(RuntimeException e) {
         LOGGER.error("Internal server error.", e);
         return error("internal_server_error", "Có lỗi trong quá trình xử lý", e.getMessage());

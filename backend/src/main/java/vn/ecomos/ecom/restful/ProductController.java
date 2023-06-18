@@ -111,22 +111,29 @@ public class ProductController extends MainController {
 
     @ApiOperation(value = "create a new product")
     @PostMapping("/product/create")
-    public ProductDetail createProductVariant(@RequestBody CreateProductIP productInput) throws EcomosException {
-        validateProductVariantInput(productInput);
+    public ProductDetail createProductVariant(
+            @RequestBody CreateProductIP productInput) throws EcomosException {
+        validateProductVariantInput(productInput); // validate input
         Product product = productInput.getProduct();
+
         product.setId(GeneralIdUtils.generateId());
         product.setCreatedAt(new Date());
+
         double mediumPrice = 0;
         List<ProductVariant> productVariant = productInput.getProductVariants();
+
         for (ProductVariant variant : productVariant) {
+
             variant.setId(GeneralIdUtils.generateId());
             variant.setProductId(product.getId());
             variant.setProductName(product.getName());
             variant.setCreatedAt(new Date());
             variant.setWeightUnit(WeightUnit.GRAMS);
             variant.getDimension().setDimensionUnit(DimensionUnit.CM);
+
             mediumPrice += variant.getPrice().getAmount();
         }
+
         mediumPrice = mediumPrice / productVariant.size();
 
         product.setMediumPrice(MoneyCalculateUtils.getMoney(mediumPrice));
