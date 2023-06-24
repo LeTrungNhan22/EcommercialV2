@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 
 // languageContext.js
 import axios from "axios";
@@ -19,7 +23,7 @@ export const LanguageContextProvider = ({ children }) => {
     useEffect(() => {
         const getLanguage = async () => {
             const response = await
-             axios.get(`${baseUrl}/language/1.0.0/language/change?locale=${language.code}`);
+                axios.get(`${baseUrl}/language/1.0.0/language/changeLanguage?locale=${language.code}`);
             setLanguageData(response.data);
         }
         getLanguage();

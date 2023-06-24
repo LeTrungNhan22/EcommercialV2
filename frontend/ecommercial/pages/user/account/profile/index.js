@@ -1,16 +1,17 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
-import Layout from "../../../../components/common/Layout";
-import SideBar from "../../../../components/UserProfile/SideBar";
-import UserLayout from "../../../../components/UserProfile/UserLayout";
+import { useContext } from "react";
+import UserLayout from "../../../../components/userProfile/UserLayout";
 import AuthContext from "../../../../context/authContext";
 import LanguageContext from "../../../../context/languageContext";
 
 const UserProfileScreen = () => {
   const { user } = useContext(AuthContext);
 
-  const {languageData}=useContext(LanguageContext);
+  const { languageData } = useContext(LanguageContext);
   const {
     order_address,
     info_personal_infor,
@@ -20,7 +21,7 @@ const UserProfileScreen = () => {
     info_telephone,
     info_address,
     info_delivery_address
-  }=languageData;
+  } = languageData;
 
   if (user === null || user === undefined || user === "") {
     return <div>loading</div>;

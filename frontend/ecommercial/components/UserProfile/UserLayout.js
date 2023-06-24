@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import BreadCrumb from "../breadcrumb/BreadCrumb";
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
+import React from "react";
+import BreadCrumb from "../Breadcrumb/BreadCrumbLine";
 import Layout from "../common/Layout";
 import SideBar from "./SideBar";
-import AuthContext from "../../context/authContext";
-import { useRouter } from "next/router";
 
 const UserLayout = ({ children, userId }) => {
   return (

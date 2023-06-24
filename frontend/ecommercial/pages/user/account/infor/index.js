@@ -1,9 +1,10 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import React, { useContext, useEffect, useState } from "react";
-import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
-import Layout from "../../../../components/common/Layout";
-import SideBar from "../../../../components/UserProfile/SideBar";
 import UserInforScreen from "../../../../components/UserProfile/UserInfor";
-import UserLayout from "../../../../components/UserProfile/UserLayout";
+import UserLayout from "../../../../components/userProfile/UserLayout";
 import AuthContext from "../../../../context/authContext";
 
 const InforScreen = () => {

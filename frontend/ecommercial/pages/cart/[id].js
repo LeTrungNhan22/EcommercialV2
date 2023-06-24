@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaDollarSign, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
+import BreadCrumb from "../../components/Breadcrumb/BreadCrumbLine";
 import Layout from "../../components/common/Layout";
 import ProductsRelated from "../../components/product/ProductsRelated";
 import AuthContext from "../../context/authContext";

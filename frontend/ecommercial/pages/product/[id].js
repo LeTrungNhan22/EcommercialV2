@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import { useRouter } from "next/router";
 import React, { useContext, useEffect } from "react";
 import "slick-carousel/slick/slick-theme.css";
@@ -5,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 
 import Layout from "../../components/common/Layout";
 import { useDispatch, useSelector } from "react-redux";
-import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
+import BreadCrumb from "../../components/Breadcrumb/BreadCrumbLine";
 import ProductsRelated from "../../components/product/ProductsRelated";
 import ProductVariants from "../../components/Product/ProductVariants";
 import ShopDetail from "../../components/Shop/ShopDetail";
@@ -106,10 +110,10 @@ export default function ProductScreen() {
                   {from_the_same_shop}
                 </h3>
                 <div className="   mx-auto mt-5  bg-gray-200 ">
-                  <ProductsRelated 
-                  product_see_more={product_see_more}
-                  button_see_more_product={button_see_more_product}
-                  industrialId={product?.industrialId} />
+                  <ProductsRelated
+                    product_see_more={product_see_more}
+                    button_see_more_product={button_see_more_product}
+                    industrialId={product?.industrialId} />
                 </div>
               </div>
             </div>

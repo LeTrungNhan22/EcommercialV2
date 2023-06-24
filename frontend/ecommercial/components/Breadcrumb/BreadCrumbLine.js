@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import Link from "next/link";
 import React from "react";
 import { FaChevronRight, FaHome } from "react-icons/fa";

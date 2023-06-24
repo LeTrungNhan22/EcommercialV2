@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 import { unwrapResult } from "@reduxjs/toolkit";
@@ -6,7 +10,7 @@ import { AiOutlineFilter } from "react-icons/ai";
 import { FaList, FaTh } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import productApi from "../../api/product/productApi";
-import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
+import BreadCrumb from "../../components/Breadcrumb/BreadCrumbLine";
 import Layout from "../../components/common/Layout";
 import ProductList from "../../components/product/ProductList";
 import { getProductByFilter } from "../../redux/product/productsSlice";

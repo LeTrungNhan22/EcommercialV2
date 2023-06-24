@@ -1,7 +1,11 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import React from "react";
-import BreadCrumb from "../../../../components/BreadCrumb";
-import Layout from "../../../../components/Layout";
-import SideBar from "../../../../components/user-profile/SideBar";
+import BreadCrumb from "../../../../components/Breadcrumb/BreadCrumbLine";
+import Layout from "../../../../components/common/Layout";
+import SideBar from "../../../../components/userProfile/SideBar";
 
 const BankScreen = () => {
   return (
@@ -17,9 +21,9 @@ const BankScreen = () => {
 
           {/* profile info */}
           <div class="col-span-9 grid md:grid-cols-3 gap-4 mt-6 lg:mt-0">
-        <p>
-          day laf man hinh ngan hang
-        </p>
+            <p>
+              day laf man hinh ngan hang
+            </p>
           </div>
           {/* profile info */}
         </div>

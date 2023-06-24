@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import BreadCrumb from "../../../../components/breadcrumb/BreadCrumb";
-import Layout from "../../../../components/common/Layout";
-import SideBar from "../../../../components/UserProfile/SideBar";
-import UserInforScreen from "../../../../components/UserProfile/UserInfor";
-import UserLayout from "../../../../components/UserProfile/UserLayout";
-import AuthContext from "../../../../context/authContext";
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
+import React, { useContext } from "react";
+import UserLayout from "../../../../components/userProfile/UserLayout";
 import OrderList from "../../../../components/userProfile/OrderList";
+import AuthContext from "../../../../context/authContext";
 
 const OrderScreen = () => {
     const { user } = useContext(AuthContext);

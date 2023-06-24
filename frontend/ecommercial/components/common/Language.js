@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import { Combobox, Listbox } from "@headlessui/react";
 import { CheckIcon, FaceFrownIcon, GlobeAltIcon, ScaleIcon } from "@heroicons/react/24/outline"
 import React from 'react'
