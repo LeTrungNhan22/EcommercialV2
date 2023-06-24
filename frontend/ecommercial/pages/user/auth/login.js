@@ -22,7 +22,7 @@ import {
   loginUser,
 } from "../../../redux/auth/authSlice";
 import { getError } from "../../../utils/error";
-import Footer from "../../../components/common/Footer";
+import Footer from "../../../components/Common/Footer";
 import LanguageContext from "../../../context/languageContext";
 import { useContext } from "react";
 

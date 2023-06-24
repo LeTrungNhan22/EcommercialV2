@@ -4,7 +4,7 @@
  */
 import React from "react";
 import BreadCrumb from "../../../../components/Breadcrumb/BreadCrumbLine";
-import Layout from "../../../../components/common/Layout";
+import Layout from "../../../../components/Common/Layout";
 import SideBar from "../../../../components/UserProfile/SideBar";
 
 const BankScreen = () => {
