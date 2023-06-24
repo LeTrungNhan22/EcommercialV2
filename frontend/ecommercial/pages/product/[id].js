@@ -7,10 +7,10 @@ import React, { useContext, useEffect } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
-import Layout from "../../components/common/Layout";
+import Layout from "../../components/Common/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/Breadcrumb/BreadCrumbLine";
-import ProductsRelated from "../../components/product/ProductsRelated";
+import ProductsRelated from "../../components/Product/ProductsRelated";
 import ProductVariants from "../../components/Product/ProductVariants";
 import ShopDetail from "../../components/Shop/ShopDetail";
 import { getProductDetailById } from "../../redux/product/productDetailSlice";
@@ -30,8 +30,9 @@ export default function ProductScreen() {
     add_product_industry,
     add_product_name,
     from_the_same_shop,
-    product_see_more, button_see_more_product
+    product_see_more, button_see_more_productx
   } = languageData;
+
 
   useEffect(() => {
     const getProductDetail = async () => {
