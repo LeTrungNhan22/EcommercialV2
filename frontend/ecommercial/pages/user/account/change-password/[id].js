@@ -5,7 +5,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserLayout from "../../../../components/UserProfile/UserLayout";
 
-import ChangePassPage from "../../../../components/userProfile/ChangePassPage";
+import ChangePassPage from "../../../../components/UserProfile/ChangePassPage";
 import AuthContext from "../../../../context/authContext";
 
 const ChangPassWordScreen = () => {

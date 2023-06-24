@@ -4,8 +4,9 @@
  */
 import React, { useContext } from "react";
 import UserLayout from "../../../../components/UserProfile/UserLayout";
-import OrderList from "../../../../components/UserProfile/OrderList";
+
 import AuthContext from "../../../../context/authContext";
+import OrderList from "../../../../components/UserProfile/OrderList";
 
 const OrderScreen = () => {
     const { user } = useContext(AuthContext);

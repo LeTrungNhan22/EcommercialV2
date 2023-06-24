@@ -5,9 +5,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  BellAlertIcon,
-  GlobeAltIcon,
-  ShoppingCartIcon,
+  ShoppingCartIcon
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,10 +13,9 @@ import { useRouter } from "next/router";
 import { Fragment, useContext, useState } from "react";
 import logo from "../../assets/logo/mainLogo.png";
 import AuthContext from "../../context/authContext";
-import Searchbar from "./SearchBar";
-import { FaLanguage } from "react-icons/fa";
-import Language from "./Language";
 import LanguageContext from "../../context/languageContext";
+import Language from "./LanguageHeader";
+import Searchbar from "./Se";
 
 
 const Header = ({ totalQuantity, itemToShops }) => {

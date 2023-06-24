@@ -10,7 +10,7 @@ import ShopProductItem from "../../../components/Shop/ShopProductItem";
 import ShopView from "../../../components/shop/ShopView";
 import { getProductByFilter } from "../../../redux/product/productsSlice";
 import { getShopDetailById } from "../../../redux/shop/shopSlice";
-import ShopFilter from "../../../components/shop/ShopFilter";
+import ShopFilter from "../../../components/Shop/ShopFilter";
 
 const ShopViewScreen = () => {
     const router = useRouter();
