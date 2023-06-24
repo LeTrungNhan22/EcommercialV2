@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaDollarSign, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/Breadcrumb/BreadCrumbLine";
-import Layout from "../../components/common/Layout";
+import Layout from "../../components/Common/Layout";
 import ProductsRelated from "../../components/product/ProductsRelated";
 import AuthContext from "../../context/authContext";
 import LanguageContext from "../../context/languageContext";

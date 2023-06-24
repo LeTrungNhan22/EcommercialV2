@@ -4,7 +4,7 @@
  */
 import React, { useContext, useEffect, useState } from "react";
 import UserInforScreen from "../../../../components/UserProfile/UserInfor";
-import UserLayout from "../../../../components/userProfile/UserLayout";
+import UserLayout from "../../../../components/UserProfile/UserLayout";
 import AuthContext from "../../../../context/authContext";
 
 const InforScreen = () => {

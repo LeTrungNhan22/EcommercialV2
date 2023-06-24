@@ -1,16 +1,19 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
-import React, { useEffect, useRef, useState, useContext } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { storage } from "../../firebase/initFirebase";
-import Layout from "../common/Layout";
-import AddressPopUp from "../UserProfile/AddressPopUp";
-import { createShop } from "../../redux/auth/authSlice";
 import { useRouter } from "next/router";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import LanguageContext from "../../context/languageContext";
-import AuthContext from "../../context/authContext";
+import { storage } from "../../firebase/initFirebase";
+import { createShop } from "../../redux/auth/authSlice";
+import Layout from "../Common/Layout";
+import AddressPopUp from "../UserProfile/AddressPopUp";
 
 
 const CreateShopPage = ({

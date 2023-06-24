@@ -4,7 +4,7 @@
  */
 import Link from "next/link";
 import { useContext } from "react";
-import UserLayout from "../../../../components/userProfile/UserLayout";
+import UserLayout from "../../../../components/UserProfile/UserLayout";
 import AuthContext from "../../../../context/authContext";
 import LanguageContext from "../../../../context/languageContext";
 

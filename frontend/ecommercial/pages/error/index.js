@@ -1,6 +1,9 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import React from 'react'
-import Layout from "../../components/common/Layout"
-import Footer from "../../components/common/Footer"
+import Layout from "../../components/Common/Layout"
 
 const LoginRequire = () => {
     return (

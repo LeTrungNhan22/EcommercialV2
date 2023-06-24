@@ -3,13 +3,13 @@
  *   All rights reserved.
  */
 import React from "react";
-import BreadCrumb from "../Breadcrumb/BreadCrumbLine";
+import BreadCrumb from "../breadcrumb/BreadCrumb";
 import Layout from "../common/Layout";
 import SideBar from "./SideBar";
 
-const UserLayout = ({ children, userId }) => {
+nst UserLayout = ({ children, userId }) => {
   return (
-    <>
+    
       <Layout title={`Profile`}>
         <div className="w-full min-h-screen bg-custome">
           <BreadCrumb title={`Profile`} userId={userId} />
@@ -29,7 +29,7 @@ const UserLayout = ({ children, userId }) => {
         </div>
       </Layout>
     </>
-  );
+        );
 };
 
 export default UserLayout;

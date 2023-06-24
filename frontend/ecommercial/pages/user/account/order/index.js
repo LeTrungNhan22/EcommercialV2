@@ -3,8 +3,8 @@
  *   All rights reserved.
  */
 import React, { useContext } from "react";
-import UserLayout from "../../../../components/userProfile/UserLayout";
-import OrderList from "../../../../components/userProfile/OrderList";
+import UserLayout from "../../../../components/UserProfile/UserLayout";
+import OrderList from "../../../../components/UserProfile/OrderList";
 import AuthContext from "../../../../context/authContext";
 
 const OrderScreen = () => {
