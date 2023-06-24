@@ -1,9 +1,12 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import React, { useContext, useEffect, useState } from "react";
-import ChangePassword from "../../../../components/UserProfile/ChangePassword";
 import UserLayout from "../../../../components/UserProfile/UserLayout";
 
-import AuthContext from "../../../../context/authContext";
 import ChangePassPage from "../../../../components/userProfile/ChangePassPage";
+import AuthContext from "../../../../context/authContext";
 
 const ChangPassWordScreen = () => {
   const { user } = useContext(AuthContext);
