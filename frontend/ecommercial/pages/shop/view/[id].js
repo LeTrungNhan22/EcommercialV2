@@ -5,8 +5,8 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Layout from "../../../components/common/Layout";
-import ShopProductItem from "../../../components/shop/ShopProductItem";
+import Layout from "../../../components/Common/Layout";
+import ShopProductItem from "../../../components/Shop/ShopProductItem";
 import ShopView from "../../../components/shop/ShopView";
 import { getProductByFilter } from "../../../redux/product/productsSlice";
 import { getShopDetailById } from "../../../redux/shop/shopSlice";

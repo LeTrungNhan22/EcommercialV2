@@ -15,9 +15,9 @@ import { useRouter } from "next/router";
 import { Fragment, useContext, useState } from "react";
 import logo from "../../assets/logo/mainLogo.png";
 import AuthContext from "../../context/authContext";
-import Searchbar from "../Common/SearchBar";
+import Searchbar from "./SearchBar";
 import { FaLanguage } from "react-icons/fa";
-import Language from "../Common/Language";
+import Language from "./Language";
 import LanguageContext from "../../context/languageContext";
 
 
