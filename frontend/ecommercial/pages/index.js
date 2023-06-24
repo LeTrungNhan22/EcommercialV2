@@ -9,18 +9,16 @@ import "slick-carousel/slick/slick.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import productApi from "../api/product/productApi";
-import Advisement from "../components/common/Advisement";
-import Banner from "../components/common/Banner";
-import CategoryList from "../components/common/CategoryList";
-import Layout from "../components/common/Layout";
-import ProductList from "../components/product/ProductList";
+import Banner from "../components/Common/Banner";
+import CategoryList from "../components/Common/CategoryList";
+import Layout from "../components/Common/Layout";
+import ProductList from "../components/Product/ProductList";
 import { initFirebase } from "../firebase/initFirebase";
 
-import { getError } from "../utils/error";
-import { getProductByFilter } from "../redux/product/productsSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
-import ScrollToTopButton from "../components/Common/ScrollToTopButton";
 import LanguageContext from "../context/languageContext";
+import { getProductByFilter } from "../redux/product/productsSlice";
+import { getError } from "../utils/error";
 
 //init firebase
 initFirebase();

@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import { Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -11,9 +15,9 @@ import { useRouter } from "next/router";
 import { Fragment, useContext, useState } from "react";
 import logo from "../../assets/logo/mainLogo.png";
 import AuthContext from "../../context/authContext";
-import Searchbar from "./Searchbar";
+import Searchbar from "../Common/SearchBar";
 import { FaLanguage } from "react-icons/fa";
-import Language from "./Language";
+import Language from "../Common/Language";
 import LanguageContext from "../../context/languageContext";
 
 

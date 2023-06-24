@@ -3,7 +3,7 @@
  *   All rights reserved.
  */
 import React from "react";
-import BreadCrumb from "../Breadcrumb/BreadCrumb";
+import BreadCrumb from "../Breadcrumb/BreadCrumbLine";
 import Layout from "../Common/Layout";
 import SideBar from "./SideBar";
 

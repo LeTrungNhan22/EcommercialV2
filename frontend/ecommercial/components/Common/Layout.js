@@ -7,8 +7,8 @@ import React, { useContext, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthContext from "../../context/authContext";
 import { getCartDetailByUserId } from "../../redux/cart/cartSlice";
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "../Common/Footer";
+import Header from "../Common/Header";
 import LanguageContext from "../../context/languageContext";
 
 const Layout = ({ title, children }) => {
