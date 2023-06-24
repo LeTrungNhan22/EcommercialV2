@@ -3,13 +3,13 @@
  *   All rights reserved.
  */
 import React from "react";
-import BreadCrumb from "../breadcrumb/BreadCrumb";
-import Layout from "../common/Layout";
+import BreadCrumb from "../Breadcrumb/BreadCrumb";
+import Layout from "../Common/Layout";
 import SideBar from "./SideBar";
 
-nst UserLayout = ({ children, userId }) => {
+const UserLayout = ({ children, userId }) => {
   return (
-    
+    <>
       <Layout title={`Profile`}>
         <div className="w-full min-h-screen bg-custome">
           <BreadCrumb title={`Profile`} userId={userId} />

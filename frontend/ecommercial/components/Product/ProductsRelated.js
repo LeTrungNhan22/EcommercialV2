@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import Image from "next/image";
 import React, { useEffect } from "react";
 

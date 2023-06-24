@@ -10,7 +10,6 @@ import { FaDollarSign, FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import BreadCrumb from "../../components/Breadcrumb/BreadCrumbLine";
 import Layout from "../../components/Common/Layout";
-import ProductsRelated from "../../components/product/ProductsRelated";
 import AuthContext from "../../context/authContext";
 import LanguageContext from "../../context/languageContext";
 import {
@@ -412,7 +411,7 @@ export default function CartScreen() {
                 {from_the_same_shop}
               </h3>
               <div className="   mx-auto mt-5  bg-gray-200 ">
-                <ProductsRelated industrialId={product?.industrialId} />
+                {/* <ProductsRelated industrialId={product?.industrialId} /> */}
               </div>
             </div>
           </div>
