@@ -30,7 +30,7 @@ export default function ProductScreen() {
     add_product_industry,
     add_product_name,
     from_the_same_shop,
-    product_see_more, button_see_more_productx
+    product_see_more, button_see_more_product
   } = languageData;
 
 
