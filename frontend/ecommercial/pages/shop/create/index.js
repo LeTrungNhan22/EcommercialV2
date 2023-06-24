@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import React, { useContext, useEffect, useState } from "react";
 import CreateShopPage from "../../../components/Shop/createShop";
 import AuthContext from "../../../context/authContext";
