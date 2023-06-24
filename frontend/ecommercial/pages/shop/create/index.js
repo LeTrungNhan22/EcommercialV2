@@ -3,7 +3,7 @@
  *   All rights reserved.
  */
 import React, { useContext, useEffect, useState } from "react";
-import CreateShopPage from "../../../components/Shop/createShop";
+import CreateShopPage from "../../../components/Shop/CreateShop";
 import AuthContext from "../../../context/authContext";
 import { useRouter } from "next/router";
 
