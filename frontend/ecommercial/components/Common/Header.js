@@ -15,7 +15,7 @@ import logo from "../../assets/logo/mainLogo.png";
 import AuthContext from "../../context/authContext";
 import LanguageContext from "../../context/languageContext";
 import Language from "./LanguageHeader";
-import Searchbar from "./Se";
+import Searchbar from "./SearchBar";
 
 
 const Header = ({ totalQuantity, itemToShops }) => {
