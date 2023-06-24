@@ -1,3 +1,7 @@
+/*
+ *   Copyright (c) 2023 
+ *   All rights reserved.
+ */
 import React, { useContext } from 'react'
 import LanguageContext from "../../context/languageContext";
 import { useDispatch } from "react-redux";
