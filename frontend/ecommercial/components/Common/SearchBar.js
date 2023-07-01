@@ -60,10 +60,12 @@ const SearchBar = () => {
       loadProducts();
     }
   }, [total]);
-  const handleSearchProductByName = (e) => {
-    if (!e) return setProductMatches([]);
+  const handleSearchProductByName = async (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    if (!value) return setProductMatches([]);
     let matches = products.filter((product) => {
-      const regex = new RegExp(`^${e}`, "gi");
+      const regex = new RegExp(`^${value}`, "gi");
       return product.name.match(regex);
     });
     setProductMatches(matches);
@@ -75,12 +77,8 @@ const SearchBar = () => {
       <div className="flex flex-col justify-between items-center h-full w-full">
         <div className="flex items-center justify-center rounded-full border-2 shadow-md hover:shadow-lg hover:shadow-gray-200 transition duration-150 md:w-[12s0%] lg:w-full">
           <input
-            // onBlur={setProductMatches([])}
-            onChange={(e) => handleSearchProductByName(e.target.value)}
-            onBlur={() =>
-              setProductMatches([])
-            }
-            onMouseLeave={() => setProductMatches([])}
+            onChange={(e) => handleSearchProductByName(e)}
+            onMouseOut={() => setProductMatches([])}
             type="text"
             className="outline-none pl-5 bg-transparent flex-grow h-12 md:h-10 focus:ring-0 border-none"
             placeholder={languageData?.search_product}
