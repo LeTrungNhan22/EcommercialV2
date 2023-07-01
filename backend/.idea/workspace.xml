@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseMongoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseMongoConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseSpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseSpringConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SpringConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Shop/ShopByFilter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Shop/ShopByFilter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +151,9 @@
       <workItem from="1687865635270" duration="65000" />
       <workItem from="1687915153551" duration="36000" />
       <workItem from="1688146114900" duration="2248000" />
-      <workItem from="1688193308880" duration="3356000" />
+      <workItem from="1688193308880" duration="3453000" />
+      <workItem from="1688197966974" duration="9709000" />
+      <workItem from="1688219154519" duration="2319000" />
     </task>
     <servers />
   </component>
