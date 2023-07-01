@@ -177,7 +177,8 @@ const ShopScreen = () => {
                                     key={item.id}
                                   >
                                     <input
-                                      type="checkbox"
+                                      type="radio"
+                                      name="cat-1"
                                       id="cat-1"
                                       className="text-rose-600 rounded-sm cursor-pointer focus:ring-0 outline-none"
                                       onChange={() =>
@@ -205,7 +206,7 @@ const ShopScreen = () => {
                       </>
                     )}
                   </Disclosure>
-              
+
                   <Disclosure as="div" className="mt-2">
                     {({ open }) => (
                       <>

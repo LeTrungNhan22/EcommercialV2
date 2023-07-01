@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c1ad8b4-7c67-4d0f-b81a-aa5dccb66f32" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Breadcrumb/BreadCrumb.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Breadcrumb/BreadCrumb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/AddressPopUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/AddressPopUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/UserLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/UserProfile/UserLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/next.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/account/payment/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/pages/user/account/payment/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseMongoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseMongoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseSpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/base/mongo/BaseSpringConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vn/ecomos/ecom/config/SpringConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ecommercial/components/Shop/ShopByFilter.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ecommercial/components/Shop/ShopByFilter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +54,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/lofi_code/ecommerce-sever-dacn&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -147,6 +146,14 @@
       <workItem from="1686614751919" duration="8593000" />
       <workItem from="1686899645887" duration="105000" />
       <workItem from="1687608590289" duration="202000" />
+      <workItem from="1687845913849" duration="217000" />
+      <workItem from="1687846640125" duration="26000" />
+      <workItem from="1687846700053" duration="102000" />
+      <workItem from="1687862441176" duration="757000" />
+      <workItem from="1687865635270" duration="65000" />
+      <workItem from="1687915153551" duration="36000" />
+      <workItem from="1688146114900" duration="2248000" />
+      <workItem from="1688193308880" duration="3356000" />
     </task>
     <servers />
   </component>

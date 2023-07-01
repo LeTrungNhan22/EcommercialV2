@@ -7,6 +7,8 @@ public class BaseSpringConfiguration {
 
     public static final String MONGO_DB_NAME = getPropertyName("mongodb.database", "Inventory");
     public static final String MONGO_DB_URI = getPropertyName("mongodb.uri", "mongodb://localhost");
+    public static final String MONGO_DB_HOST = getPropertyName("mongodb.host", "localhost");
+    public static final int MONGO_DB_PORT = Integer.parseInt(getPropertyName("mongodb.port", "27017"));
 
     public static Properties applicationProperties;
 
@@ -19,13 +21,15 @@ public class BaseSpringConfiguration {
         return applicationProperties;
     }
 
+
+
     public static Properties getProfileProperties() {
-        if(null==profileProperties){
+        if (null == profileProperties) {
             profileProperties = new Properties();
             profileProperties.putAll(getApplicationProperties());
             String activeProfile = getApplicationProperties().getProperty("spring.profiles.default");
-            if(null!=activeProfile&&activeProfile.length()>0){
-                Properties subProfileProperties = getProperties("application-"+activeProfile+".properties");
+            if (null != activeProfile && activeProfile.length() > 0) {
+                Properties subProfileProperties = getProperties("application-" + activeProfile + ".properties");
                 profileProperties.putAll(subProfileProperties);
             }
         }

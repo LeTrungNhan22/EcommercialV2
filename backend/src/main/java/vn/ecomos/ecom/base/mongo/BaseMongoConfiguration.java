@@ -2,8 +2,10 @@ package vn.ecomos.ecom.base.mongo;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.connection.ClusterSettings;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,9 @@ import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
+
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -40,6 +45,7 @@ public abstract class BaseMongoConfiguration extends AbstractMongoClientConfigur
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         String mongoDBURI = BaseSpringConfiguration.MONGO_DB_URI;
         final ConnectionString connectionString = new ConnectionString(mongoDBURI);
+
         final MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .codecRegistry(pojoCodecRegistry)
                 .applyConnectionString(connectionString)

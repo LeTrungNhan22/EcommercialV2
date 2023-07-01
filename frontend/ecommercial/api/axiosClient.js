@@ -29,6 +29,7 @@ axiosClient.interceptors.request.use(async (config) => {
 
   return config;
 });
+let confirmDisplayed = false; // Khởi tạo cờ confirmDisplayed
 
 axiosClient.interceptors.response.use(
   (response) => {
@@ -39,31 +40,30 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     // Handle errors: if token is expired, open logout and redirect to login page
-    const { config, status, data } = error.response;
-
-    switch (status) {
-      case 401:
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem('user');
-        localStorage.removeItem("refreshToken");
+    if (error && !confirmDisplayed) { // Kiểm tra cờ confirmDisplayed
+      confirmDisplayed = true; // Đánh dấu confirm đã được hiển thị
+      try {
         const confirm = window.confirm("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
         if (confirm) {
-          window.location.href = "/login";
+          // waiting for website logout
+          window.close(); // Đóng tab hiện tại
+          setTimeout(() => {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem('user');
+            localStorage.removeItem("refreshToken");
+            window.location.href = "/user/auth/login";
+            // Đóng tab confirm
+          }, 2000);
+        } else {
+          confirmDisplayed = false; // Đặt lại cờ confirmDisplayed
         }
-        break;
-      case 403:
-        window.location.href = "/403";
-        break;
-      case 404:
-        window.location.href = "/404";
-        break;
-      case 500:
-        window.location.href = "/500";
-        break;
-      default:
-        break;
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 );
+
+
 
 export default axiosClient;

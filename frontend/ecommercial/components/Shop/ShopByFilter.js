@@ -42,7 +42,6 @@ const ShopFilter = ({ shopProducts,
             case 'price-desc':
                 const sortedDesc = [...shopProducts].sort((a, b) => b.mediumPrice.amount - a.mediumPrice.amount);
                 setShopProducts(sortedDesc);
-
                 break;
             case 'price-asc':
                 const sortAsc = [...shopProducts].sort((a, b) => a.mediumPrice.amount - b.mediumPrice.amount);
