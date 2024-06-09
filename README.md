@@ -1,38 +1,29 @@
-E-commerce Platform
+E-Commerce Platform
 
-This is a modern e-commerce platform built with a Java Spring Boot backend and a Next.js frontend. It provides a seamless shopping experience for customers and a robust management system for administrators.
+This project is a modern e-commerce platform built using Java Spring Boot for the backend and Next.js for the frontend. It aims to provide a seamless shopping experience for customers and an efficient management system for administrators.
 
-Key Features:
+Key Features
 
-Product Catalog: Browse and search through a wide range of products.
-Shopping Cart: Add and manage items in your shopping cart.
-Checkout: Securely complete your purchase with various payment options.
-Order Management: Track your orders and view order history.
-User Accounts: Create an account, manage your profile, and save your preferences.
-Admin Dashboard: Manage products, orders, users, and other aspects of the platform.
-Tech Stack:
+Robust Backend: Java Spring Boot provides a secure and scalable foundation for handling product data, orders, payments, and user authentication.
+Modern Frontend: Next.js delivers a fast, interactive user interface with features like server-side rendering and static site generation for optimal performance.
+Product Catalog: Browse and search through a wide range of products with detailed descriptions, images, and reviews.
+Shopping Cart: Add products to your cart, adjust quantities, and proceed to checkout.
+Order Management: Track your order status and history.
+Admin Dashboard: Manage products, inventory, orders, users, and more.
+Technologies Used
 
-Backend:
-Java Spring Boot: Framework for building the RESTful API and business logic.
-Spring Data Mongodb: For database interaction and persistence.
-MongoDb: Relational database for storing product, order, and user data.
-Spring Security: For authentication and authorization.
-Frontend:
-Next.js: React framework for building a fast and SEO-friendly user interface.
-Axios: For data fetching and caching.
-Tailwind CSS: Utility-first CSS framework for styling.
-Project Structure:
+Backend: Java, Spring Boot, Spring Data MongoDb, Spring Security, RESTful APIs
+Frontend: Next.js, React, Tailwind CSS 
+Database: Mongodb
+Other: (Consider listing any additional libraries or tools you're using)
+Getting Started
 
-project-root/
-├── backend/        # Java Spring Boot backend
-│   ├── src/
-│   └── pom.xml    # Maven project file
-└── frontend/       # Next.js frontend
-    ├── src/
-    └── package.json # npm package file
-
-Contributions are welcome! Please read the CONTRIBUTING.md file for guidelines on how to contribute to this project.
-
-Contact:
-
-If you have any questions or suggestions, feel free to open an issue or contact us at [letrungnhan220801@gmail.com].
+Clone the Repository: git clone https://github.com/your-username/your-repo-name.git
+Backend Setup:
+Navigate to the backend directory.
+Set up your database connection in application.properties.
+Run the Spring Boot application: ./mvnw spring-boot:run
+Frontend Setup:
+Navigate to the frontend directory.
+Install dependencies: npm install
+Start the development server: npm run dev
