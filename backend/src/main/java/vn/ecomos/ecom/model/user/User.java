@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class User extends BaseModel {
+
     private String username;
     private String fullName;
     private String email;
@@ -39,6 +40,7 @@ public class User extends BaseModel {
     private Shop shop;
     @Transient
     private RoleType roleType;
+
 
 
     public User() {

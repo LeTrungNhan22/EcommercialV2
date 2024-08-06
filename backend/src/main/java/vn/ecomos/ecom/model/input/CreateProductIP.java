@@ -9,6 +9,6 @@ import java.util.List;
 
 @Data
 public class CreateProductIP {
-    private Product product;
-    private List<ProductVariant> productVariants ;
+        private Product product;
+        private List<ProductVariant> productVariants ;
 }

@@ -131,13 +131,13 @@ public class ProductController extends MainController {
             variant.setWeightUnit(WeightUnit.GRAMS);
             variant.getDimension().setDimensionUnit(DimensionUnit.CM);
 
+
             mediumPrice += variant.getPrice().getAmount();
         }
 
         mediumPrice = mediumPrice / productVariant.size();
 
         product.setMediumPrice(MoneyCalculateUtils.getMoney(mediumPrice));
-
 
         return productManager.createProduct(product, productVariant);
     }

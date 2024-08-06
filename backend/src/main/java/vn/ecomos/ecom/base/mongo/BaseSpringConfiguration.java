@@ -7,9 +7,6 @@ public class BaseSpringConfiguration {
 
     public static final String MONGO_DB_NAME = getPropertyName("mongodb.database", "Inventory");
     public static final String MONGO_DB_URI = getPropertyName("mongodb.uri", "mongodb://localhost");
-    public static final String MONGO_DB_HOST = getPropertyName("mongodb.host", "localhost");
-    public static final int MONGO_DB_PORT = Integer.parseInt(getPropertyName("mongodb.port", "27017"));
-
 
     public static Properties applicationProperties;
 
